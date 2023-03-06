@@ -1,0 +1,22 @@
+name: Snyk vulnerability check (High)
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    # https://crontab.guru/
+    - cron:  '00 12 * * *'
+  workflow_dispatch:
+jobs:
+    security:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@master
+            - name: Run Snyk to check for vulnerabilities
+            # Snyk with maven 
+              uses: snyk/actions/maven@master
+              env:
+                  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}                
+              with:
+            # Only report high severity
+                args: --severity-threshold=high
+            # Send data to Snyk, and be alerted when new vulnerabilities are discovered
+                command: monitor
