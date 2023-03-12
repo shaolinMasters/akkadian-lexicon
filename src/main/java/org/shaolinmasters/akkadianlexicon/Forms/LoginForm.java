@@ -1,4 +1,3 @@
 package org.shaolinmasters.akkadianlexicon.Forms;
 
-public class LoginForm {
-}
+public class LoginForm {}
