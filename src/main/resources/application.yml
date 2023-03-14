@@ -1,0 +1,11 @@
+spring:
+    application:
+        name: Akkadian Lexicon
+    profiles:
+        active: development
+
+
+
+
+
+
