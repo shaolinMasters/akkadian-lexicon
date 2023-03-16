@@ -2,3 +2,14 @@ spring:
     config:
         activate:
             on-profile: development
+
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT}/${DB_NAME}
+        username: ${DB_USERNAME}
+        password: ${DB_PW}
+
+    jpa:
+        hibernate:
+            ddl-auto: validate
+        show-sql: true
