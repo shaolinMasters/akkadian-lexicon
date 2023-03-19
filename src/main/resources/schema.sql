@@ -1,3 +1,11 @@
+DROP TABLE IF EXISTS `word_source`;
+DROP TABLE IF EXISTS `adjective`;
+DROP TABLE IF EXISTS `verb`;
+DROP TABLE IF EXISTS `noun`;
+DROP TABLE IF EXISTS `source`;
+DROP TABLE IF EXISTS `king`;
+DROP TABLE IF EXISTS `word`;
+
 -- akkadian_lexicon.king definition
 
 CREATE TABLE `king` (
