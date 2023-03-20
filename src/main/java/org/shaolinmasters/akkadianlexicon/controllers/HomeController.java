@@ -12,4 +12,11 @@ public class HomeController {
   String getWelcome() {
     return "welcome";
   }
+
+  @GetMapping("/search")
+  String getSearch () {
+    return "search";
+  }
+
+
 }
