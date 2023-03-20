@@ -5,7 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +31,9 @@ public class King {
 
   @Column(name = "regnal_year_to")
   private LocalDate regnalYearTo;
+
+  @OneToMany(mappedBy = "king")
+  private List<Source> sources;
 
   @Override
   public boolean equals(Object o) {
