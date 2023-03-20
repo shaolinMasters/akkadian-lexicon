@@ -27,6 +27,14 @@ CREATE TABLE `word` (
                         PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 
+-- akkadian_lexicon.pronoun definition
+
+CREATE TABLE `pronoun` (
+  `id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `FKah63mav2v9c1qjo9j14xx39wd` FOREIGN KEY (`id`) REFERENCES `word` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
+
 
 -- akkadian_lexicon.adjective definition
 
