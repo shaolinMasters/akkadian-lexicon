@@ -1,3 +1,4 @@
+USE akkadian_lexicon;
 DROP TABLE IF EXISTS `word_source`;
 DROP TABLE IF EXISTS `adjective`;
 DROP TABLE IF EXISTS `verb`;
@@ -20,8 +21,8 @@ CREATE TABLE `king` (
 
 CREATE TABLE `word` (
                         `id` bigint NOT NULL AUTO_INCREMENT,
-                        `meaning` varchar(255) COLLATE utf8mb4_0900_as_cs NOT NULL,
                         `nominative` varchar(255) COLLATE utf8mb4_0900_as_cs NOT NULL,
+                        `meaning` varchar(255) COLLATE utf8mb4_0900_as_cs NOT NULL,
                         `sumerian_form` varchar(255) COLLATE utf8mb4_0900_as_cs DEFAULT NULL,
                         PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
