@@ -39,13 +39,13 @@ public class King {
       return false;
     }
     King king = (King) o;
-    return name.equals(king.name) && Objects.equals(regnalYearFrom, king.regnalYearFrom)
-      && Objects.equals(regnalYearTo, king.regnalYearTo);
+    return name.equals(king.name)
+        && Objects.equals(regnalYearFrom, king.regnalYearFrom)
+        && Objects.equals(regnalYearTo, king.regnalYearTo);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(name, regnalYearFrom, regnalYearTo);
   }
-
 }

@@ -22,6 +22,4 @@ public enum VerbalStem {
   SD("ŠD");
 
   private final String stemName;
-
 }
-

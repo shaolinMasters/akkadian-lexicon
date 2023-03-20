@@ -5,6 +5,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
-public class Pronoun extends Word{
-//hascode, equals
+public class Pronoun extends Word {
+  // hascode, equals
 }

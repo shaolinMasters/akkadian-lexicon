@@ -1,6 +1,5 @@
 package org.shaolinmasters.akkadianlexicon.models;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,14 +43,14 @@ public class Source {
   private String bibliography;
 
   @ManyToMany
-  //@JoinTable not required, only included for explicit definition of names
+  // @JoinTable not required, only included for explicit definition of names
   @JoinTable(
-    name = "word_source",
-    joinColumns = @JoinColumn(name = "source_id"),
-    inverseJoinColumns = @JoinColumn(name = "word_id"))
+      name = "word_source",
+      joinColumns = @JoinColumn(name = "source_id"),
+      inverseJoinColumns = @JoinColumn(name = "word_id"))
   private List<Word> words;
 
-  //hashcode
-  //equals
+  // hashcode
+  // equals
 
 }

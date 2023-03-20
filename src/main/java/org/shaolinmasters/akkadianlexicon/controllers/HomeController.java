@@ -12,6 +12,4 @@ public class HomeController {
   String getWelcome() {
     return "welcome";
   }
-
-
 }

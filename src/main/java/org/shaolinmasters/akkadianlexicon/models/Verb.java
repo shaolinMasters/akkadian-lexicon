@@ -1,6 +1,5 @@
 package org.shaolinmasters.akkadianlexicon.models;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Verb extends Word{
+public class Verb extends Word {
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
@@ -22,5 +21,4 @@ public class Verb extends Word{
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private VerbalStem verbalStem;
-
 }

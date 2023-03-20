@@ -22,11 +22,8 @@ public abstract class Word {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Embedded
-  private VocabularyForm vocabularyForm;
+  @Embedded private VocabularyForm vocabularyForm;
 
   @ManyToMany(mappedBy = "words")
   List<Source> sources;
-
-
 }

@@ -5,6 +5,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
-public class Adjective extends Word{
-//equals, hascode
+public class Adjective extends Word {
+  // equals, hascode
 }
