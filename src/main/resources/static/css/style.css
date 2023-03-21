@@ -7,7 +7,7 @@ header {
     padding: 10px 0;
     background-color: #eedbca;
     color: #5e3812;
-    font-family:  "Cinzel", sans-serif;
+    font-family: "Cinzel", sans-serif;
     font-size: 30pt;
     font-style: oblique;
 }
@@ -16,7 +16,7 @@ header {
     display: inline-block;
     padding: 10px 20px;
     background-color: #5e3812;
-    color:  #eedbca;
+    color: #eedbca;
     font-family: sans-serif;
     border-radius: 25px;
     text-align: center;
@@ -26,7 +26,7 @@ header {
     box-shadow: 2px 2px 4px rgba(154, 75, 0, 0.22); /* Add drop shadow */
 }
 
-.readme{
+.readme {
     display: flex;
     text-align: justify;
     line-height: 1.6;
@@ -36,6 +36,7 @@ header {
     font-family: sans-serif;
     color: #4f3e2d;
 }
+
 .button:hover {
     background-color: #af8862;
 }
@@ -49,6 +50,7 @@ form {
 label {
     flex: 1;
 }
+
 input[type="text"] {
     flex: 3;
     padding: 5px;
