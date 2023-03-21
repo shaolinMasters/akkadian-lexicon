@@ -1,7 +1,5 @@
 body {
     background-color: #eedbca; /* Bright sand color */
-
-
 }
 
 header {
@@ -13,18 +11,19 @@ header {
     font-size: 30pt;
     font-style: oblique;
 }
-.more_button {
-    background-color: #5e3812; /* Set the background color */
-    border: none; /* Remove the border */
-    color:  #eedbca; /* Set the text color */
-    padding: 16px 32px; /* Set the padding */
-    text-align: center; /* Center the text */
-    text-decoration: none; /* Remove text underline */
-    display: inline-flex; /* Make it a block element */
-    font-size: 16px; /* Set the font size */
-    margin: 4px 2px; /* Set the margin */
-    border-radius: 10px; /* Set the rounded corners */
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add drop shadow */
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #5e3812;
+    color:  #eedbca;
+    font-family: sans-serif;
+    border-radius: 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 20px;
+    box-shadow: 2px 2px 4px rgba(154, 75, 0, 0.22); /* Add drop shadow */
 }
 
 .readme{
@@ -35,9 +34,12 @@ header {
     margin-left: 50px;
     margin-right: 50px;
     font-family: sans-serif;
-    color: #775f46;
-
+    color: #4f3e2d;
 }
+.button:hover {
+    background-color: #af8862;
+}
+
 
 form {
     display: flex;

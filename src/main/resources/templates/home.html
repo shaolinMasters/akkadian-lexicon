@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Akkadian Lexicon</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" th:href="@{/static/css/style.css}"/>
+    <!-- <link rel="stylesheet" type="text/css" href="../static/style.css"> -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -18,14 +19,7 @@
        </form>
        -->
 
-
-    <!--  <div th:text="${welcome_page_text}">
-  <p>
-
-  </p>
-      </div> -->
-
-
+    <!--   <div th:text="${home_text}"> -->
     <div class="readme">
         <p>
             A project célja egy olyan webes applikáció és adatbázis – az Akkád lexikon – létrehozása, amely lehetőséget ad a felhasználónak
@@ -46,10 +40,7 @@
         </p>
     </div>
 
-    <div class="more_button" >
-        <button>MORE</button>
-    </div>
-
+    <a href="your-link-here" class="button">MORE</a>
 
 </main>
 </body>
