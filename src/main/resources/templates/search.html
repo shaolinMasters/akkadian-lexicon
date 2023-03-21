@@ -5,14 +5,39 @@
     <title>Search</title>
 </head>
 <body>
-    <a href="/word">
-        <button>Word</button>
-    </a>
-    <a href="/king">
-        <button>King</button>
-    </a>
-    <a href="/source">
-        <button>Source</button>
-    </a>
-</body>
+<label>
+    <input type="radio" name="option" value="word">
+    Word
+</label>
+<br>
+<label>
+    <input type="radio" name="option" value="king">
+    King
+</label>
+<br>
+<label>
+    <input type="radio" name="option" value="source">
+    Source
+</label>
+
+<div id="search-field" style="display:none;">
+    <label for="search-input">Search:</label>
+    <input type="text" id="search-input">
+</div>
+
+<script>
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    const searchField = document.getElementById('search-field');
+
+    radioButtons.forEach(radioButton => {
+        radioButton.addEventListener('change', () => {
+            if (radioButton.value === 'word') {
+                searchField.style.display = 'block';
+            } else {
+                searchField.style.display = 'none';
+            }
+        });
+    });
+</script>
+    </body>
 </html>
