@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+<label>
+    <input type="radio" name="option" value="word">
+    Word
+</label>
+<br>
+<label>
+    <input type="radio" name="option" value="king">
+    King
+</label>
+<br>
+<label>
+    <input type="radio" name="option" value="source">
+    Source
+</label>
+
+<div id="search-field" style="display:none;">
+    <label for="search-input">Search:</label>
+    <input type="text" id="search-input">
+</div>
+
+<script>
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    const searchField = document.getElementById('search-field');
+
+    radioButtons.forEach(radioButton => {
+        radioButton.addEventListener('change', () => {
+            if (radioButton.value === 'word') {
+                searchField.style.display = 'block';
+            } else {
+                searchField.style.display = 'none';
+            }
+        });
+    });
+</script>
+    </body>
+</html>
