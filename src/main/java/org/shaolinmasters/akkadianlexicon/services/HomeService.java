@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class HomeService {
@@ -17,9 +18,11 @@ public class HomeService {
     this.contentRepository = contentRepository;
   }
 
-  private final List<WebContents> aContent = new ArrayList<>();
-
-  public WebContents findByTitle(String title) {
-    return this.aContent.stream().filter(c -> Objects.equals(c.getTitle(), title)).findFirst().orElse(null);
+  public List<WebContents> findByTitle(Optional<String> title) {
+    List<WebContents> result = new ArrayList<>();
+    if (title.isPresent()) {
+      result = contentRepository.findByTitle(title.get());
+    }
+    return result.isEmpty() ? List.of() : List.copyOf(result);
   }
 }

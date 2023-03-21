@@ -12,6 +12,5 @@ import java.util.List;
 public interface ContentRepository extends JpaRepository<WebContents, Long> {
 
   @Query("FROM web_contents w WHERE w.title LIKE %:title%")
-
   List<WebContents> findByTitle(@Param("title") String title);
 }
