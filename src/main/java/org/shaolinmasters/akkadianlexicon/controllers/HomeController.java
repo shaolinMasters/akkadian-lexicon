@@ -1,8 +1,5 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
-import java.util.List;
-import java.util.Optional;
-
 import ch.qos.logback.classic.Logger;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.models.WebContent;

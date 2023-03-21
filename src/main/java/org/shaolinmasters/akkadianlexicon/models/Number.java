@@ -6,5 +6,5 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 public class Number extends Word {
-//equals, hashcode
+  // equals, hashcode
 }
