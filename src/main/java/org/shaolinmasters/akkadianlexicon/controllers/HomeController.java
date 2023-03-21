@@ -14,9 +14,7 @@ public class HomeController {
   }
 
   @GetMapping("/search")
-  String getSearch () {
+  String getSearch() {
     return "search";
   }
-
-
 }
