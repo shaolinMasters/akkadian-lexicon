@@ -35,5 +35,20 @@ public class HomeController {
   String getSearch() {
     return "search";
   }
+// én írtam alant
+  @GetMapping("/about")
+  public String getAboutPage(Model model) {
+    logger.info("Incoming request for '/about'");
+    WebContent aContent;
+    try {
+      aContent = contentService.findByTitle("about_text");
+    }
+    catch(RuntimeException exception){
+      logger.error(exception.getMessage());
+      return "about";
+    }
+    model.addAttribute("content", aContent);
+    return "about";
+  }
 
 }
