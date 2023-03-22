@@ -11,9 +11,8 @@
     <h1>Akkadian Lexicon</h1>
 </header>
 <main>
-    <div th:text="${content.getContent()}">
+    <div th:text="${content} ? ${content.getContent()} : 'NO CONTENT HERE'">
     </div>
-
     <a href="" class="button">MORE</a>
 </main>
 </body>

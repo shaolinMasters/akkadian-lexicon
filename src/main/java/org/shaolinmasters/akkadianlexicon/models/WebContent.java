@@ -5,22 +5,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "web_contents")
+@Table(name = "web_content")
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class WebContents {
+public class WebContent {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @Lob
-  @Column(nullable = false, columnDefinition = "varchar(20)")
-  private String content;
+
+
+  @Column(nullable = false)
+  private String title;
+
   @Lob
   @Column(nullable = false, columnDefinition = "MEDIUMTEXT")
-  private String title;
+  private String content;
 
   // hashcode
   // equals
