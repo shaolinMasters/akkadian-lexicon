@@ -52,6 +52,9 @@ public class HomeController {
             List<Word> result = wordService.findWordsByNominative(searchObjectDTO.getWord());
             logger.info("Adding modelattribute(named: words): " + result + "to view: search");
             model.addAttribute("words", result);
+            if (result.isEmpty()){
+              model.addAttribute("error", "No such word in the database.");
+            }
           } else {
             model.addAttribute("words", List.of());
           }

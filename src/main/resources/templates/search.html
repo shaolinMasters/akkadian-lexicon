@@ -27,6 +27,7 @@
         <input type="submit" value="search">
     </div>
     <div id="vocabularyFormsSegment">
+        <span th:if="${error != null}" th:text="${error}"></span>
         <tr th:each="word: ${words}">
             <td>
                 <div id="vocabularyFormSegment" th:unless="${#strings.isEmpty(word)}">
