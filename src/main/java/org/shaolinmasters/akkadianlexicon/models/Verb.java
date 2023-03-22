@@ -7,11 +7,13 @@ import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString(callSuper = true)
 public class Verb extends Word {
 
   @Enumerated(EnumType.STRING)

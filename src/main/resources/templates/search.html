@@ -5,45 +5,45 @@
     <title>Search</title>
 </head>
 <body>
-<form th:object="${word}" method="get" th:action="@{/search/}">
+<form th:object="${searchObjectDTO}" method="get" th:action="@{/search}">
 
-<label>
-    <input class="radio-button" id="word" type="radio" th:name="option" value="word">
-    Word
-</label>
-<br>
-<label>
-    <input type="radio" name="option" value="king">
-    King
-</label>
-<br>
-<label>
-    <input type="radio" name="option" value="source">
-    Source
-</label>
-
-<div id="search-field" style="display:none;">
+    <label>
+        <input id="word" type="radio" th:name="option" value="word" th:checked="${words!=null}">
+        Word
+    </label>
+    <br>
+    <label>
+        <input type="radio" th:name="option" value="king" th:checked="${kings!=null}">
+        King
+    </label>
+    <br>
+    <label>
+        <input type="radio" th:name="option" value="source" th:checked="${sources!=null}">
+        Source
+    </label>
+    <div id="search-field" th:style="${words == null ? 'display:none' : 'display:block'}">
         <label for="search-word">Search:</label>
         <input type="text" id="search-word" th:name="word">
         <input type="submit" value="search">
-
-    <div th:if="${#strings.isEmpty(word)}">
-        <h4>Matches:</h4>
-        <p th:text="${error}"></p>
     </div>
-    <div th:unless="${#strings.isEmpty(word)}">
-        <p>Nominative: </p>
-        <p th:text="${word.getNominative()}">Nominative</p>
-        <p>Meaning: </p>
-        <p th:text="${word.getMeaning()}">Meaning</p>
-        <p>Sumerian Form: </p>
-        <p th:text="${word.getSumerianForm()}">Sumerian Form</p>
-
+    <div id="vocabularyFormsSegment">
+        <span th:if="${error != null}" th:text="${error}"></span>
+        <tr th:each="word: ${words}">
+            <td>
+                <div id="vocabularyFormSegment" th:unless="${#strings.isEmpty(word)}">
+                    <hr>
+                    <h4>Matches:</h4>
+                    <p>Nominative: </p>
+                    <p th:text="${word.getVocabularyForm().getNominative()}">Nominative</p>
+                    <p>Sumerian Form: </p>
+                    <p th:text="${word.getVocabularyForm().getSumerianForm()}">Sumerian Form</p>
+                    <p>Meaning: </p>
+                    <p th:text="${word.getVocabularyForm().getMeaning()}">Meaning</p>
+                </div>
+            </td>
+        </tr>
     </div>
-
-</div>
 </form>
-
 
 <script>
     const radioButtons = document.querySelectorAll('input[type="radio"]');
@@ -55,9 +55,14 @@
                 searchField.style.display = 'block';
             } else {
                 searchField.style.display = 'none';
+                const vocabularyFormsSegment = document.getElementById('vocabularyFormsSegment');
+                vocabularyFormsSegment.style.display = 'none';
+                console.log("Word was checked but now unchecked");
+
             }
         });
     });
 </script>
+
 </body>
 </html>

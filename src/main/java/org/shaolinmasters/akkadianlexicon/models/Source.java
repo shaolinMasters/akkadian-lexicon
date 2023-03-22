@@ -14,11 +14,14 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import lombok.ToString.Exclude;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class Source {
 
   @Id
@@ -48,6 +51,7 @@ public class Source {
       name = "word_source",
       joinColumns = @JoinColumn(name = "source_id"),
       inverseJoinColumns = @JoinColumn(name = "word_id"))
+  @Exclude
   private List<Word> words;
 
   // hashcode

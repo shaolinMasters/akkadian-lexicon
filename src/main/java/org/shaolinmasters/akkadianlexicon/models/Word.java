@@ -11,11 +11,14 @@ import jakarta.persistence.ManyToMany;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+import lombok.ToString.Exclude;
 
 @Entity
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
+@ToString
 public abstract class Word {
 
   @Id
@@ -25,5 +28,6 @@ public abstract class Word {
   @Embedded private VocabularyForm vocabularyForm;
 
   @ManyToMany(mappedBy = "words")
+  @Exclude
   List<Source> sources;
 }
