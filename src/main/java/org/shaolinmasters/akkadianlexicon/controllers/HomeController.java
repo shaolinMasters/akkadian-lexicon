@@ -2,6 +2,11 @@ package org.shaolinmasters.akkadianlexicon.controllers;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.shaolinmasters.akkadianlexicon.models.Source;
+import org.shaolinmasters.akkadianlexicon.services.SourceService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.shaolinmasters.akkadianlexicon.dtos.SearchObjectDTO;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
 import org.shaolinmasters.akkadianlexicon.models.WebContent;
@@ -13,11 +18,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
+
+  private final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
   private final WordService wordService;
 
@@ -61,6 +69,20 @@ public class HomeController {
         }
       }
     }
+  String getSearch(@RequestParam String sourceTitle, Model model) {
+    logger.info("Incoming request for /search.");
+    Source source;
+    try {
+      source = sourceService.findSourceByTitle(sourceTitle);
+    } catch (RuntimeException e) {
+      logger.error(e.getMessage());
+      return "search";
+    }
+    model.addAttribute("source", source);
     return "search";
   }
+
+  private final SourceService sourceService;
+
+
 }
