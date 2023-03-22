@@ -30,6 +30,10 @@ public class HomeController {
     model.addAttribute("content", aContent);
     return "home";
   }
-
+  
+  @GetMapping("/search")
+  String getSearch() {
+    return "search";
+  }
 
 }
