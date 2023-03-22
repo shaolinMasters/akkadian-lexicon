@@ -21,8 +21,11 @@
 </label>
 
 <div id="search-field" style="display:none;">
-    <label for="search-input">Search:</label>
-    <input type="text" id="search-input">
+    <form method="get" th:action="@{/search/}">
+        <label for="search-word">Search:</label>
+        <input type="text" id="search-word"  th:name="word">
+        <input type="submit" value="search">
+    </form>
 </div>
 
 <script>
@@ -39,5 +42,5 @@
         });
     });
 </script>
-    </body>
+</body>
 </html>
