@@ -5,8 +5,10 @@
     <title>Search</title>
 </head>
 <body>
+<form th:object="${word}" method="get" th:action="@{/search/}">
+
 <label>
-    <input type="radio" name="option" value="word">
+    <input class="radio-button" id="word" type="radio" th:name="option" value="word">
     Word
 </label>
 <br>
@@ -21,12 +23,27 @@
 </label>
 
 <div id="search-field" style="display:none;">
-    <form method="get" th:action="@{/search/}">
         <label for="search-word">Search:</label>
-        <input type="text" id="search-word"  th:name="word">
+        <input type="text" id="search-word" th:name="word">
         <input type="submit" value="search">
-    </form>
+
+    <div th:if="${#strings.isEmpty(word)}">
+        <h4>Matches:</h4>
+        <p th:text="${error}"></p>
+    </div>
+    <div th:unless="${#strings.isEmpty(word)}">
+        <p>Nominative: </p>
+        <p th:text="${word.getNominative()}">Nominative</p>
+        <p>Meaning: </p>
+        <p th:text="${word.getMeaning()}">Meaning</p>
+        <p>Sumerian Form: </p>
+        <p th:text="${word.getSumerianForm()}">Sumerian Form</p>
+
+    </div>
+
 </div>
+</form>
+
 
 <script>
     const radioButtons = document.querySelectorAll('input[type="radio"]');
