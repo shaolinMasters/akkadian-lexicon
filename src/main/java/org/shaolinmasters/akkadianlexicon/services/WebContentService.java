@@ -14,7 +14,7 @@ public class WebContentService {
 
   public WebContent findByTitle(String title) {
     Optional<WebContent> result = webContentRepository.findByTitle(title);
-    if(result.isPresent()){
+    if (result.isPresent()) {
       return result.get();
     }
     throw new RuntimeException("Not found content with title: " + title);
