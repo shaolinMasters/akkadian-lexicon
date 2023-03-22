@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Akkadian Lexicon</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+    <h1>Akkadian Lexicon</h1>
+</header>
+<main>
+    <div th:text="${content} ? ${content.getContent()} : 'NO CONTENT HERE'">
+    </div>
+    <a href="" class="button">MORE</a>
+</main>
+</body>
+</html>
