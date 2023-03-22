@@ -4,6 +4,8 @@ DROP TABLE IF EXISTS `adjective`;
 DROP TABLE IF EXISTS `pronoun`;
 DROP TABLE IF EXISTS `verb`;
 DROP TABLE IF EXISTS `noun`;
+DROP TABLE IF EXISTS `number`;
+DROP TABLE IF EXISTS `adverb`;
 DROP TABLE IF EXISTS `source`;
 DROP TABLE IF EXISTS `king`;
 DROP TABLE IF EXISTS `word`;
@@ -74,6 +76,22 @@ CREATE TABLE `verb` (
                         `id` bigint NOT NULL,
                         PRIMARY KEY (`id`),
                         CONSTRAINT `FK2phw9aowq1sxv4l1abd9ampy8` FOREIGN KEY (`id`) REFERENCES `word` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
+
+-- akkadian_lexicon.adverb definition
+
+CREATE TABLE `adverb` (
+                          `id` bigint NOT NULL,
+                          PRIMARY KEY (`id`),
+                          CONSTRAINT `FK7uqt1wjfwo2xh4om4k8o2dq9x` FOREIGN KEY (`id`) REFERENCES `word` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
+
+-- akkadian_lexicon.`number` definition
+
+CREATE TABLE `number` (
+                          `id` bigint NOT NULL,
+                          PRIMARY KEY (`id`),
+                          CONSTRAINT `FK3txq196rvrxcamycbrlr6umfp` FOREIGN KEY (`id`) REFERENCES `word` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 
 -- akkadian_lexicon.word_source definition

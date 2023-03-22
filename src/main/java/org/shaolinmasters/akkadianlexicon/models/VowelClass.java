@@ -6,10 +6,10 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum VowelClass {
-  AU("a/u"),
-  A("a"),
-  I("i"),
-  U("u");
+  AU("(a/u)"),
+  AA("(a/a)"),
+  II("(i/i)"),
+  UU("(u/u)");
 
   private final String className;
 }
