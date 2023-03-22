@@ -12,9 +12,5 @@ public class SearchObject {
 
   private String option;
 
-  private Word word;
-
-  private King king;
-
-  private Source source;
+  private String word;
 }

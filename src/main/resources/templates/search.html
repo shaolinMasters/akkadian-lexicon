@@ -5,10 +5,10 @@
     <title>Search</title>
 </head>
 <body>
-<form th:object="${word}" method="get" th:action="@{/search/}">
+<form th:object="${searchObject}" method="get" th:action="@{/search/}">
 
 <label>
-    <input class="radio-button" id="word" type="radio" th:name="option" value="word">
+    <input class="radio-button" id="word" type="radio" th:name="option" value="word" >
     Word
 </label>
 <br>
@@ -28,10 +28,12 @@
         <input type="submit" value="search">
 
     <div th:if="${#strings.isEmpty(word)}">
-        <h4>Matches:</h4>
+
         <p th:text="${error}"></p>
     </div>
+
     <div th:unless="${#strings.isEmpty(word)}">
+        <h4>Matches:</h4>
         <p>Nominative: </p>
         <p th:text="${word.getNominative()}">Nominative</p>
         <p>Meaning: </p>

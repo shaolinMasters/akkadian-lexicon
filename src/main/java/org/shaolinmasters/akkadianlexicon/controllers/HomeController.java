@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.shaolinmasters.akkadianlexicon.services.WebContentService;
 
+import java.util.Objects;
+
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
@@ -48,11 +50,11 @@ public class HomeController {
   }
 
   @GetMapping("/search/")
-  public String getWord(@ModelAttribute("search")SearchObject searchObject, Model model) {
+  public String getWord(@ModelAttribute("searchObject") SearchObject searchObject, Model model) {
     logger.info("incoming request for /search with request param: " + searchObject);
     Word result;
     try {
-      result = wordService.loadWordByNominative(searchObject.getWord().toString());
+      result = wordService.loadWordByNominative(searchObject.getWord());
     } catch (ResourceNotFoundException e) {
       logger.error(e.getMessage());
 
@@ -61,7 +63,8 @@ public class HomeController {
       return "search";
     }
     model.addAttribute("word", result.getVocabularyForm());
-    
+
+
     return "search";
   }
 
