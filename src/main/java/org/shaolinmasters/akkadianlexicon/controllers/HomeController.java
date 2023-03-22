@@ -1,5 +1,6 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.models.WebContents;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
