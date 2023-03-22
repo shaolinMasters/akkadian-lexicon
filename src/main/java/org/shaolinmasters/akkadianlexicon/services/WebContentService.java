@@ -2,6 +2,7 @@ package org.shaolinmasters.akkadianlexicon.services;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
 import org.shaolinmasters.akkadianlexicon.models.WebContent;
 import org.shaolinmasters.akkadianlexicon.repositories.WebContentRepositoryI;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,9 @@ public class WebContentService {
 
   public WebContent findByTitle(String title) {
     Optional<WebContent> result = webContentRepository.findByTitle(title);
-    if(result.isPresent()){
+    if (result.isPresent()) {
       return result.get();
     }
-    throw new RuntimeException("Not found content with title: " + title);
+    throw new ResourceNotFoundException("Not found content with title: " + title);
   }
 }
