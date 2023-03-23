@@ -7,17 +7,17 @@ const keyboard = new Keyboard({
     onKeyPress: button => onKeyPress(button),
     layout: {
         default: [
-            "` š 2 3 4 5 6 7 8 9 0 - = {bksp}",
+            "` ā â ē ê ī î ū û 9 0 - = {bksp}",
             "{tab} q w e r t y u i o p [ ] \\",
-            "{lock} a s d f g h j k l ; ' {enter}",
-            "{shift} z x c v b n m , . / {shift}",
+            "{lock} a s d ṭ g ḫ j k l ’ ’ {enter}",
+            "{shift} z š ṣ v b n m , . / {shift}",
             ".com @ {space}"
         ],
         shift: [
-            "~ ! @ # $ % ^ & * ( ) _ + {bksp}",
+            "~ Ā Â Ē Ê Ī Î Ū Û ( ) _ + {bksp}",
             "{tab} Q W E R T Y U I O P { } |",
-            '{lock} A S D F G H J K L : " {enter}',
-            "{shift} Z X C V B N M < > ? {shift}",
+            '{lock} A S D Ṭ G Ḫ J K L : " {enter}',
+            "{shift} Z Š Ṣ V B N M < > ? {shift}",
             ".com @ {space}"
         ]
     }
