@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 @RequiredArgsConstructor
-public class HomeController {
+public class MainController {
 
   private final WordService wordService;
 
   private final WebContentService contentService;
 
-  private final Logger logger = LoggerFactory.getLogger(HomeController.class);
+  private final Logger logger = LoggerFactory.getLogger(MainController.class);
 
   @GetMapping("/")
   public String getHomePage(Model model) {
@@ -38,8 +38,7 @@ public class HomeController {
     model.addAttribute("content", aContent);
     return "home";
   }
-
-  // ezt a metodust kesobb biztos, hogy at kell alakitani, mert nagyon csunya
+  
   @GetMapping("/search")
   public String getWord(
       @ModelAttribute("searchObject") SearchObjectDTO searchObjectDTO, Model model) {
@@ -63,4 +62,20 @@ public class HomeController {
     }
     return "search";
   }
+
+  @GetMapping("/about")
+  public String getAboutPage(Model model) {
+    logger.info("Incoming request for '/about'");
+    WebContent aContent;
+    try {
+      aContent = contentService.findByTitle("about_text");
+    }
+    catch(RuntimeException exception){
+      logger.error(exception.getMessage());
+      return "about";
+    }
+    model.addAttribute("content", aContent);
+    return "about";
+  }
+
 }
