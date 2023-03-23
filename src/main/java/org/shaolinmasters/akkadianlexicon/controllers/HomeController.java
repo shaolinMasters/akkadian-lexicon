@@ -1,6 +1,5 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.models.Source;
 import org.shaolinmasters.akkadianlexicon.services.SourceService;
@@ -21,6 +20,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
@@ -31,7 +32,7 @@ public class HomeController {
 
   private final WebContentService contentService;
 
-  private final Logger logger = LoggerFactory.getLogger(HomeController.class);
+  private final SourceService sourceService;
 
   @GetMapping("/")
   public String getHomePage(Model model) {
@@ -47,10 +48,9 @@ public class HomeController {
     return "home";
   }
 
-  // ezt a metodust kesobb biztos, hogy at kell alakitani, mert nagyon csunya
   @GetMapping("/search")
-  public String getWord(
-      @ModelAttribute("searchObject") SearchObjectDTO searchObjectDTO, Model model) {
+  public String getSearchResult(
+    @ModelAttribute("searchObject") SearchObjectDTO searchObjectDTO, Model model) {
     logger.info("incoming request for /search with request param: " + searchObjectDTO);
     String option = searchObjectDTO.getOption();
     if (option != null) {
@@ -60,29 +60,31 @@ public class HomeController {
             List<Word> result = wordService.findWordsByNominative(searchObjectDTO.getWord());
             logger.info("Adding modelattribute(named: words): " + result + "to view: search");
             model.addAttribute("words", result);
-            if (result.isEmpty()){
+            if (result.isEmpty()) {
               model.addAttribute("error", "No such word in the database.");
             }
           } else {
             model.addAttribute("words", List.of());
           }
         }
+        case "source" -> {
+          Source result = sourceService.findSourceByTitle(searchObjectDTO.getSourceTitle());
+          model.addAttribute("source", result);
+          logger.info("Adding modelAttribute(named: source): " + result + "to view: search");
+        }
       }
     }
-  String getSearch(@RequestParam String sourceTitle, Model model) {
-    logger.info("Incoming request for /search.");
-    Source source;
-    try {
-      source = sourceService.findSourceByTitle(sourceTitle);
-    } catch (RuntimeException e) {
-      logger.error(e.getMessage());
-      return "search";
-    }
-    model.addAttribute("source", source);
+    model.addAttribute("sourceList", sourceService.listAllSourcesByTitle());
     return "search";
   }
 
-  private final SourceService sourceService;
+
 
 
 }
+
+
+
+
+
+

@@ -12,6 +12,9 @@ public interface SourceRepositoryI extends JpaRepository<Source, Long> {
   @Query("SELECT s FROM Source s WHERE s.title LIKE %?1%")
   Optional<Source> findByTitle(String keyword);
 
+  @Query("select s.title from Source s order by s.title")
+  List<String> findByOrderByTitleAsc();
+
   @Query("SELECT s FROM Source s WHERE s.catalogueRef LIKE %?1%")
 
   List<Source> findAllByCatalogueRef(String keyword);

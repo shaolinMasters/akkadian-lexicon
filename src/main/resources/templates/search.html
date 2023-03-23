@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Search</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 
@@ -52,8 +53,18 @@
                     <input type="submit" value="search">
                     <span th:if="${error != null}" th:text="${error}"></span>
 
-                        <div class="simple-keyboard p-3" style="display: none"></div>
-
+                    <div class="simple-keyboard p-3" style="display: none"></div>
+                </div>
+                <div id="source-field" th:style="'display:none'">
+                    <div>
+                        <tr th:each="source: ${sourceList}">
+                            <td th:text="${source}">
+                                <a th:href="@{/search}">
+                                    <span th:text="source" th:name="sourceTitle">Source</span>
+                                </a>
+                            </td>
+                        </tr>
+                    </div>
                 </div>
             </form>
         </div>
@@ -79,67 +90,75 @@
 </main>
 
 <div id="footer-container" class="footer mt-auto py-3">
-<div class="container">
-    <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 mt-0 mb-0">
-        <div class="col mb-3">
-            <p class="text-muted">© 2023</p>
-        </div>
+    <div class="container">
+        <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 mt-0 mb-0">
+            <div class="col mb-3">
+                <p class="text-muted">© 2023</p>
+            </div>
 
-        <div class="col mb-3">
+            <div class="col mb-3">
 
-        </div>
+            </div>
 
-        <div class="col mb-3">
-            <h5>Section</h5>
-            <ul class="nav flex-column">
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-            </ul>
-        </div>
+            <div class="col mb-3">
+                <h5>Section</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+                </ul>
+            </div>
 
-        <div class="col mb-3">
-            <h5>Section</h5>
-            <ul class="nav flex-column">
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-            </ul>
-        </div>
+            <div class="col mb-3">
+                <h5>Section</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+                </ul>
+            </div>
 
-        <div class="col mb-3">
-            <h5>Section</h5>
-            <ul class="nav flex-column">
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
-            </ul>
-        </div>
-    </footer>
-</div>
+            <div class="col mb-3">
+                <h5>Section</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Features</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Pricing</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">FAQs</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
 </div>
 
 
 <script>
     const radioButtons = document.querySelectorAll('input[type="radio"]');
     const searchField = document.getElementById('search-field');
+    const sourceField = document.getElementById('source-field');
+    const vocabularyFormsSegment = document.getElementById('vocabularyFormsSegment');
+
 
     radioButtons.forEach(radioButton => {
         radioButton.addEventListener('change', () => {
             if (radioButton.value === 'word') {
                 searchField.style.display = 'block';
-            } else {
+                sourceField.style.display = 'none';
+            } else if (radioButton.value === 'source') {
+                sourceField.style.display = 'block'
                 searchField.style.display = 'none';
-                const vocabularyFormsSegment = document.getElementById('vocabularyFormsSegment');
                 vocabularyFormsSegment.style.display = 'none';
                 console.log("Word was checked but now unchecked");
-
+            } else {
+                searchField.style.display = 'none';
+                sourceField.style.display = 'none';
+                vocabularyFormsSegment.style.display = 'none';
+                console.log("Word was checked but now unchecked");
             }
         });
     });
@@ -200,7 +219,7 @@
         keyboard.setOptions({
             theme: `${defaultTheme} show-keyboard`
         });
-        keyboardDiv.style.display="block";
+        keyboardDiv.style.display = "block";
         keyboardDiv.classList.add("m-5");
     }
 
@@ -209,7 +228,7 @@
         keyboard.setOptions({
             theme: defaultTheme
         });
-        keyboardDiv.style.display="none";
+        keyboardDiv.style.display = "none";
     }
 
     function onChange(input) {
@@ -221,5 +240,7 @@
         console.log("Button pressed", button);
     }
 </script>
+=======
+>>>>>>> Stashed changes
 </body>
 </html>

@@ -12,4 +12,6 @@ public class SearchObjectDTO {
   private String option;
 
   private String word;
+
+  private String sourceTitle;
 }
