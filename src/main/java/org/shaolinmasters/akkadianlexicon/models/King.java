@@ -2,6 +2,7 @@ package org.shaolinmasters.akkadianlexicon.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.ToString.Exclude;
 
 @Entity
 @Getter
@@ -34,7 +36,8 @@ public class King {
   @Column(name = "regnal_year_to")
   private LocalDate regnalYearTo;
 
-  @OneToMany(mappedBy = "king")
+  @OneToMany(mappedBy = "king", fetch = FetchType.LAZY)
+  @Exclude
   private List<Source> sources;
 
   @Override
