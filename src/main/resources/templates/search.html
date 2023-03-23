@@ -7,26 +7,6 @@
 <body>
 <form th:object="${word}" method="get" th:action="@{/search/}">
 
-<label>
-    <input class="radio-button" id="word" type="radio" th:name="option" value="word">
-    Word
-</label>
-<br>
-<label>
-    <input type="radio" name="option" value="king">
-    King
-</label>
-<br>
-<label>
-    <input type="radio" name="option" value="source">
-    Source
-</label>
-
-<div id="search-field" style="display:none;">
-        <label for="search-word">Search:</label>
-        <input type="text" id="search-word" th:name="word">
-        <input type="submit" value="search">
-
     <div th:if="${#strings.isEmpty(word)}">
         <h4>Matches:</h4>
         <p th:text="${error}"></p>
@@ -41,23 +21,59 @@
 
     </div>
 
+<input type="radio" id="kereso" th:name="menu" onclick="showSearch()" />
+<label for="kereso">Word</label><br>
+
+<input type="radio" id="lista1" name="menu" onclick="showDropdown1()" />
+<label for="lista1">King</label><br>
+
+<input type="radio" id="lista2" name="menu" onclick="showDropdown2()" />
+<label for="lista2">Source</label><br>
+
+<div id="search" style="display:none;">
+    <label for="searchBox">Search: </label>
+    <input type="text" id="searchBox" th:name="word">
+    <button type="submit">Search</button>
+</div>
+
+<div id="dropdown1" style="display:none">
+    <h3>List of kings</h3>
+    <select>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+    </select>
+</div>
+
+<div id="dropdown2" style="display:none">
+    <h3>List of sources</h3>
+    <select>
+        <option value="A">Option A</option>
+        <option value="B">Option B</option>
+        <option value="C">Option C</option>
+    </select>
+
 </div>
 </form>
 
-
 <script>
-    const radioButtons = document.querySelectorAll('input[type="radio"]');
-    const searchField = document.getElementById('search-field');
+    function showSearch() {
+        document.getElementById("search").style.display = "block";
+        document.getElementById("dropdown1").style.display = "none";
+        document.getElementById("dropdown2").style.display = "none";
+    }
 
-    radioButtons.forEach(radioButton => {
-        radioButton.addEventListener('change', () => {
-            if (radioButton.value === 'word') {
-                searchField.style.display = 'block';
-            } else {
-                searchField.style.display = 'none';
-            }
-        });
-    });
+    function showDropdown1() {
+        document.getElementById("search").style.display = "none";
+        document.getElementById("dropdown1").style.display = "block";
+        document.getElementById("dropdown2").style.display = "none";
+    }
+
+    function showDropdown2() {
+        document.getElementById("search").style.display = "none";
+        document.getElementById("dropdown1").style.display = "none";
+        document.getElementById("dropdown2").style.display = "block";
+    }
 </script>
 </body>
 </html>
