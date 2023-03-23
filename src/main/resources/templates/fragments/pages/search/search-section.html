@@ -1,0 +1,59 @@
+<section class="bg-light">
+    <div class="container p-5">
+        <form th:object="${searchObjectDTO}" method="get" th:action="@{/search}">
+            <div class="row mb-3 text-center">
+                <div class="col-md-4">
+                    <label>
+                        <span>Word</span>
+                        <br>
+                        <input id="word" type="radio" th:name="option" value="word">
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <span>King</span>
+                        <br>
+                        <input type="radio" th:name="option" value="king">
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <span>Source</span>
+                        <br>
+                        <input type="radio" th:name="option" value="source">
+                    </label>
+                </div>
+            </div>
+            <!--            radio button separator-->
+            <hr>
+            <!--            radio button separator-->
+            <div id="search-field" class="row-cols-1">
+                <div>
+                    <label for="search-word">Search:</label>
+                    <input class="input" type="text" id="search-word" th:name="word">
+                    <input type="submit" value="search">
+                    <div class="simple-keyboard p-3" style="display: none"></div>
+                </div>
+
+            </div>
+            <div id="king-field">
+                <div>
+                    <tr th:each="king: ${kings}">
+                        <td>
+                            <a th:href="@{'/search?option=source&king=' + ${king.getName()}}">
+                                <span th:text="${king.getName()}"></span>
+                                <span th:if="${king.getRegnalYearFrom() != null}"
+                                      th:text="' from ' + ${king.getRegnalYearFrom()}"></span>
+                                <span th:if="${king.getRegnalYearTo() != null}" th:text="' to ' + ${king.getRegnalYearTo()}"></span>
+                            </a>
+                        </td>
+                        <br>
+                    </tr>
+                </div>
+            </div>
+            <div id="errorMessage">
+                <span th:if="${error != null}" th:text="${error}"></span>
+            </div>
+        </form>
+    </div>
+</section>
