@@ -53,7 +53,7 @@ function showKeyboard() {
         theme: `${defaultTheme} show-keyboard`
     });
     keyboardDiv.style.display = "block";
-    keyboardDiv.classList.add("m-5");
+    keyboardDiv.classList.add("mt-3");
 }
 
 function hideKeyboard() {

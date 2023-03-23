@@ -13,27 +13,38 @@
     <section class="bg-light">
         <div class="container p-5">
             <form th:object="${searchObjectDTO}" method="get" th:action="@{/search}">
+                <div class="row mb-3 text-center">
+                    <div class="col-md-4">
+                        <label>
+                            Word
+                            <br>
+                            <input id="word" type="radio" th:name="option" value="word">
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label>
+                            King
+                            <br>
+                            <input type="radio" th:name="option" value="king">
+                        </label>
+                    </div>
+                    <div class="col-md-4">
+                        <label>
+                            Source
+                            <br>
+                            <input type="radio" th:name="option" value="source">
+                        </label>
+                    </div>
+                </div>
+                <hr>
+                <div id="search-field" class="row-cols-1">
+                    <div>
+                        <label for="search-word">Search:</label>
+                        <input class="input" type="text" id="search-word" th:name="word">
+                        <input type="submit" value="search">
 
-                <label>
-                    <input id="word" type="radio" th:name="option" value="word">
-                    Word
-                </label>
-                <br>
-                <label>
-                    <input type="radio" th:name="option" value="king">
-                    King
-                </label>
-                <br>
-                <label>
-                    <input type="radio" th:name="option" value="source">
-                    Source
-                </label>
-                <div id="search-field">
-                    <label for="search-word">Search:</label>
-                    <input class="input" type="text" id="search-word" th:name="word">
-                    <input type="submit" value="search">
-
-                    <div class="simple-keyboard p-3" style="display: none"></div>
+                        <div class="simple-keyboard p-3" style="display: none"></div>
+                    </div>
 
                 </div>
                 <div id="king-field">
