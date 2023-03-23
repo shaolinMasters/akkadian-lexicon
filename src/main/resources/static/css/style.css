@@ -1,71 +1,33 @@
-body {
-    background-color: #eedbca; /* Bright sand color */
-}
-
-header {
-    text-align: center;
-    padding: 10px 0;
-    background-color: #eedbca;
-    color: #5e3812;
+h1 {
     font-family: "Cinzel", sans-serif;
-    font-size: 30pt;
-    font-style: oblique;
+    color: #5e3812;
 }
 
-.button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #5e3812;
-    color: #eedbca;
-    font-family: sans-serif;
-    border-radius: 25px;
+#title-container{
     text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    margin: 20px;
-    box-shadow: 2px 2px 4px rgba(154, 75, 0, 0.22); /* Add drop shadow */
 }
 
-.readme {
-    display: flex;
-    text-align: justify;
-    line-height: 1.6;
-    padding: 20px 20px;
-    margin-left: 50px;
-    margin-right: 50px;
-    font-family: sans-serif;
-    color: #4f3e2d;
+header{
+    background-color: #92755b;
 }
 
-.button:hover {
-    background-color: #af8862;
+.nav-link{
+    color: azure;
+
+}
+.nav-link:hover{
+    color: black;
+}
+.active{
+    text-decoration: underline;
+    text-decoration-color: azure;
+}
+.active:hover{
+    color: azure;
+}
+
+#footer-container {
+    background-color: #92755b;
 }
 
 
-form {
-    display: flex;
-    margin-bottom: 20px;
-}
-
-label {
-    flex: 1;
-}
-
-input[type="text"] {
-    flex: 3;
-    padding: 5px;
-}
-
-input[type="submit"] {
-    flex: 1;
-    background-color: #C9703E;
-    color: white;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
-}
-
-.results {
-    border: 1px solid #775f46;
-    padding: 10px;
-}
