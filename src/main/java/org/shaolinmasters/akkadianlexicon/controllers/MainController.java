@@ -4,8 +4,12 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.SearchObjectDTO;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
+import org.shaolinmasters.akkadianlexicon.models.King;
+import org.shaolinmasters.akkadianlexicon.models.Source;
 import org.shaolinmasters.akkadianlexicon.models.WebContent;
 import org.shaolinmasters.akkadianlexicon.models.Word;
+import org.shaolinmasters.akkadianlexicon.services.KingService;
+import org.shaolinmasters.akkadianlexicon.services.SourceService;
 import org.shaolinmasters.akkadianlexicon.services.WebContentService;
 import org.shaolinmasters.akkadianlexicon.services.WordService;
 import org.slf4j.Logger;
@@ -23,6 +27,10 @@ public class MainController {
 
   private final WebContentService contentService;
 
+  private final KingService kingService;
+
+  private final SourceService sourceService;
+
   private final Logger logger = LoggerFactory.getLogger(MainController.class);
 
   @GetMapping("/")
@@ -38,28 +46,22 @@ public class MainController {
     model.addAttribute("content", aContent);
     return "home";
   }
-  
+
+  // ezt a metodust kesobb biztos, hogy at kell alakitani, mert nagyon csunya
   @GetMapping("/search")
-  public String getWord(
-      @ModelAttribute("searchObject") SearchObjectDTO searchObjectDTO, Model model) {
+  public String getSearch(
+    @ModelAttribute("searchObject") SearchObjectDTO searchObjectDTO, Model model) {
     logger.info("incoming request for /search with request param: " + searchObjectDTO);
     String option = searchObjectDTO.getOption();
     if (option != null) {
       switch (option) {
-        case "word" -> {
-          if (!"".equals(searchObjectDTO.getWord())) {
-            List<Word> result = wordService.findWordsByNominative(searchObjectDTO.getWord());
-            logger.info("Adding modelattribute(named: words): " + result + "to view: search");
-            model.addAttribute("words", result);
-            if (result.isEmpty()){
-              model.addAttribute("error", "No such word in the database.");
-            }
-          } else {
-            model.addAttribute("words", List.of());
-          }
-        }
+        case "word" -> processSearchWordQuery(searchObjectDTO, model);
+        case "source" -> processSearchSourceByKingQuery(searchObjectDTO, model);
       }
     }
+    List<King> kings = kingService.findAllKings();
+    logger.info("Adding modelattribute(named: kings): " + kings + "to view: search");
+    model.addAttribute("kings", kings);
     return "search";
   }
 
@@ -69,8 +71,7 @@ public class MainController {
     WebContent aContent;
     try {
       aContent = contentService.findByTitle("about_text");
-    }
-    catch(RuntimeException exception){
+    } catch (RuntimeException exception) {
       logger.error(exception.getMessage());
       return "about";
     }
@@ -78,4 +79,34 @@ public class MainController {
     return "about";
   }
 
+  private void processSearchWordQuery(SearchObjectDTO searchObjectDTO, Model model) {
+    if (!"".equals(searchObjectDTO.getWord())) {
+      List<Word> result = wordService.findWordsByNominative(searchObjectDTO.getWord());
+      logger.info("Adding modelattribute(named: words): " + result + "to view: search");
+      model.addAttribute("words", result);
+      if (result.isEmpty()) {
+        model.addAttribute("error", "No such word in the database.");
+      }
+    } else {
+      model.addAttribute("words", List.of());
+    }
+  }
+
+  private void processSearchSourceByKingQuery(SearchObjectDTO searchObjectDTO, Model model) {
+    String kingName = searchObjectDTO.getKing();
+    if (!"".equals(kingName)) {
+      List<Source> sources = sourceService.findSourcesByKingName(kingName);
+      logger.info("Adding modelattribute(named: sources): " + sources + "to view: search");
+      model.addAttribute("sources", sources);
+      if (sources.isEmpty()) {
+        String errorMessage = "No sources belong to king: " + kingName + " ";
+        model.addAttribute("error", errorMessage);
+        logger.info(
+          "Adding modelattribute(named: error): " + errorMessage + "to view: search");
+      }
+    } else {
+      logger.info("Adding modelattribute(named: sources): " + List.of() + "to view: search");
+      model.addAttribute("sources", List.of());
+    }
+  }
 }

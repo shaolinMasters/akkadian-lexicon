@@ -2,6 +2,7 @@ package org.shaolinmasters.akkadianlexicon.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,8 +39,9 @@ public class Source {
   @Column(nullable = false, columnDefinition = "MEDIUMTEXT")
   private String text;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "king_id")
+  @Exclude
   private King king;
 
   @Column(nullable = false)
