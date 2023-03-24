@@ -17,4 +17,12 @@ public class SourceService {
     List<Source> result = sourceRepository.findByKingNameIgnoreCaseOrderByTitleAsc(name);
     return result.isEmpty() ? List.of() : result;
   }
+
+  public Source findSourceByTitle(String sourceTitle) {
+    return sourceRepository.findByTitle(sourceTitle);
+  }
+
+  public List<Source> listAllSourcesByTitleAsc() {
+    return sourceRepository.findByOrderByTitleAsc();
+  }
 }

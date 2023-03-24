@@ -44,5 +44,29 @@
                 <hr>
             </td>
         </tr>
+        <tr id="sourceSegment">
+            <td>
+                <div th:unless="${#strings.isEmpty(source)}">
+                    <h4>Matches:</h4>
+                    <p>
+                        <span class="title-key">Title: </span>
+                        <span th:text="${source.getTitle()}"> title</span>
+                    </p>
+                    <p th:unless="${#strings.isEmpty(source.getBibliography())}">
+                        <span class="title-key">Bibliography: </span>
+                        <span th:text="${source.getBibliography()}"> bibliography</span>
+                    </p>
+                    <p th:unless="${#strings.isEmpty(source.getCatalogueRef())}">
+                        <span class="title-key">Catalogue Reference: </span>
+                        <span th:text="${source.getCatalogueRef()}"> catalogue reference</span>
+                    </p>
+                    <p>
+                        <span class="title-key">Text: </span>
+                        <span th:text="${source.getText()}"> text</span>
+                    </p>
+                </div>
+                <hr>
+            </td>
+        </tr>
     </div>
 </section>

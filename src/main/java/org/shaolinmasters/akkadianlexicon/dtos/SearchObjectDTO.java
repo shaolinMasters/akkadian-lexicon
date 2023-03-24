@@ -14,4 +14,6 @@ public class SearchObjectDTO {
   private String word;
 
   private String king;
+
+  private String source;
 }

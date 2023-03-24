@@ -56,12 +56,17 @@ public class MainController {
     if (option != null) {
       switch (option) {
         case "word" -> processSearchWordQuery(searchObjectDTO, model);
-        case "source" -> processSearchSourceByKingQuery(searchObjectDTO, model);
+        case "king" -> processSearchSourceByKingQuery(searchObjectDTO, model);
+        case "source" -> processSearchSourceBySourceQuery(searchObjectDTO, model);
       }
     }
     List<King> kings = kingService.findAllKings();
     logger.info("Adding modelattribute(named: kings): " + kings + "to view: search");
     model.addAttribute("kings", kings);
+
+    List<Source> sourceList = sourceService.listAllSourcesByTitleAsc();
+    logger.info("Adding modelattribute(named: sources): " + sourceList + "to view: search");
+    model.addAttribute("sourceList", sourceList);
     return "search";
   }
 
@@ -109,4 +114,19 @@ public class MainController {
       model.addAttribute("sources", List.of());
     }
   }
+  private void processSearchSourceBySourceQuery(SearchObjectDTO searchObjectDTO, Model model) {
+    String sourceTitle = searchObjectDTO.getSource();
+    if (!"".equals(sourceTitle)) {
+      Source source = sourceService.findSourceByTitle(sourceTitle);
+      logger.info("Adding modelattribute(named: source): " + source + "to view: search");
+      model.addAttribute("source", source);
+      if (source == null) {
+        String errorMessage = "No source found by title: " + sourceTitle + " ";
+        model.addAttribute("error", errorMessage);
+        logger.info(
+          "Adding modelattribute(named: error): " + errorMessage + "to view: search");
+      }
+    }
+  }
+
 }
