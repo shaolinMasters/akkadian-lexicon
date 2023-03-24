@@ -20,10 +20,23 @@ const keyboard = new Keyboard({
             "{shift} Z Š Ṣ V B N M < > ? {shift}",
             ".com @ {space}"
         ]
-    }
+    },
+    newLineOnEnter: false,
 });
+
 const inputDOM = document.querySelector(".input");
 const keyboardDiv = document.querySelector(".simple-keyboard");
+
+/**
+ * Update simple-keyboard when input is changed directly
+ */
+inputDOM.addEventListener("input", event => {
+    keyboard.setInput(event.target.value);
+});
+
+
+
+
 
 inputDOM.addEventListener("focus", (event) => {
     showKeyboard();
@@ -54,6 +67,10 @@ function showKeyboard() {
     });
     keyboardDiv.style.display = "block";
     keyboardDiv.classList.add("mt-3");
+
+    // give it focus like style
+    inputDOM.style.outlineColor = "rgb(0, 95, 204)";
+    inputDOM.style.outline = "-webkit-focus-ring-color auto 1px";
 }
 
 function hideKeyboard() {
@@ -62,13 +79,30 @@ function hideKeyboard() {
         theme: defaultTheme
     });
     keyboardDiv.style.display = "none";
+
+    // delete focus like style
+    inputDOM.style.outlineColor = "";
+    inputDOM.style.outline = "";
 }
 
 function onChange(input) {
-    document.querySelector(".input").value = input;
+    inputDOM.value = input;
     console.log("Input changed", input);
 }
 
 function onKeyPress(button) {
     console.log("Button pressed", button);
+    if (button === "{shift}" || button === "{lock}") handleShift();
+    if(button === "{enter}") document.forms["searchForm"].submit()
+}
+
+
+function handleShift() {
+    let currentLayout = keyboard.options.layoutName;
+    let shiftToggle = currentLayout === "default" ? "shift" : "default";
+
+    keyboard.setOptions({
+        layoutName: shiftToggle
+    });
+    keyboardDiv.classList.add("mt-3");
 }

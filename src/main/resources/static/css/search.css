@@ -18,3 +18,7 @@
 .title-key{
     font-weight: bold;
 }
+
+#search-word:focus{
+    outline: rgb(0, 95, 204) 1px;
+}
