@@ -6,21 +6,21 @@
                     <label>
                         <span>Word</span>
                         <br>
-                        <input id="word" type="radio" th:name="option" value="word">
+                        <input id="word" type="radio" th:name="option" value="word" th:checked="${isWord}">
                     </label>
                 </div>
                 <div class="col-md-4">
                     <label>
                         <span>King</span>
                         <br>
-                        <input type="radio" th:name="option" value="king">
+                        <input type="radio" th:name="option" value="king" th:checked="${isKing}">
                     </label>
                 </div>
                 <div class="col-md-4">
                     <label>
                         <span>Source</span>
                         <br>
-                        <input type="radio" th:name="option" value="source">
+                        <input type="radio" th:name="option" value="source" th:checked="${isSource}">
                     </label>
                 </div>
             </div>
@@ -45,6 +45,18 @@
                                 <span th:if="${king.getRegnalYearFrom() != null}"
                                       th:text="' from ' + ${king.getRegnalYearFrom()}"></span>
                                 <span th:if="${king.getRegnalYearTo() != null}" th:text="' to ' + ${king.getRegnalYearTo()}"></span>
+                            </a>
+                        </td>
+                        <br>
+                    </tr>
+                </div>
+            </div>
+            <div id="source-field">
+                <div>
+                    <tr th:each="source: ${sourceList}">
+                        <td>
+                            <a th:href="@{'/search?option=source&title=' + ${source.getTitle()}}">
+                                <span th:text="${source.getTitle()}"></span>
                             </a>
                         </td>
                         <br>
