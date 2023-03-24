@@ -15,5 +15,5 @@ public class SearchObjectDTO {
 
   private String king;
 
-  private String source;
+  private String title;
 }
