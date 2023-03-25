@@ -79,6 +79,20 @@ public class MainController {
     return "about";
   }
 
+  @GetMapping("/bibliography")
+  public String getBibliographyPage(Model model) {
+    logger.info("Incoming request for '/bibliography'");
+    WebContent aContent;
+    try {
+      aContent = contentService.findByTitle("bibliography_text");
+    } catch (RuntimeException exception) {
+      logger.error(exception.getMessage());
+      return "bibliography";
+    }
+    model.addAttribute("content", aContent);
+    return "bibliography";
+  }
+
   private void processSearchWordQuery(SearchObjectDTO searchObjectDTO, Model model) {
     if (!"".equals(searchObjectDTO.getWord())) {
       List<Word> result = wordService.findWordsByNominative(searchObjectDTO.getWord());

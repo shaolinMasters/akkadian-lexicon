@@ -3,6 +3,12 @@ h1 {
     color: #5e3812;
 }
 
+h2 {
+    font-family: "Cinzel", sans-serif;
+    color: #92755b;
+    font-style: italic;
+}
+
 #title-container{
     text-align: center;
 }

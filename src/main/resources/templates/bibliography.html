@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+    <title>Bibliography</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <!--/*/ <th:block th:include="fragments/header-files.html">
+            </th:block> /*/-->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+</head>
+<body class="d-flex flex-column h-100">
+<header th:replace="fragments/header.html"></header>
+<main>
+    <div class="row mb-3 text-center">
+            <h2>Bibliography</h2>
+            <div th:if="${content != null}">
+                [(${content.getContent()})]
+            </div>
+            <div class="container" th:unless="${content != null}">
+                <p>NO CONTENT HERE</p>
+            </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer.html"></footer>
+</body>
+</html>
