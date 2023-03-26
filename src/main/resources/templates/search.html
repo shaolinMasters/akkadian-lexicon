@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" class="h-100">
+<html lang="en">
 <head>
     <title>Search</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-keyboard@3.5.40/build/css/index.min.css" rel="stylesheet">
-    <!--/*/ <th:block th:include="fragments/header-files.html">
+    <!--/*/ <th:block th:insert="~{fragments/header-files.html}">
             </th:block> /*/-->
     <link rel="stylesheet" th:href="@{/css/search.css}"/>
 </head>
 <body class="d-flex flex-column h-100">
-<header th:replace="fragments/header.html"></header>
+<header th:replace="~{fragments/header.html}"></header>
+
 <main>
-    <section th:replace="fragments/pages/search/search-section.html"></section>
-    <section th:replace="fragments/pages/search/result-section.html"></section>
+    <section th:replace="~{fragments/pages/search/search-section.html}"></section>
+    <section th:replace="~{fragments/pages/search/result-section.html}"></section>
 </main>
-<footer th:replace="fragments/footer.html"></footer>
+<footer th:replace="~{fragments/footer.html}"></footer>
 
 <script type="text/javascript" th:src="@{/js/search.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-keyboard@3.5.40/build/index.min.js"></script>

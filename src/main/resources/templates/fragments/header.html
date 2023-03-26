@@ -1,3 +1,4 @@
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <header class="p-3 header">
     <div class="container">
         <div id="title-container">
@@ -9,9 +10,17 @@
                 <li class="nav-item active"><a th:href="@{/search}" class="nav-link px-2">Search</a></li>
                 <li class="nav-item"><a th:href="@{/about}" class="nav-link px-2">About</a></li>
             </ul>
-            <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
+            <div sec:authorize="isAuthenticated()">
+                <a class="btn btn-outline-light me-2" href="javascript: logoutForm.submit();" role="button">Sign Out</a>
+                <form name="logoutForm" th:hidden="true" method="post" th:action="@{/logout}">
+                    <input type="submit" value="Logout" />
+                </form>
+            </div>
+            <div sec:authorize="!isAuthenticated()">
+                <a class="btn btn-light me-2" th:href="@{'/login'}" role="button">Sign in</a>
             </div>
         </div>
     </div>
 </header>
+</html>
+

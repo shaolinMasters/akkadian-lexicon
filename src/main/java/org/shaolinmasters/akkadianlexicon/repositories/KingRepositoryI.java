@@ -12,5 +12,4 @@ public interface KingRepositoryI extends JpaRepository<King, Long> {
 
   @Query("select k from King k order by k.regnalYearFrom, k.name")
   List<King> findAllOrderByRegnalYearFromAscNameAsc();
-
 }
