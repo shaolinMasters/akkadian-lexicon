@@ -112,7 +112,7 @@ public class MainController {
     WebContent aContent;
     try {
       aContent = contentService.findByTitle("bibliography_text");
-    } catch (RuntimeException exception) {
+    } catch (ResourceNotFoundException exception) {
       logger.error(exception.getMessage());
       return "bibliography";
     }

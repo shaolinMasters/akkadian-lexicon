@@ -5,12 +5,13 @@
             <h1 class="title">Akkadian Lexicon</h1>
         </div>
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li class="nav-item"><a th:href="@{/}" class="nav-link px-2">Home</a></li>
-                <li class="nav-item active"><a th:href="@{/search}" class="nav-link px-2">Search</a></li>
-                <li class="nav-item"><a th:href="@{/about}" class="nav-link px-2">About</a></li>
-                <li class="nav-item"><a th:href="@{/bibliography}" class="nav-link px-2">Bibliography</a></li>
+            <ul class="nav nav-pills col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li class="nav-item"><a th:class="${#ctx.getExchange().getRequest().getRequestPath() == '/'} ? 'active nav-link px-2' : 'nav-link px-2'" th:href="@{/}" >Home</a></li>
+                <li class="nav-item"><a th:class="${#ctx.getExchange().getRequest().getRequestPath() == '/search'} ? 'active nav-link px-2' : 'nav-link px-2'" th:href="@{/search}">Search</a></li>
+                <li class="nav-item"><a th:class="${#ctx.getExchange().getRequest().getRequestPath() == '/about'} ? 'active nav-link px-2' : 'nav-link px-2'"  th:href="@{/about}">About</a></li>
+                <li class="nav-item"><a th:class="${#ctx.getExchange().getRequest().getRequestPath() == '/bibliography'} ? 'active nav-link px-2' : 'nav-link px-2'"  th:href="@{/bibliography}">Bibliography</a></li>
             </ul>
+
             <div sec:authorize="isAuthenticated()">
                 <a class="btn btn-outline-light me-2" href="javascript: logoutForm.submit();" role="button">Sign Out</a>
                 <form name="logoutForm" th:hidden="true" method="post" th:action="@{/logout}">
@@ -24,4 +25,3 @@
     </div>
 </header>
 </html>
-
