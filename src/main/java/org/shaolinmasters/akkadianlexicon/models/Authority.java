@@ -1,34 +1,37 @@
 package org.shaolinmasters.akkadianlexicon.models;
 
-import jakarta.persistence.Embedded;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.ManyToMany;
-import java.util.List;
+import java.util.Set;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString.Exclude;
-import org.shaolinmasters.akkadianlexicon.models.enums.VocabularyForm;
+import org.shaolinmasters.akkadianlexicon.models.enums.Role;
 
 @Entity
 @Getter
 @Setter
-@Inheritance(strategy = InheritanceType.JOINED)
 @ToString
-public abstract class Word {
+@NoArgsConstructor
+public class Authority {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Embedded private VocabularyForm vocabularyForm;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false, unique = true)
+  private Role role;
 
-  @ManyToMany(mappedBy = "words")
+  @ManyToMany(mappedBy = "authorities")
   @Exclude
-  List<Source> sources;
+  private Set<User> users;
 }
