@@ -25,7 +25,7 @@ public class SourceService {
 
   public Source findSourceByTitle(String title) {
     Optional<Source> result = sourceRepository.findByTitle(title);
-    if(result.isPresent()){
+    if (result.isPresent()) {
       return result.get();
     }
     throw new ResourceNotFoundException("Not found source with title: " + title);

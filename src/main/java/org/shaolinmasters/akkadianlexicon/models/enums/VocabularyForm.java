@@ -1,4 +1,4 @@
-package org.shaolinmasters.akkadianlexicon.models;
+package org.shaolinmasters.akkadianlexicon.models.enums;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
