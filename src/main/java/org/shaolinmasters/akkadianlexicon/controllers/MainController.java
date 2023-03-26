@@ -118,6 +118,7 @@ public class MainController {
     }
     model.addAttribute("content", aContent);
     return "bibliography";
+  }
 
   @PreAuthorize("hasRole('ROLE_ADMIN')")
   @GetMapping("/admin")
