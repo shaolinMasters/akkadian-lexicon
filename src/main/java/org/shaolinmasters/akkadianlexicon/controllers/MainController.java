@@ -2,20 +2,21 @@ package org.shaolinmasters.akkadianlexicon.controllers;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.SearchObjectDTO;
+import org.shaolinmasters.akkadianlexicon.dtos.UserDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.EditObjectDTO;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
 import org.shaolinmasters.akkadianlexicon.models.*;
-import org.shaolinmasters.akkadianlexicon.services.KingService;
-import org.shaolinmasters.akkadianlexicon.services.SourceService;
-import org.shaolinmasters.akkadianlexicon.services.WebContentService;
-import org.shaolinmasters.akkadianlexicon.services.WordService;
+import org.shaolinmasters.akkadianlexicon.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +34,8 @@ public class MainController {
   private final SourceService sourceService;
 
   private final Logger logger = LoggerFactory.getLogger(MainController.class);
+
+  private final UserService userService;
 
   @GetMapping("/")
   public String getHomePage(Model model) {
@@ -127,8 +130,19 @@ public class MainController {
   }
 
   @GetMapping("/login")
-  public String login() {
+  public String login(Model model) {
+    model.addAttribute("userDTO", new UserDTO());
     return "login";
+  }
+
+  @PostMapping("/login")
+  public String loginUser(@ModelAttribute @Validated UserDTO user, BindingResult bindingResult, Model model) {
+    if (bindingResult.hasErrors()) {
+      return "login";
+    }
+    User adminUSer = (User) userService.loadUserByUsername(user.getEmail());
+    model.addAttribute("user", adminUSer);
+    return "home";
   }
 
   private void processSearchWordQuery(SearchObjectDTO searchObjectDTO, Model model) {
