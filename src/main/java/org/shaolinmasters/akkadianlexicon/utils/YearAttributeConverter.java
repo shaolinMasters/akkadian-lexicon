@@ -2,16 +2,13 @@ package org.shaolinmasters.akkadianlexicon.utils;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-
 import java.time.Year;
 
 @Converter(autoApply = true)
-public class YearAttributeConverter
-  implements AttributeConverter<Year, Short> {
+public class YearAttributeConverter implements AttributeConverter<Year, Short> {
 
   @Override
-  public Short convertToDatabaseColumn(
-    Year attribute) {
+  public Short convertToDatabaseColumn(Year attribute) {
     if (attribute != null) {
       return (short) attribute.getValue();
     }
@@ -19,8 +16,7 @@ public class YearAttributeConverter
   }
 
   @Override
-  public Year convertToEntityAttribute(
-    Short dbData) {
+  public Year convertToEntityAttribute(Short dbData) {
     if (dbData != null) {
       return Year.of(dbData);
     }
