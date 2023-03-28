@@ -4,7 +4,7 @@ import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.SearchObjectDTO;
-import org.shaolinmasters.akkadianlexicon.dtos.EditSourceForm;
+import org.shaolinmasters.akkadianlexicon.dtos.EditObjectDTO;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
 import org.shaolinmasters.akkadianlexicon.models.*;
 import org.shaolinmasters.akkadianlexicon.services.KingService;
@@ -19,7 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequiredArgsConstructor
@@ -211,19 +210,19 @@ public class MainController {
   public String getEdit(
     Model m
   ) {
-    m.addAttribute("newSource", new EditSourceForm());
+    m.addAttribute("newSource", new EditObjectDTO());
     m.addAttribute("kings", kingService.findAllKings());
-    return "editSource-form";
+    return "edit";
   }
 
   @PostMapping("/source")
   public String saveSource(
     @ModelAttribute("newSource")
-    EditSourceForm editSourceForm
+    EditObjectDTO editObjectDTO
   ) {
-    logger.info(String.valueOf(editSourceForm));
+    logger.info(String.valueOf(editObjectDTO));
     try {
-      sourceService.saveSource(editSourceForm);
+      sourceService.saveSource(editObjectDTO);
     } catch (ResourceNotFoundException e) {
       logger.error(e.getMessage());
     }

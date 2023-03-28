@@ -7,7 +7,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
 import org.shaolinmasters.akkadianlexicon.models.King;
-import org.shaolinmasters.akkadianlexicon.dtos.EditSourceForm;
+import org.shaolinmasters.akkadianlexicon.dtos.EditObjectDTO;
 import org.shaolinmasters.akkadianlexicon.models.Source;
 import org.shaolinmasters.akkadianlexicon.repositories.SourceRepositoryI;
 import org.springframework.stereotype.Service;
@@ -27,9 +27,9 @@ public class SourceService {
     return result.isEmpty() ? List.of() : result;
   }
   @Transactional
-  public void saveSource(EditSourceForm editSourceForm) {
-    King king = kingService.findKingById(editSourceForm.getKingId());
-    Source source = new Source(editSourceForm.getTitle(), editSourceForm.getCatalogueRef(), editSourceForm.getText(), king, editSourceForm.getBibliography());
+  public void saveSource(EditObjectDTO editObjectDTO) {
+    King king = kingService.findKingById(editObjectDTO.getKingId());
+    Source source = new Source(editObjectDTO.getTitle(), editObjectDTO.getCatalogueRef(), editObjectDTO.getText(), king, editObjectDTO.getBibliography());
     sourceRepository.save(source);
   }
 

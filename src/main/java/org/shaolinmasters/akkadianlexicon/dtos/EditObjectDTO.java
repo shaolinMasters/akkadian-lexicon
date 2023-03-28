@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class EditSourceForm {
+public class EditObjectDTO {
 
   private String title;
 
