@@ -1,12 +1,9 @@
 package org.shaolinmasters.akkadianlexicon.models;
 
 import jakarta.persistence.*;
-
-import java.time.LocalDate;
 import java.time.Year;
 import java.util.List;
 import java.util.Objects;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -50,8 +47,8 @@ public class King {
     }
     King king = (King) o;
     return name.equals(king.name)
-      && Objects.equals(regnalYearFrom, king.regnalYearFrom)
-      && Objects.equals(regnalYearTo, king.regnalYearTo);
+        && Objects.equals(regnalYearFrom, king.regnalYearFrom)
+        && Objects.equals(regnalYearTo, king.regnalYearTo);
   }
 
   @Override
