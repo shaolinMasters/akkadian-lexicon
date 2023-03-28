@@ -2,7 +2,6 @@ package org.shaolinmasters.akkadianlexicon.controllers;
 
 import java.util.List;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.SearchObjectDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.UserDTO;
@@ -135,11 +134,8 @@ public class MainController {
     return "login";
   }
 
-  @PostMapping("/login")
-  public String loginUser(@ModelAttribute @Validated UserDTO user, BindingResult bindingResult, Model model) {
-    if (bindingResult.hasErrors()) {
-      return "login";
-    }
+  @PostMapping("/login-user")
+  public String loginUser(@ModelAttribute @Validated UserDTO user, Model model) {
     User adminUSer = (User) userService.loadUserByUsername(user.getEmail());
     model.addAttribute("user", adminUSer);
     return "home";
@@ -152,7 +148,7 @@ public class MainController {
       // word radio button should be checked
       logger.info("Adding modelattribute(named: isWord): " + true + "to view: search");
       model.addAttribute("isWord", true);
-    }
+    }t 
     // search?option=word&word=something
     else if (!"".equals(word)) {
       List<Word> result = wordService.findWordsByNominative(word);

@@ -11,15 +11,13 @@
 <div th:if="${param.logout}">
     You have been logged out.
 </div>
-<form th:action="@{/login}" method="post" th:object="${userDTO}">
+<form th:action="@{/login-user}" method="post" th:object="${userDTO}">
     <div class="form-group">
         <label for="username"></label>
-        <input type="text" class="form-control" id="username" th:field="*{email}" placeholder="Username"  >
-        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        <input type="text" class="form-control" id="username" placeholder="Username" required name="username" >
     </div>
     <div class="form-group">
-        <input type="password" class="form-control" id="passowrd" placeholder="Password" th:field="*{password}">
-        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        <input type="password" class="form-control" id="passowrd" placeholder="Password" required name="password" >
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
