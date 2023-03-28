@@ -18,7 +18,7 @@ public class MainController {
 
   private final Logger logger = LoggerFactory.getLogger(MainController.class);
 
-  @GetMapping("/")
+  @GetMapping
   public String getHomePage(Model model) {
     logger.info("Incoming request for '/' with method: GET");
     WebContent aContent = contentService.findByTitle("home_text");
