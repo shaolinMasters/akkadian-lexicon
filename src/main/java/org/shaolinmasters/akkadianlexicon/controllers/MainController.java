@@ -2,10 +2,12 @@ package org.shaolinmasters.akkadianlexicon.controllers;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.SearchObjectDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.UserDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.EditSourceDTO;
+import org.shaolinmasters.akkadianlexicon.dtos.UserDTO;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
 import org.shaolinmasters.akkadianlexicon.models.*;
 import org.shaolinmasters.akkadianlexicon.services.*;
@@ -114,7 +116,7 @@ public class MainController {
     WebContent aContent;
     try {
       aContent = contentService.findByTitle("bibliography_text");
-    } catch (ResourceNotFoundException exception) {
+    } catch (RuntimeException exception) {
       logger.error(exception.getMessage());
       return "bibliography";
     }
