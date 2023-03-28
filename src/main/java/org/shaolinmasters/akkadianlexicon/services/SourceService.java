@@ -44,4 +44,10 @@ public class SourceService {
   public List<Source> listAllSourcesByTitleAsc() {
     return sourceRepository.findByOrderByTitleAsc();
   }
+
+  @Transactional
+  public void deleteSourceById(Long id) {
+    sourceRepository.deleteById(id);
+  }
+
 }

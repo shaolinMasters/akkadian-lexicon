@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,6 +39,15 @@ public class EditController {
     sourceService.saveSource(source);
     model.addAttribute("isSource", true);
     model.addAttribute("isNew", true);
+    return "edit";
+  }
+
+
+  @PostMapping("/delete/source")
+  public String deleteSource(@RequestParam Long id, Model m) {
+    m.addAttribute("isSource", true);
+    m.addAttribute("isDelete", true);
+    sourceService.deleteSourceById(id);
     return "edit";
   }
 }
