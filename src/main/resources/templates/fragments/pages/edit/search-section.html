@@ -1,6 +1,6 @@
 <section class="bg-light">
     <div class="container p-5">
-        <form name="searchForm" th:object="${searchObjectDTO}" method="get" th:action="@{/search}">
+        <form name="searchForm" th:object="${sourceDTO}" method="post" th:action="@{/edit}">
             <div class="row mb-3 text-center">
                 <div class="col-md-4">
                     <label>
@@ -34,38 +34,41 @@
                     <input type="submit" value="search">
                     <div class="simple-keyboard p-3" style="display: none"></div>
                 </div>
-
             </div>
             <div id="king-field">
                 <div>
-                    <tr th:each="king: ${kings}">
-                        <td>
-                            <a th:href="@{'/search?option=king&name=' + ${king.getName()}}">
-                                <span th:text="${king.getName()}"></span>
-                                <span th:if="${king.getRegnalYearFrom() != null}"
-                                      th:text="' from ' + ${king.getRegnalYearFrom()}"></span>
-                                <span th:if="${king.getRegnalYearTo() != null}" th:text="' to ' + ${king.getRegnalYearTo()}"></span>
-                            </a>
-                        </td>
-                        <br>
-                    </tr>
+<!--                    <tr th:each="king: ${kings}">-->
+<!--                        <td>-->
+<!--                            <a th:href="@{'/search?option=source&king=' + ${king.getName()}}">-->
+<!--                                <span th:text="${king.getName()}"></span>-->
+<!--                                <span th:if="${king.getRegnalYearFrom() != null}"-->
+<!--                                      th:text="' from ' + ${king.getRegnalYearFrom()}"></span>-->
+<!--                                <span th:if="${king.getRegnalYearTo() != null}" th:text="' to ' + ${king.getRegnalYearTo()}"></span>-->
+<!--                            </a>-->
+<!--                        </td>-->
+<!--                        <br>-->
+<!--                    </tr>-->
+                    <button type="button" class="btn btn-success">New</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
                 </div>
             </div>
             <div id="source-field">
                 <div>
-                    <tr th:each="source: ${sourceList}">
-                        <td>
-                            <a th:href="@{'/search?option=source&title=' + ${source.getTitle()}}">
-                                <span th:text="${source.getTitle()}"></span>
-                            </a>
-                        </td>
-                        <br>
-                    </tr>
+<!--                    <tr th:each="source: ${sourceList}">-->
+<!--                        <td>-->
+<!--                            <a th:href="@{'/search?option=source&title=' + ${source.getTitle()}}">-->
+<!--                                <span th:text="${source.getTitle()}"></span>-->
+<!--                            </a>-->
+<!--                        </td>-->
+<!--                        <br>-->
+<!--                    </tr>-->
+                    <button type="button" id="source-new-button" class="btn btn-success">New</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
                 </div>
             </div>
-            <div id="errorMessage">
-                <span th:if="${error != null}" th:text="${error}"></span>
-            </div>
+<!--            <div id="errorMessage">-->
+<!--                <span th:if="${error != null}" th:text="${error}"></span>-->
+<!--            </div>-->
         </form>
     </div>
 </section>

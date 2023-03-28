@@ -56,6 +56,14 @@ public class Source {
   @Exclude
   private List<Word> words;
 
+  public Source(String title, String catalogueRef, String text, King king, String bibliography) {
+    this.title = title;
+    this.catalogueRef = catalogueRef;
+    this.text = text;
+    this.king = king;
+    this.bibliography = bibliography;
+  }
+
   // hashcode
   // equals
 
