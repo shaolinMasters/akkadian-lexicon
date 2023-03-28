@@ -29,7 +29,7 @@ public class King {
   private String name;
 
   @Column(name = "regnal_year_from", columnDefinition = "smallint")
-  @Enumerated
+  @Convert(converter = YearAttributeConverter.class)
   private Year regnalYearFrom;
 
   @Column(name = "regnal_year_to", columnDefinition = "smallint")
