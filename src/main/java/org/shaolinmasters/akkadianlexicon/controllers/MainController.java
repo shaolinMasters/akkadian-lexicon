@@ -1,13 +1,12 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.SearchObjectDTO;
+import org.shaolinmasters.akkadianlexicon.dtos.EditObjectDTO;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
-import org.shaolinmasters.akkadianlexicon.models.King;
-import org.shaolinmasters.akkadianlexicon.models.Source;
-import org.shaolinmasters.akkadianlexicon.models.WebContent;
-import org.shaolinmasters.akkadianlexicon.models.Word;
+import org.shaolinmasters.akkadianlexicon.models.*;
 import org.shaolinmasters.akkadianlexicon.services.KingService;
 import org.shaolinmasters.akkadianlexicon.services.SourceService;
 import org.shaolinmasters.akkadianlexicon.services.WebContentService;
@@ -19,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
@@ -205,4 +205,29 @@ public class MainController {
       model.addAttribute("isSource", true);
     }
   }
+
+  @GetMapping("/edit")
+  public String getEdit(
+    Model m
+  ) {
+    m.addAttribute("newSource", new EditObjectDTO());
+    m.addAttribute("kings", kingService.findAllKings());
+    return "edit";
+  }
+
+  @PostMapping("/source")
+  public String saveSource(
+    @ModelAttribute("newSource")
+    EditObjectDTO editObjectDTO
+  ) {
+    logger.info(String.valueOf(editObjectDTO));
+    try {
+      sourceService.saveSource(editObjectDTO);
+    } catch (ResourceNotFoundException e) {
+      logger.error(e.getMessage());
+    }
+    return "redirect:/";
+  }
+
 }
+

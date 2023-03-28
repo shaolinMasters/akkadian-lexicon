@@ -19,6 +19,14 @@ public class KingService {
     return kings.isEmpty() ? List.of() : kings;
   }
 
+  public King findKingById(Long id) {
+    Optional<King> result = kingRepository.findById(id);
+    if(result.isPresent()) {
+      return result.get();
+    }
+    throw new ResourceNotFoundException("Not found king with id :" + id);
+  }
+
   public King findByNameIgnoreCase(String name) {
     Optional<King> result = kingRepository.findByNameIgnoreCase(name);
     if (result.isPresent()) {

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Search</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-keyboard@3.5.40/build/css/index.min.css" rel="stylesheet">
+    <!--/*/ <th:block th:insert="~{fragments/header-files.html}">
+            </th:block> /*/-->
+    <link rel="stylesheet" th:href="@{/css/search.css}"/>
+</head>
+<body class="d-flex flex-column h-100">
+<header th:replace="~{fragments/header.html}"></header>
+<main>
+    <section th:replace="~{fragments/pages/edit/search-section.html}"></section>
+   <section>
+       <form id="create-source-form"
+             style="display:none;"
+           data-th-object="${newSource}"
+           method="post"
+           data-th-action="@{/source}"
+           action="/source"
+       >
+           <label for="title">Title:</label>
+           <input id="title" type="text" data-th-field="*{title}">
+           <br>
+           <label for="catalogueRef">Catalogue Reference Number:</label>
+           <input id="catalogueRef" type="text" data-th-field="*{catalogueRef}">
+           <br>
+           <label for="kingIds">Select an id of a specific king:</label>
+           <select th:field="*{kingId}" class="form-control" id="dropDownList">
+               <option value="0">Select a specific king</option>
+               <option th:each="king : ${kings}" th:value="${king.id}" th:text="${king.name}"></option>
+           </select>
+           <br>
+           <label for="text">Text:</label>
+           <input id="text" type="text" data-th-field="*{text}">
+           <br>
+           <label for="bibliography">Bibliography</label>
+           <input id="bibliography" type="text" data-th-field="*{bibliography}">
+           <br>
+
+           <input type="submit" value="Save">
+       </form>
+   </section>
+</main>
+
+<footer th:replace="~{fragments/footer.html}"></footer>
+
+<script type="text/javascript" th:src="@{/js/edit.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-keyboard@3.5.40/build/index.min.js"></script>
+<script type="text/javascript" th:src="@{/js/virtualKeyboard.js}"></script>
+</body>
+</html>
