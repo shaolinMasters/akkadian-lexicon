@@ -25,7 +25,7 @@ public class EditController {
   private final SourceService sourceService;
 
   @GetMapping
-  public String getEdit(Model m) {
+  public String get(Model m) {
     logger.info("Incoming request for '/edit' with method: GET");
     m.addAttribute("newSource", new SourceDTO());
     m.addAttribute("kings", kingService.findAllKings());

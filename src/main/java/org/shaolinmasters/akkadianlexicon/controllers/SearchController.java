@@ -30,7 +30,7 @@ public class SearchController {
   private final Logger logger = LoggerFactory.getLogger(SearchController.class);
 
   @GetMapping
-  public String getSearchPageNotOriginal(Model model) {
+  public String get(Model model) {
     addKingsAndSourcesToModel(model);
     return "search";
   }
