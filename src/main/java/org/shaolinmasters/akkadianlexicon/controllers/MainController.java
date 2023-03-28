@@ -2,12 +2,10 @@ package org.shaolinmasters.akkadianlexicon.controllers;
 
 import java.util.List;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.SearchObjectDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.UserDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.EditSourceDTO;
-import org.shaolinmasters.akkadianlexicon.dtos.UserDTO;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
 import org.shaolinmasters.akkadianlexicon.models.*;
 import org.shaolinmasters.akkadianlexicon.services.*;
