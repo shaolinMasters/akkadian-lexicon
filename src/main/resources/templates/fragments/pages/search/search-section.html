@@ -40,7 +40,7 @@
                 <div>
                     <tr th:each="king: ${kings}">
                         <td>
-                            <a th:href="@{'/search?option=source&king=' + ${king.getName()}}">
+                            <a th:href="@{'/search?option=king&name=' + ${king.getName()}}">
                                 <span th:text="${king.getName()}"></span>
                                 <span th:if="${king.getRegnalYearFrom() != null}"
                                       th:text="' from ' + ${king.getRegnalYearFrom()}"></span>
