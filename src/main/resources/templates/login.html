@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
 </head>
 <body>
 <div th:if="${param.error}">
@@ -19,7 +19,7 @@
         <input type="password" class="form-control" id="passowrd" placeholder="Password" required name="password">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Login</button>
 </form>
 </body>
 </html>
