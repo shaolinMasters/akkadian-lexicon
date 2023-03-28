@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.SearchObjectDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.UserDTO;
-import org.shaolinmasters.akkadianlexicon.dtos.EditObjectDTO;
+import org.shaolinmasters.akkadianlexicon.dtos.EditSourceDTO;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
 import org.shaolinmasters.akkadianlexicon.models.*;
 import org.shaolinmasters.akkadianlexicon.services.*;
@@ -148,7 +148,7 @@ public class MainController {
       // word radio button should be checked
       logger.info("Adding modelattribute(named: isWord): " + true + "to view: search");
       model.addAttribute("isWord", true);
-    }t 
+    }
     // search?option=word&word=something
     else if (!"".equals(word)) {
       List<Word> result = wordService.findWordsByNominative(word);
@@ -220,16 +220,25 @@ public class MainController {
   public String getEdit(
     Model m
   ) {
-    m.addAttribute("newSource", new EditObjectDTO());
+    m.addAttribute("newSource", new EditSourceDTO());
     m.addAttribute("kings", kingService.findAllKings());
+    m.addAttribute("isSource", false);
     return "edit";
   }
 
   @PostMapping("/source")
   public String saveSource(
     @ModelAttribute("newSource")
-    EditObjectDTO editObjectDTO
+    @Validated EditSourceDTO editObjectDTO,
+    BindingResult bindingResult,
+    Model model
   ) {
+    if(bindingResult.hasErrors()) {
+      model.addAttribute("kings", kingService.findAllKings());
+      model.addAttribute("isSource", true);
+      logger.info("Adding modelattribute(named: isSource): " + true + "to show: search");
+      return "/edit";
+    }
     logger.info(String.valueOf(editObjectDTO));
     try {
       sourceService.saveSource(editObjectDTO);

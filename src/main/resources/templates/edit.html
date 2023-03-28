@@ -13,7 +13,7 @@
     <section th:replace="~{fragments/pages/edit/search-section.html}"></section>
    <section>
        <form id="create-source-form"
-             style="display:none;"
+             th:style="${isSource ? 'display:block' : 'display:none'}"
            data-th-object="${newSource}"
            method="post"
            data-th-action="@{/source}"
@@ -21,9 +21,11 @@
        >
            <label for="title">Title:</label>
            <input id="title" type="text" data-th-field="*{title}">
+           <span style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
            <br>
            <label for="catalogueRef">Catalogue Reference Number:</label>
            <input id="catalogueRef" type="text" data-th-field="*{catalogueRef}">
+           <span style="color: red" th:if="${#fields.hasErrors('catalogueRef')}" th:errors="*{catalogueRef}"></span>
            <br>
            <label for="kingIds">Select an id of a specific king:</label>
            <select th:field="*{kingId}" class="form-control" id="dropDownList">
@@ -33,9 +35,11 @@
            <br>
            <label for="text">Text:</label>
            <input id="text" type="text" data-th-field="*{text}">
+           <span style="color: red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></span>
            <br>
            <label for="bibliography">Bibliography</label>
            <input id="bibliography" type="text" data-th-field="*{bibliography}">
+           <span style="color: red" th:if="${#fields.hasErrors('bibliography')}" th:errors="*{bibliography}"></span>
            <br>
 
            <input type="submit" value="Save">
