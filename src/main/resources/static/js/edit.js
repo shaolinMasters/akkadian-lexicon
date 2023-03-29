@@ -37,6 +37,7 @@ radioButtons.forEach(radioButton => {
             sourceField.style.display = 'block';
             kingField.style.display = 'none';
             searchField.style.display = 'none';
+            createKingForm.style.display ='none';
 
         } else {
             kingField.style.display = 'none';

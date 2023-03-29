@@ -2,7 +2,7 @@
     <div class="container pt-5 pb-5">
         <form id="create-source-form"
               data-th-object="${newSource}"
-              th:style="${isSource ? 'display:block' : 'display:none'}"
+              th:style="${sourceHasErrors ? 'display:block' : 'display:none'}"
               method="post"
               data-th-action="@{/edit/new/source}"
               action="/source">
@@ -84,7 +84,59 @@
 
 <!--                    <input type="submit" value="Save">-->
 <!--                </form>-->
+        <form id="create-king-form"
+              data-th-object="${newKing}"
+              th:style="${kingHasErrors ? 'display:block' : 'display:none'}"
+              method="post"
+              data-th-action="@{/edit/new/king}"
+              action="/king">
+            <div class="row">
+                <div class="col">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="name-input">Ruler's name: </label>
+                        <input type="text" id="name-input" class="form-control" data-th-field="*{kingName}" />
+                        <br>
+                        <span style="color: red" th:if="${#fields.hasErrors('kingName')}" th:errors="*{kingName}"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="regnalYearFrom-input">Beginning of reign:</label>
+                        <input type="number" id="regnalYearFrom-input" class="form-control" data-th-field="*{regnalYearFrom}"/>
+                        <br>
+                        <span style="color: red" th:if="${#fields.hasErrors('regnalYearFrom')}" th:errors="*{regnalYearFrom}"></span>
+                    </div>
+                    <div class="col">
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="regnalYearTo-input">End of reign: </label>
+                            <input type="number" id="regnalYearTo-input" class="form-control" data-th-field="*{regnalYearTo}"/>
+                            <br>
+                            <span style="color: red" th:if="${#fields.hasErrors('regnalYearTo')}" th:errors="*{regnalYearTo}"></span>
 
+                        </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <!--Source-->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="dropdown-sources">Source connected to the Ruler: </label>
+                        <select th:field="*{sourceId}" class="form-control" id="dropdown-sources">
+                            <option value="0">Select a specific Source</option>
+                            <option th:each="source : ${sources}" th:value="${source.id}" th:text="${source.title}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+            <div class="row">
+            </div>
+
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">Send</button>
+        </form>
 
     </div>
 </section>

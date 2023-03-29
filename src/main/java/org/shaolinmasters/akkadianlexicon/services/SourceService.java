@@ -70,4 +70,8 @@ public class SourceService {
   public void deleteSourceById(Long id) {
     sourceRepository.deleteById(id);
   }
+
+  public List<Source> listAllSourcesWithoutKingIdByTitleAsc() {
+    return sourceRepository.findByKing(null);
+  }
 }

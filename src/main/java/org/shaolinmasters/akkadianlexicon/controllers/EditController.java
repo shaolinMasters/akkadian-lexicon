@@ -33,16 +33,21 @@ public class EditController {
     m.addAttribute("newSource", new SourceDTO());
     m.addAttribute("kings", kingService.findAllKings());
     m.addAttribute("newKing", new KingDTO());
-    m.addAttribute("sources", sourceService.listAllSourcesByTitleAsc());
-    m.addAttribute("isSource", false);
+    m.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
+    m.addAttribute("sourceHasErrors", false);
+    m.addAttribute("kingHasErrors" ,false);
     return "edit";
   }
 
   @PostMapping("/new/king")
-  public String saveKing(@ModelAttribute("newKing") KingDTO editObjectDTO) {
+  public String saveKing(@ModelAttribute("newKing") @Validated KingDTO editObjectDTO, BindingResult bindingResult, Model m) {
+    if(bindingResult.hasErrors()){
+      m.addAttribute("kingHasErrors",true);
+      return "edit";
+    }
     logger.info(String.valueOf(editObjectDTO));
     kingService.saveKing(editObjectDTO);
-    return "redirect:/";
+    return "edit";
   }
 
   @PostMapping("/new/source")
@@ -52,7 +57,7 @@ public class EditController {
       Model model) {
     logger.info("Incoming request for '/new/source' with method: POST");
     if (bindingResult.hasErrors()) {
-      model.addAttribute("isSource", true);
+      model.addAttribute("sourceHasErrors", true);
       return "/edit";
     }
     sourceService.saveSource(source);
