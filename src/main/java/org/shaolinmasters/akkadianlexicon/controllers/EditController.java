@@ -58,8 +58,14 @@ public class EditController {
     logger.info("Incoming request for '/new/source' with method: POST");
     if (bindingResult.hasErrors()) {
       model.addAttribute("sourceHasErrors", true);
+      model.addAttribute("kingHasErrors", false);
+      model.addAttribute("newKing", new KingDTO());
       return "/edit";
     }
+    model.addAttribute("newKing", new KingDTO());
+    model.addAttribute("newSource", new SourceDTO());
+    model.addAttribute("sourceHasErrors", false);
+    model.addAttribute("kingHasErrors", false);
     sourceService.saveSource(source);
     model.addAttribute("isSource", true);
     model.addAttribute("isNew", true);

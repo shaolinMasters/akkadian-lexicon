@@ -35,7 +35,10 @@ public class SourceService {
 
   @Transactional
   public void saveSource(SourceDTO sourceDTO) {
-    King king = kingService.findKingById(sourceDTO.getKingId());
+    King king = null;
+    if(sourceDTO.getKingId() != 0) {
+      king = kingService.findKingById(sourceDTO.getKingId());
+    }
     Source source =
         new Source(
             sourceDTO.getTitle(),
