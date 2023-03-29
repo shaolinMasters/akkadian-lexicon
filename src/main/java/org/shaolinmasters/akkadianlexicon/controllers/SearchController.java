@@ -5,9 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.models.King;
 import org.shaolinmasters.akkadianlexicon.models.Source;
 import org.shaolinmasters.akkadianlexicon.models.Word;
-import org.shaolinmasters.akkadianlexicon.services.KingService;
-import org.shaolinmasters.akkadianlexicon.services.SourceService;
-import org.shaolinmasters.akkadianlexicon.services.WordService;
+import org.shaolinmasters.akkadianlexicon.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -25,8 +23,7 @@ public class SearchController {
 
   private final KingService kingService;
 
-  private final SourceService sourceService;
-
+private final SourceService sourceService;
   private final Logger logger = LoggerFactory.getLogger(SearchController.class);
 
   @GetMapping
