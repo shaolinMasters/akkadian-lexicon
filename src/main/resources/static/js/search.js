@@ -1,7 +1,7 @@
 const radioButtons = document.querySelectorAll('input[type="radio"]');
 const searchField = document.getElementById('search-field');
 const kingField = document.getElementById('king-field');
-const resultSegment = document.getElementById('resultSegment');
+const resultSegment = document.getElementById('results');
 const errorSegment = document.getElementById('errorMessage');
 const sourceField = document.getElementById('source-field');
 
