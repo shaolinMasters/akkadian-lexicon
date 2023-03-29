@@ -24,11 +24,13 @@ radioButtons.forEach(radioButton => {
             searchField.style.display = 'block';
             kingField.style.display = 'none';
             sourceField.style.display = 'none';
+            createSourceForm.style.display = 'none';
 
         } else if (radioButton.value === 'king') {
             kingField.style.display = 'block';
             searchField.style.display = 'none';
             sourceField.style.display = 'none';
+            createSourceForm.style.display = 'none';
 
         } else if (radioButton.value === 'source') {
             sourceField.style.display = 'block';
@@ -39,6 +41,7 @@ radioButtons.forEach(radioButton => {
             kingField.style.display = 'none';
             searchField.style.display = 'none';
             sourceField.style.display = 'none';
+            createSourceForm.style.display = 'none';
         }
     });
 });
