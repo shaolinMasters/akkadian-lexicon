@@ -1,13 +1,12 @@
 package org.shaolinmasters.akkadianlexicon.services;
 
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.shaolinmasters.akkadianlexicon.dtos.SourceDTO;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
 import org.shaolinmasters.akkadianlexicon.models.King;
-import org.shaolinmasters.akkadianlexicon.dtos.SourceDTO;
 import org.shaolinmasters.akkadianlexicon.models.Source;
 import org.shaolinmasters.akkadianlexicon.repositories.SourceRepositoryI;
 import org.springframework.stereotype.Service;
@@ -26,10 +25,17 @@ public class SourceService {
     List<Source> result = sourceRepository.findAllByKingOrderByTitleAsc(king);
     return result.isEmpty() ? List.of() : result;
   }
+
   @Transactional
   public void saveSource(SourceDTO sourceDTO) {
     King king = kingService.findKingById(sourceDTO.getKingId());
-    Source source = new Source(sourceDTO.getTitle(), sourceDTO.getCatalogueRef(), sourceDTO.getText(), king, sourceDTO.getBibliography());
+    Source source =
+        new Source(
+            sourceDTO.getTitle(),
+            sourceDTO.getCatalogueRef(),
+            sourceDTO.getText(),
+            king,
+            sourceDTO.getBibliography());
     sourceRepository.save(source);
   }
 

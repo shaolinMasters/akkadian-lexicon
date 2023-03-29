@@ -18,5 +18,4 @@ public class SourceDTO {
   private String text;
 
   private Long kingId;
-
 }

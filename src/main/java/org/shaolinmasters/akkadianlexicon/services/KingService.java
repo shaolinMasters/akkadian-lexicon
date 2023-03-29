@@ -21,7 +21,7 @@ public class KingService {
 
   public King findKingById(Long id) {
     Optional<King> result = kingRepository.findById(id);
-    if(result.isPresent()) {
+    if (result.isPresent()) {
       return result.get();
     }
     throw new ResourceNotFoundException("Not found king with id :" + id);

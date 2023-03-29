@@ -21,7 +21,8 @@ public class GlobalExceptionHandler {
 
   @ResponseStatus(value = HttpStatus.NOT_FOUND)
   @ExceptionHandler(ResourceNotFoundException.class)
-  public String handleResourceNotFoundException(HttpServletRequest request, Exception ex, Model model) {
+  public String handleResourceNotFoundException(
+      HttpServletRequest request, Exception ex, Model model) {
     String requestURI = request.getRequestURI();
     logger.error("Requested URI: " + requestURI);
     logger.error("Exception Raised: " + ex);
@@ -30,22 +31,20 @@ public class GlobalExceptionHandler {
       case "/" -> {
         return "home";
       }
-      case "/about" ->{
+      case "/about" -> {
         return "about";
       }
       case "/bibliography" -> {
         return "bibliography";
       }
-      case "/search" ->{
-        if(request.getQueryString().contains("option=source")){
+      case "/search" -> {
+        if (request.getQueryString().contains("option=source")) {
           logger.info("Adding modelattribute(named: isSource): " + true + "to view: search");
           model.addAttribute("isSource", true);
-        }
-        else if (request.getQueryString().contains("option=king")){
+        } else if (request.getQueryString().contains("option=king")) {
           logger.info("Adding modelattribute(named: isKing): " + true + "to view: search");
           model.addAttribute("isKing", true);
-        }
-        else if (request.getQueryString().contains("option=word")){
+        } else if (request.getQueryString().contains("option=word")) {
           logger.info("Adding modelattribute(named: isWord): " + true + "to view: search");
           model.addAttribute("isWord", true);
         }
@@ -56,9 +55,9 @@ public class GlobalExceptionHandler {
         return "search";
       }
       default -> {
-          model.addAttribute("error", 404);
-          logger.info("Adding modelattribute(named: error): " + 404 + "to view: error");
-          return "error";
+        model.addAttribute("error", 404);
+        logger.info("Adding modelattribute(named: error): " + 404 + "to view: error");
+        return "error";
       }
     }
   }

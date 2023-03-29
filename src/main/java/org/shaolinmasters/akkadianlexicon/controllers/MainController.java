@@ -27,7 +27,6 @@ public class MainController {
     return "home";
   }
 
-
   @GetMapping("/about")
   public String getAboutPage(Model model) {
     logger.info("Incoming request for '/about' with method: GET");
@@ -57,6 +56,4 @@ public class MainController {
     logger.info("Incoming request for '/login' with method: GET");
     return "login";
   }
-
 }
-

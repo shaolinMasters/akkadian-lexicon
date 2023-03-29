@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Cinzel');
 
-* {
+/** {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Cinzel", sans-serif;
-}
+}*/
 
 body {
     margin: 0;
@@ -17,7 +17,7 @@ body {
 
 .center {
     position: absolute;
-    top: 50%;
+    top: 48%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 400px;
@@ -27,6 +27,7 @@ body {
 }
 
 .center h1 {
+    font-family: "Cinzel", sans-serif;
     text-align: center;
     padding: 20px 0;
     border-bottom: 1px solid silver;
@@ -113,4 +114,67 @@ input[type="submit"] {
 input[type="submit"]:hover {
     border-color: #92755b;
     transition: .5s;
+}
+
+.messages {
+    margin: 30px 0;
+    text-align: center;
+    font-size: 16px;
+    color: #666666;
+}
+
+body {
+    margin-bottom: 30px; /* Margin bottom by footer height */
+}
+
+h1 {
+    font-family: "Cinzel", sans-serif;
+    color: #5e3812;
+}
+
+h2 {
+    font-family: "Cinzel", sans-serif;
+    color: #92755b;
+    font-style: italic;
+}
+
+#title-container {
+    text-align: center;
+}
+
+.header {
+    background-color: #92755b;
+}
+
+.nav-link {
+    color: azure;
+}
+
+.nav-link:hover {
+    color: black;
+}
+
+#footer-container {
+    background-color: #92755b;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 150px; /* Set the fixed height of the footer here */
+    font-size: 10px;
+    text-align: center;
+    margin: 5px;
+}
+
+.pt-5 {
+    padding-top: 5px !important;
+    margin-bottom: 3px;
+}
+
+.h5, h5 {
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: #5e3812;
 }
