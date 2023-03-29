@@ -2,6 +2,8 @@ package org.shaolinmasters.akkadianlexicon.services;
 
 import java.util.List;
 import java.util.Optional;
+
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
 import org.shaolinmasters.akkadianlexicon.models.King;
@@ -34,4 +36,10 @@ public class KingService {
     }
     throw new ResourceNotFoundException("Not found king with name: " + name);
   }
+
+  @Transactional
+  public void deleteKingById(Long id) {
+    kingRepository.deleteById(id);
+  }
+
 }

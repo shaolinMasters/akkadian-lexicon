@@ -50,4 +50,13 @@ public class EditController {
     sourceService.deleteSourceById(id);
     return "edit";
   }
+
+  @PostMapping("/delete/king")
+  public String deleteKing(@RequestParam Long id, Model m) {
+    m.addAttribute("isKing", true);
+    m.addAttribute("isDelete", true);
+    kingService.deleteKingById(id);
+    return "edit";
+  }
+
 }
