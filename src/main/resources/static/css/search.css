@@ -22,3 +22,6 @@
 #search-word:focus{
     outline: rgb(0, 95, 204) 1px;
 }
+.search-bg{
+    background-color: #decdb8;
+}

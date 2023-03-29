@@ -8,21 +8,15 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-<<<<<<<< HEAD:src/main/java/org/shaolinmasters/akkadianlexicon/dtos/SourceDTO.java
 public class SourceDTO {
-========
-public class EditSourceDTO {
->>>>>>>> fa7f96c (edit.html, edit.js fajlok módosítva, a megfelelő megjelenítés miatt, validálás beiktatva a DTO osztályba, valamint a Controllerbe is):src/main/java/org/shaolinmasters/akkadianlexicon/dtos/EditSourceDTO.java
-
-  @NotEmpty
+  @NotEmpty(message = "Title must not be empty.")
   private String title;
-  @NotEmpty
+  @NotEmpty(message = "Catalogur Reference must not be empty.")
   private String catalogueRef;
-  @NotEmpty
+  @NotEmpty(message = "Bibliography must not be empty")
   private String bibliography;
-  @NotEmpty
+  @NotEmpty(message = "Text must not be emtpy")
   private String text;
 
   private Long kingId;
-
 }

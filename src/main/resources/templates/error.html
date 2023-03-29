@@ -9,18 +9,20 @@
 </head>
 <body>
 <header th:replace="~{fragments/header.html}"></header>
-<div class="d-flex align-items-center justify-content-center" style="height: 28vh;">
-<div class="row mb-3 text-center">
-    <div th:if="${error != null}">
-        <p th:text="${error} + ' Error' "
-            id="error-text">
-        </p>
+<main>
+    <div class="d-flex align-items-center justify-content-center" style="height: 28vh;">
+        <div class="row mb-3 text-center">
+            <div th:if="${error != null}">
+                <p th:text="${error} + ' Error' "
+                   id="error-text">
+                </p>
+            </div>
+            <div>
+                <p><a href="/">Go back to home page</a></p>
+            </div>
+        </div>
     </div>
-    <div>
-        <p><a href="/">Go back to home page</a></p>
-    </div>
-</div>
-</div>
+</main>
 <footer th:replace="~{fragments/footer.html}"></footer>
 </body>
 </html>
