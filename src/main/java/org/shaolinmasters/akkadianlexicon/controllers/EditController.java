@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,12 +31,17 @@ public class EditController {
     logger.info("Incoming request for '/edit' with method: GET");
     m.addAttribute("newSource", new SourceDTO());
     m.addAttribute("kings", kingService.findAllKings());
+    m.addAttribute("isSource", false);
     return "edit";
   }
 
   @PostMapping("/new/source")
-  public String saveSource(@ModelAttribute("newSource") SourceDTO source, Model model) {
+  public String saveSource(@ModelAttribute("newSource") @Validated SourceDTO source, BindingResult bindingResult, Model model) {
     logger.info("Incoming request for '/new/source' with method: POST");
+    if (bindingResult.hasErrors()) {
+      model.addAttribute("isSource", true);
+      return "/edit";
+    }
     sourceService.saveSource(source);
     model.addAttribute("isSource", true);
     model.addAttribute("isNew", true);
