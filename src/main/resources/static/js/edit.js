@@ -5,6 +5,7 @@ const searchField = document.getElementById('search-field');
 const kingField = document.getElementById('king-field');
 const sourceField = document.getElementById('source-field');
 const createSourceForm = document.getElementById('create-source-form');
+const createKingForm = document.getElementById('create-king-form');
 
 radioButtons.forEach(radioButton => {
     //if radio button is checked
@@ -48,5 +49,9 @@ radioButtons.forEach(radioButton => {
 
 document.getElementById('source-new-button').onclick = function() {
     createSourceForm.style.display = 'block';
+}
+
+document.getElementById('king-new-button').onclick = function() {
+    createKingForm.style.display = 'block';
 }
 

@@ -1,9 +1,9 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.shaolinmasters.akkadianlexicon.dtos.KingDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.SourceDTO;
 import org.shaolinmasters.akkadianlexicon.services.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -32,12 +32,24 @@ public class EditController {
     logger.info("Incoming request for '/edit' with method: GET");
     m.addAttribute("newSource", new SourceDTO());
     m.addAttribute("kings", kingService.findAllKings());
+    m.addAttribute("newKing", new KingDTO());
+    m.addAttribute("sources", sourceService.listAllSourcesByTitleAsc());
     m.addAttribute("isSource", false);
     return "edit";
   }
 
+  @PostMapping("/new/king")
+  public String saveKing(@ModelAttribute("newKing") KingDTO editObjectDTO) {
+    logger.info(String.valueOf(editObjectDTO));
+    kingService.saveKing(editObjectDTO);
+    return "redirect:/";
+  }
+
   @PostMapping("/new/source")
-  public String saveSource(@ModelAttribute("newSource") @Validated SourceDTO source, BindingResult bindingResult, Model model) {
+  public String saveSource(
+      @ModelAttribute("newSource") @Validated SourceDTO source,
+      BindingResult bindingResult,
+      Model model) {
     logger.info("Incoming request for '/new/source' with method: POST");
     if (bindingResult.hasErrors()) {
       model.addAttribute("isSource", true);
@@ -48,7 +60,6 @@ public class EditController {
     model.addAttribute("isNew", true);
     return "edit";
   }
-
 
   @PostMapping("/delete/source")
   public String deleteSource(@RequestParam Long id, Model m) {

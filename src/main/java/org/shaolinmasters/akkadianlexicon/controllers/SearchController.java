@@ -23,7 +23,7 @@ public class SearchController {
 
   private final KingService kingService;
 
-private final SourceService sourceService;
+  private final SourceService sourceService;
   private final Logger logger = LoggerFactory.getLogger(SearchController.class);
 
   @GetMapping

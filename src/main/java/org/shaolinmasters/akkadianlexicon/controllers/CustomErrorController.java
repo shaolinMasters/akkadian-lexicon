@@ -1,6 +1,5 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
-
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
