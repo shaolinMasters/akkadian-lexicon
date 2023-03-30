@@ -1,5 +1,6 @@
 package org.shaolinmasters.akkadianlexicon.dtos;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,6 @@ public class SourceDTO {
   private String bibliography;
   @NotEmpty(message = "Text must not be emtpy")
   private String text;
-
+  @Nullable
   private Long kingId;
 }

@@ -30,8 +30,7 @@ public class EditController {
   @GetMapping
   public String get(Model m) {
     logger.info("Incoming request for '/edit' with method: GET");
-    m.addAttribute("newSource", new SourceDTO());
-    m.addAttribute("kings", kingService.findAllKings());
+    addModelsToEditPage(m);
     m.addAttribute("isSource", false);
     return "edit";
   }
@@ -44,8 +43,8 @@ public class EditController {
       return "/edit";
     }
     sourceService.saveSource(source);
+    addModelsToEditPage(model);
     model.addAttribute("isSource", true);
-    model.addAttribute("isNew", true);
     return "edit";
   }
 
@@ -56,5 +55,11 @@ public class EditController {
     m.addAttribute("isDelete", true);
     sourceService.deleteSourceById(id);
     return "edit";
+  }
+
+
+  public void addModelsToEditPage(Model model){
+    model.addAttribute("newSource", new SourceDTO());
+    model.addAttribute("kings", kingService.findAllKings());
   }
 }
