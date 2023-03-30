@@ -50,7 +50,7 @@ public class SourceService {
     if(sourceDTO.getKingId() != null){
       king = kingService.findKingById(sourceDTO.getKingId());
     }
-    Source source = new Source(sourceDTO.getTitle(), sourceDTO.getCatalogueRef(), sourceDTO.getText(), king, sourceDTO.getBibliography());
+//    Source source = new Source(sourceDTO.getTitle(), sourceDTO.getCatalogueRef(), sourceDTO.getText(), king, sourceDTO.getBibliography());
 
     sourceRepository.save(source);
   }
