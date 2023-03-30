@@ -1,4 +1,4 @@
-package org.shaolinmasters.akkadianlexicon.models;
+package org.shaolinmasters.akkadianlexicon.models.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
