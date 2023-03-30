@@ -1,8 +1,10 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.KingDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.SourceDTO;
+import org.shaolinmasters.akkadianlexicon.models.King;
 import org.shaolinmasters.akkadianlexicon.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,10 +61,12 @@ public class EditController {
     model.addAttribute("kingHasErrors", false);
     model.addAttribute("kings", kingService.findAllKings());
     model.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
-
     kingService.saveKing(king);
     model.addAttribute("isKing", true);
     logger.info(String.valueOf(king));
+    addModelsToEditPage(m);
+    m.addAttribute("isSource", false);
+
     return "edit";
   }
 
@@ -72,13 +76,20 @@ public class EditController {
     BindingResult bindingResult,
     Model model) {
     logger.info("Incoming request for '/new/source' with method: POST");
+    model.addAttribute("isSource", true);
     if (bindingResult.hasErrors()) {
+
       model.addAttribute("sourceHasErrors", true);
       model.addAttribute("kingHasErrors", false);
       model.addAttribute("newKing", new KingDTO());
       model.addAttribute("kings", kingService.findAllKings());
       model.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
 
+      logger.info("Adding modelattribute(named: newSource): " + source + "to view: edit");
+      model.addAttribute("newSource", source);
+      List<King> kings = kingService.findAllKings();
+      logger.info("Adding modelattribute(named: kings): " + kings + "to view: edit");
+      model.addAttribute("kings", kings);
       return "/edit";
     }
     model.addAttribute("newKing", new KingDTO());
@@ -88,7 +99,10 @@ public class EditController {
     model.addAttribute("kings", kingService.findAllKings());
     model.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
     sourceService.saveSource(source);
+
     model.addAttribute("isSource", true);
+
+    addModelsToEditPage(model);
     return "edit";
   }
 
@@ -98,5 +112,15 @@ public class EditController {
     m.addAttribute("isDelete", true);
     sourceService.deleteSourceById(id);
     return "edit";
+  }
+
+
+  public void addModelsToEditPage(Model model){
+    SourceDTO sourceDTO = new SourceDTO();
+    logger.info("Adding modelattribute(named: newSource): " + sourceDTO);
+    model.addAttribute("newSource", sourceDTO);
+    List<King> kings = kingService.findAllKings();
+    logger.info("Adding modelattribute(named: kings): " + kings);
+    model.addAttribute("kings", kings);
   }
 }

@@ -30,7 +30,7 @@
         <div class="form-outline mb-4">
             <label class="form-label" for="dropdown-ruler">Ruler: </label>
             <select th:field="*{kingId}" class="form-control" id="dropdown-ruler">
-            <option value="0">Select a specific Ruler</option>
+            <option value="">Select a specific Ruler</option>
             <option th:each="king : ${kings}" th:value="${king.id}" th:text="${king.name}"></option>
         </select>
             </div>
