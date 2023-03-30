@@ -11,7 +11,7 @@ import lombok.ToString;
 public class SourceDTO {
   @NotEmpty(message = "Title must not be empty.")
   private String title;
-  @NotEmpty(message = "Catalogur Reference must not be empty.")
+  @NotEmpty(message = "Catalogue Reference must not be empty.")
   private String catalogueRef;
   @NotEmpty(message = "Bibliography must not be empty")
   private String bibliography;

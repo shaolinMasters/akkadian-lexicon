@@ -35,26 +35,37 @@ public class EditController {
     m.addAttribute("newKing", new KingDTO());
     m.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
     m.addAttribute("sourceHasErrors", false);
-    m.addAttribute("kingHasErrors" ,false);
+    m.addAttribute("kingHasErrors", false);
     return "edit";
   }
 
   @PostMapping("/new/king")
-  public String saveKing(@ModelAttribute("newKing") @Validated KingDTO editObjectDTO, BindingResult bindingResult, Model m) {
-    if(bindingResult.hasErrors()){
-      m.addAttribute("kingHasErrors",true);
+  public String saveKing(
+    @ModelAttribute("newKing") @Validated KingDTO king,
+    BindingResult bindingResult,
+    Model model) {
+    logger.info("Incoming request for '/new/king' with method: POST");
+    if (bindingResult.hasErrors()) {
+      model.addAttribute("kingHasErrors", true);
+      model.addAttribute("sourceHasErrors", false);
+      model.addAttribute("newSource", new SourceDTO());
       return "edit";
     }
-    logger.info(String.valueOf(editObjectDTO));
-    kingService.saveKing(editObjectDTO);
+    model.addAttribute("newKing", new KingDTO());
+    model.addAttribute("newSource", new SourceDTO());
+    model.addAttribute("sourceHasErrors", false);
+    model.addAttribute("kingHasErrors", false);
+    kingService.saveKing(king);
+    model.addAttribute("isKing", true);
+    logger.info(String.valueOf(king));
     return "edit";
   }
 
   @PostMapping("/new/source")
   public String saveSource(
-      @ModelAttribute("newSource") @Validated SourceDTO source,
-      BindingResult bindingResult,
-      Model model) {
+    @ModelAttribute("newSource") @Validated SourceDTO source,
+    BindingResult bindingResult,
+    Model model) {
     logger.info("Incoming request for '/new/source' with method: POST");
     if (bindingResult.hasErrors()) {
       model.addAttribute("sourceHasErrors", true);
@@ -68,7 +79,6 @@ public class EditController {
     model.addAttribute("kingHasErrors", false);
     sourceService.saveSource(source);
     model.addAttribute("isSource", true);
-    model.addAttribute("isNew", true);
     return "edit";
   }
 
