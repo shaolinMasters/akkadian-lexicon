@@ -109,6 +109,7 @@ public class EditController {
     addModelsToEditPage(m);
     m.addAttribute("isSource", true);
     m.addAttribute("isDelete", true);
+    m.addAttribute("id", 0);
     return "edit";
   }
 

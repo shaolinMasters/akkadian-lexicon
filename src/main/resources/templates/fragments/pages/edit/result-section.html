@@ -1,5 +1,6 @@
 <section th:style="${isDelete ? 'display:block' : 'display:none'}">
     <div class="container pt-5 pb-5 position-relative" th:style="${isSource  ? 'display:block' : 'display:none'}">
+
         <tr th:each="source: ${sources}">
             <div class="d-flex bd-highlight mb-3 align-items-center">
                 <div class="p-2">
@@ -7,12 +8,38 @@
                 </div>
                 <div class="ms-auto p-2">
                     <span>
-                         <button type="button" id="source-delete-button" class="btn btn-outline-danger">Delete</button>
+                         <button th:value="${source.getId()}" type="button" class="btn btn-outline-danger source-delete-button" data-bs-toggle="modal" data-bs-target="#delete-source-modal">Delete</button>
                     </span>
                 </div>
             </div>
             <hr>
         </tr>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="delete-source-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete?
+                </div>
+                <div class="modal-footer">
+                    <form id="create-source-form"
+                          data-th-object="${id}"
+                          method="post"
+                          data-th-action="@{/edit/delete/source}"
+                          action="/edit/delete/source">
+                        <input id="removable-source-input" type="hidden" value="1" name="id">
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 

@@ -62,4 +62,12 @@ document.getElementById('sources-delete-button').onclick = function() {
     window.location = "edit?option=source&action=delete";
 }
 
+const removableSourceInput = document.getElementById('removable-source-input');
 
+const sourceDeleteButtons = document.querySelectorAll(".source-delete-button");
+sourceDeleteButtons.forEach(button => {
+
+    button.addEventListener('click', () => {
+        removableSourceInput.value = button.value;
+    });
+});
