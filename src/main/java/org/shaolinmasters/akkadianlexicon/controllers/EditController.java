@@ -1,7 +1,9 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.SourceDTO;
+import org.shaolinmasters.akkadianlexicon.models.King;
 import org.shaolinmasters.akkadianlexicon.services.*;
 
 import org.slf4j.Logger;
@@ -38,13 +40,17 @@ public class EditController {
   @PostMapping("/new/source")
   public String saveSource(@ModelAttribute("newSource") @Validated SourceDTO source, BindingResult bindingResult, Model model) {
     logger.info("Incoming request for '/new/source' with method: POST");
+    model.addAttribute("isSource", true);
     if (bindingResult.hasErrors()) {
-      model.addAttribute("isSource", true);
+      logger.info("Adding modelattribute(named: newSource): " + source + "to view: edit");
+      model.addAttribute("newSource", source);
+      List<King> kings = kingService.findAllKings();
+      logger.info("Adding modelattribute(named: kings): " + kings + "to view: edit");
+      model.addAttribute("kings", kings);
       return "/edit";
     }
     sourceService.saveSource(source);
     addModelsToEditPage(model);
-    model.addAttribute("isSource", true);
     return "edit";
   }
 
@@ -59,7 +65,11 @@ public class EditController {
 
 
   public void addModelsToEditPage(Model model){
-    model.addAttribute("newSource", new SourceDTO());
-    model.addAttribute("kings", kingService.findAllKings());
+    SourceDTO sourceDTO = new SourceDTO();
+    logger.info("Adding modelattribute(named: newSource): " + sourceDTO);
+    model.addAttribute("newSource", sourceDTO);
+    List<King> kings = kingService.findAllKings();
+    logger.info("Adding modelattribute(named: kings): " + kings);
+    model.addAttribute("kings", kings);
   }
 }
