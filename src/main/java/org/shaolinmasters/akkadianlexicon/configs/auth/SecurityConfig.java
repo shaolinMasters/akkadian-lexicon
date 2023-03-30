@@ -20,7 +20,8 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http.authorizeHttpRequests()
-        .requestMatchers("/", "/search", "/about", "/css/**", "/js/**", "/**").permitAll()
+        .requestMatchers("/", "/search", "/about", "/css/**", "/js/**", "/**")
+        .permitAll()
         .and()
         .formLogin()
         .loginProcessingUrl("/login-user")
@@ -28,7 +29,11 @@ public class SecurityConfig {
         .defaultSuccessUrl("/", true)
         .permitAll()
         .and()
-        .logout().invalidateHttpSession(true).deleteCookies("JSESSIONID").logoutSuccessUrl("/").permitAll()
+        .logout()
+        .invalidateHttpSession(true)
+        .deleteCookies("JSESSIONID")
+        .logoutSuccessUrl("/")
+        .permitAll()
         .and()
         .userDetailsService(userDetailsService)
         .build();

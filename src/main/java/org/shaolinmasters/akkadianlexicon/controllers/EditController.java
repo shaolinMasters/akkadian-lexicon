@@ -2,10 +2,10 @@ package org.shaolinmasters.akkadianlexicon.controllers;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.shaolinmasters.akkadianlexicon.dtos.KingDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.SourceDTO;
 import org.shaolinmasters.akkadianlexicon.models.King;
 import org.shaolinmasters.akkadianlexicon.services.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -32,16 +32,59 @@ public class EditController {
   @GetMapping
   public String get(Model m) {
     logger.info("Incoming request for '/edit' with method: GET");
+    m.addAttribute("newSource", new SourceDTO());
+    m.addAttribute("kings", kingService.findAllKings());
+    m.addAttribute("newKing", new KingDTO());
+    m.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
+    m.addAttribute("sourceHasErrors", false);
+    m.addAttribute("kingHasErrors", false);
+    return "edit";
+  }
+
+  @PostMapping("/new/king")
+  public String saveKing(
+    @ModelAttribute("newKing") @Validated KingDTO king,
+    BindingResult bindingResult,
+    Model model) {
+    logger.info("Incoming request for '/new/king' with method: POST");
+    if (bindingResult.hasErrors()) {
+      model.addAttribute("kingHasErrors", true);
+      model.addAttribute("sourceHasErrors", false);
+      model.addAttribute("newSource", new SourceDTO());
+      model.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
+      model.addAttribute("kings", kingService.findAllKings());
+      return "edit";
+    }
+    model.addAttribute("newKing", new KingDTO());
+    model.addAttribute("newSource", new SourceDTO());
+    model.addAttribute("sourceHasErrors", false);
+    model.addAttribute("kingHasErrors", false);
+    model.addAttribute("kings", kingService.findAllKings());
+    model.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
+    kingService.saveKing(king);
+    model.addAttribute("isKing", true);
+    logger.info(String.valueOf(king));
     addModelsToEditPage(m);
     m.addAttribute("isSource", false);
+
     return "edit";
   }
 
   @PostMapping("/new/source")
-  public String saveSource(@ModelAttribute("newSource") @Validated SourceDTO source, BindingResult bindingResult, Model model) {
+  public String saveSource(
+    @ModelAttribute("newSource") @Validated SourceDTO source,
+    BindingResult bindingResult,
+    Model model) {
     logger.info("Incoming request for '/new/source' with method: POST");
     model.addAttribute("isSource", true);
     if (bindingResult.hasErrors()) {
+
+      model.addAttribute("sourceHasErrors", true);
+      model.addAttribute("kingHasErrors", false);
+      model.addAttribute("newKing", new KingDTO());
+      model.addAttribute("kings", kingService.findAllKings());
+      model.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
+
       logger.info("Adding modelattribute(named: newSource): " + source + "to view: edit");
       model.addAttribute("newSource", source);
       List<King> kings = kingService.findAllKings();
@@ -49,11 +92,19 @@ public class EditController {
       model.addAttribute("kings", kings);
       return "/edit";
     }
+    model.addAttribute("newKing", new KingDTO());
+    model.addAttribute("newSource", new SourceDTO());
+    model.addAttribute("sourceHasErrors", false);
+    model.addAttribute("kingHasErrors", false);
+    model.addAttribute("kings", kingService.findAllKings());
+    model.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
     sourceService.saveSource(source);
+
+    model.addAttribute("isSource", true);
+
     addModelsToEditPage(model);
     return "edit";
   }
-
 
   @PostMapping("/delete/source")
   public String deleteSource(@RequestParam Long id, Model m) {
