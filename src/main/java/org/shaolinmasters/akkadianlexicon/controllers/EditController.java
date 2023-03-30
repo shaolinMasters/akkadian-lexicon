@@ -104,6 +104,16 @@ public class EditController {
   }
 
 
+  @PostMapping("/delete/king")
+  public String deleteKing(@RequestParam Long id, Model m) {
+    m.addAttribute("isKing", true);
+    m.addAttribute("isDelete", true);
+    kingService.deleteKingById(id);
+    return "edit";
+  }
+
+
+
   public void addModelsToEditPage(Model model){
     SourceDTO sourceDTO = new SourceDTO();
     logger.info("Adding modelattribute(named: newSource): " + sourceDTO);
