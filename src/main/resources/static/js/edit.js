@@ -49,11 +49,17 @@ radioButtons.forEach(radioButton => {
     });
 });
 
-document.getElementById('source-new-button').onclick = function() {
-    createSourceForm.style.display = 'block';
+document.getElementById('sources-new-button').onclick = function() {
+    // createSourceForm.style.display = 'block';
+    window.location = "edit?option=source&action=create";
 }
 
 document.getElementById('king-new-button').onclick = function() {
     createKingForm.style.display = 'block';
 }
+
+document.getElementById('sources-delete-button').onclick = function() {
+    window.location = "edit?option=source&action=delete";
+}
+
 

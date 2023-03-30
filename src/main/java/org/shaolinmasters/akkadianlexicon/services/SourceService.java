@@ -66,7 +66,7 @@ public class SourceService {
   }
 
   public List<Source> listAllSourcesByTitleAsc() {
-    return sourceRepository.findByOrderByTitleAsc();
+    return sourceRepository.findAllOrderByTitleAsc();
   }
 
   @Transactional
@@ -74,7 +74,7 @@ public class SourceService {
     sourceRepository.deleteById(id);
   }
 
-  public List<Source> listAllSourcesWithoutKingIdByTitleAsc() {
-    return sourceRepository.findByKing_IdOrderByTitleAsc();
+  public List<Source> listAllSourcesWithoutKingByTitleAsc() {
+    return sourceRepository.findAllByKingIdNullOrderByTitleAsc();
   }
 }

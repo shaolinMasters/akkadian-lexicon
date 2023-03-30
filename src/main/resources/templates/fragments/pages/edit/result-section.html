@@ -1,0 +1,18 @@
+<section th:style="${isDelete ? 'display:block' : 'display:none'}">
+    <div class="container pt-5 pb-5 position-relative" th:style="${isSource  ? 'display:block' : 'display:none'}">
+        <tr th:each="source: ${sources}">
+            <div class="d-flex bd-highlight mb-3 align-items-center">
+                <div class="p-2">
+                    <span class="align-middle" th:text="${source.getTitle()}"></span>
+                </div>
+                <div class="ms-auto p-2">
+                    <span>
+                         <button type="button" id="source-delete-button" class="btn btn-outline-danger">Delete</button>
+                    </span>
+                </div>
+            </div>
+            <hr>
+        </tr>
+    </div>
+</section>
+

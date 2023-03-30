@@ -29,9 +29,8 @@ public class KingService {
     this.sourceService = sourceService;
   }
 
-  public List<King> findAllKings() {
-    List<King> kings = kingRepository.findAllOrderByRegnalYearFromAscNameAsc();
-    return kings.isEmpty() ? List.of() : kings;
+  public List<King> findAllKingsOrderByRegnalYearFromAscNameAsc() {
+    return kingRepository.findAllOrderByRegnalYearFromAscNameAsc();
   }
 
   public King findKingById(Long id) {

@@ -14,13 +14,13 @@ public interface SourceRepositoryI extends JpaRepository<Source, Long> {
   Optional<Source> findByTitle(String title);
 
   @Query("select s from Source s order by s.title")
-  List<Source> findByOrderByTitleAsc();
+  List<Source> findAllOrderByTitleAsc();
 
   @Query("select s from Source s where s.king = ?1")
   List<Source> findByKing(@Nullable King king);
 
   @Query("select s from Source s where s.king.id is null order by s.title")
-  List<Source> findByKing_IdOrderByTitleAsc();
+  List<Source> findAllByKingIdNullOrderByTitleAsc();
 
   @Query("select s from Source s where s.king = ?1 order by s.title")
   List<Source> findAllByKingOrderByTitleAsc(King king);
