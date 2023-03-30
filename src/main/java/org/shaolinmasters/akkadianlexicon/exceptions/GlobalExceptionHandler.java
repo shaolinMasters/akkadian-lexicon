@@ -19,6 +19,15 @@ public class GlobalExceptionHandler {
 
   private final SearchController searchController;
 
+  @ResponseStatus
+  @ExceptionHandler(Exception.class)
+  public String handleException( HttpServletRequest request,Exception ex){
+    String requestURI = request.getRequestURI();
+    logger.error("Requested URI: " + requestURI);
+    logger.error("Exception Raised: " + ex);
+    return "edit";
+  }
+
   @ResponseStatus(value = HttpStatus.NOT_FOUND)
   @ExceptionHandler(ResourceNotFoundException.class)
   public String handleResourceNotFoundException(

@@ -1,11 +1,17 @@
 package org.shaolinmasters.akkadianlexicon.services;
 
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.shaolinmasters.akkadianlexicon.dtos.KingDTO;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
 import org.shaolinmasters.akkadianlexicon.models.King;
+import org.shaolinmasters.akkadianlexicon.models.Source;
 import org.shaolinmasters.akkadianlexicon.repositories.KingRepositoryI;
+import org.shaolinmasters.akkadianlexicon.utils.YearAttributeConverter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +19,15 @@ import org.springframework.stereotype.Service;
 public class KingService {
 
   private final KingRepositoryI kingRepository;
+
+  private SourceService sourceService;
+
+  private final YearAttributeConverter yearAttributeConverter;
+
+  @Autowired
+  public void setSourceService(@Lazy SourceService sourceService) {
+    this.sourceService = sourceService;
+  }
 
   public List<King> findAllKings() {
     List<King> kings = kingRepository.findAllOrderByRegnalYearFromAscNameAsc();
@@ -33,5 +48,30 @@ public class KingService {
       return result.get();
     }
     throw new ResourceNotFoundException("Not found king with name: " + name);
+  }
+
+  @Transactional
+  public void saveKing(KingDTO kingDTO) {
+    if (!(kingDTO.getSourceId() == 0)) {
+      Source source = sourceService.findSourceById(kingDTO.getSourceId());
+      King king =
+        new King(
+          kingDTO.getKingName(),
+          yearAttributeConverter.convertToEntityAttribute(Short.parseShort(kingDTO.getRegnalYearFrom())),
+          yearAttributeConverter.convertToEntityAttribute(Short.parseShort(kingDTO.getRegnalYearTo())),
+          source);
+      source.setKing(king);
+      kingRepository.save(king);
+    } else {
+      King king =
+        new King(
+          kingDTO.getKingName(),
+          yearAttributeConverter.convertToEntityAttribute(Short.parseShort(kingDTO.getRegnalYearFrom())),
+          yearAttributeConverter.convertToEntityAttribute(Short.parseShort(kingDTO.getRegnalYearTo())),
+          null);
+      kingRepository.save(king);
+    }
+
+
   }
 }

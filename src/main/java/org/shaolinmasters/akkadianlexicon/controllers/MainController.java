@@ -1,7 +1,8 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
+
 import lombok.RequiredArgsConstructor;
-import org.shaolinmasters.akkadianlexicon.models.WebContent;
+import org.shaolinmasters.akkadianlexicon.models.*;
 import org.shaolinmasters.akkadianlexicon.services.WebContentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

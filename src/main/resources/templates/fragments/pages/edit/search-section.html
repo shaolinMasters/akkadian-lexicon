@@ -1,4 +1,4 @@
-<section class="bg-light">
+<section class="search-bg">
     <div class="container p-5">
         <form name="searchForm" th:object="${sourceDTO}" method="post" th:action="@{/edit}">
             <div class="row mb-3 text-center">
@@ -48,8 +48,8 @@
 <!--                        </td>-->
 <!--                        <br>-->
 <!--                    </tr>-->
-                    <button type="button" class="btn btn-success">New</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                    <button type="button" id="king-new-button" class="btn btn-success">New</button>
+                    <button type="button"  class="btn btn-danger">Delete</button>
                 </div>
             </div>
             <div id="source-field">

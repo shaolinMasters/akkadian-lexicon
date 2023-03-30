@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class CustomErrorController implements ErrorController {
+public class CustomErrorController
+  implements ErrorController
+{
 
   private final Logger logger = LoggerFactory.getLogger(CustomErrorController.class);
 

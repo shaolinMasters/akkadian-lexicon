@@ -2,6 +2,7 @@ package org.shaolinmasters.akkadianlexicon.models;
 
 import jakarta.persistence.*;
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import lombok.Getter;
@@ -35,7 +36,7 @@ public class King {
 
   @OneToMany(mappedBy = "king", fetch = FetchType.LAZY)
   @Exclude
-  private List<Source> sources;
+  private List<Source> sources = new ArrayList<>();
 
   @Override
   public boolean equals(Object o) {
@@ -54,5 +55,16 @@ public class King {
   @Override
   public int hashCode() {
     return Objects.hash(name, regnalYearFrom, regnalYearTo);
+  }
+
+  public void addSource(Source source) {
+    this.sources.add(source);
+  }
+
+  public King(String name, Year regnalYearFrom, Year regnalYearTo, Source source) {
+    this.name = name;
+    this.sources.add(source);
+    this.regnalYearFrom = regnalYearFrom;
+    this.regnalYearTo = regnalYearTo;
   }
 }

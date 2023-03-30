@@ -10,7 +10,8 @@
                 <li class="nav-item px-2"><a th:class="${#ctx.getExchange().getRequest().getRequestPath() == '/search'} ? 'active nav-link px-3' : 'nav-link px-3'" th:href="@{/search}">Search</a></li>
                 <li class="nav-item px-2"><a th:class="${#ctx.getExchange().getRequest().getRequestPath() == '/about'} ? 'active nav-link px-3' : 'nav-link px-3'"  th:href="@{/about}">About</a></li>
                 <li class="nav-item px-2"><a th:class="${#ctx.getExchange().getRequest().getRequestPath() == '/bibliography'} ? 'active nav-link px-3' : 'nav-link px-3'"  th:href="@{/bibliography}">Bibliography</a></li>
-                <li sec:authorize="isAuthenticated()" class="nav-item px-2"><a th:class="${#ctx.getExchange().getRequest().getRequestPath() == '/edit'} ? 'active nav-link px-3' : 'nav-link px-3'"  th:href="@{/edit}">Edit</a></li>
+               <li sec:authorize="isAuthenticated()"
+                 class="nav-item px-2"><a th:class="${#ctx.getExchange().getRequest().getRequestPath() == '/edit'} ? 'active nav-link px-3' : 'nav-link px-3'"  th:href="@{/edit}">Edit</a></li>
             </ul>
 
             <div sec:authorize="isAuthenticated()">
@@ -24,7 +25,6 @@
                     <a class="btn btn-light me-2" th:href="@{'/login'}" role="button">Sign in</a>
                 </div>
             </div>
-
         </div>
     </div>
 </header>

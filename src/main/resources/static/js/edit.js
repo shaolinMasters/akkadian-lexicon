@@ -5,6 +5,7 @@ const searchField = document.getElementById('search-field');
 const kingField = document.getElementById('king-field');
 const sourceField = document.getElementById('source-field');
 const createSourceForm = document.getElementById('create-source-form');
+const createKingForm = document.getElementById('create-king-form');
 
 radioButtons.forEach(radioButton => {
     //if radio button is checked
@@ -24,26 +25,35 @@ radioButtons.forEach(radioButton => {
             searchField.style.display = 'block';
             kingField.style.display = 'none';
             sourceField.style.display = 'none';
+            createSourceForm.style.display = 'none';
+            createKingForm.style.display = 'none';
 
         } else if (radioButton.value === 'king') {
             kingField.style.display = 'block';
             searchField.style.display = 'none';
             sourceField.style.display = 'none';
+            createSourceForm.style.display = 'none';
 
         } else if (radioButton.value === 'source') {
             sourceField.style.display = 'block';
             kingField.style.display = 'none';
             searchField.style.display = 'none';
+            createKingForm.style.display ='none';
 
         } else {
             kingField.style.display = 'none';
             searchField.style.display = 'none';
             sourceField.style.display = 'none';
+            createSourceForm.style.display = 'none';
         }
     });
 });
 
 document.getElementById('source-new-button').onclick = function() {
     createSourceForm.style.display = 'block';
+}
+
+document.getElementById('king-new-button').onclick = function() {
+    createKingForm.style.display = 'block';
 }
 
