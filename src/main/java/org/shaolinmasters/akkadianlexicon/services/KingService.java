@@ -51,15 +51,27 @@ public class KingService {
   }
 
   @Transactional
-  public void saveKing(KingDTO editObjectDTO) {
-    Source source = sourceService.findSourceById(editObjectDTO.getSourceId());
-    King king =
+  public void saveKing(KingDTO kingDTO) {
+    if (!(kingDTO.getSourceId() == 0)) {
+      Source source = sourceService.findSourceById(kingDTO.getSourceId());
+      King king =
         new King(
-            editObjectDTO.getKingName(),
-            yearAttributeConverter.convertToEntityAttribute(editObjectDTO.getRegnalYearFrom()),
-            yearAttributeConverter.convertToEntityAttribute(editObjectDTO.getRegnalYearTo()),
-            source);
-    source.setKing(king);
-    kingRepository.save(king);
+          kingDTO.getKingName(),
+          yearAttributeConverter.convertToEntityAttribute(Short.parseShort(kingDTO.getRegnalYearFrom())),
+          yearAttributeConverter.convertToEntityAttribute(Short.parseShort(kingDTO.getRegnalYearTo())),
+          source);
+      source.setKing(king);
+      kingRepository.save(king);
+    } else {
+      King king =
+        new King(
+          kingDTO.getKingName(),
+          yearAttributeConverter.convertToEntityAttribute(Short.parseShort(kingDTO.getRegnalYearFrom())),
+          yearAttributeConverter.convertToEntityAttribute(Short.parseShort(kingDTO.getRegnalYearTo())),
+          null);
+      kingRepository.save(king);
+    }
+
+
   }
 }

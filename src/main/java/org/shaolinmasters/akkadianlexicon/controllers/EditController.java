@@ -49,12 +49,17 @@ public class EditController {
       model.addAttribute("kingHasErrors", true);
       model.addAttribute("sourceHasErrors", false);
       model.addAttribute("newSource", new SourceDTO());
+      model.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
+      model.addAttribute("kings", kingService.findAllKings());
       return "edit";
     }
     model.addAttribute("newKing", new KingDTO());
     model.addAttribute("newSource", new SourceDTO());
     model.addAttribute("sourceHasErrors", false);
     model.addAttribute("kingHasErrors", false);
+    model.addAttribute("kings", kingService.findAllKings());
+    model.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
+
     kingService.saveKing(king);
     model.addAttribute("isKing", true);
     logger.info(String.valueOf(king));
@@ -71,12 +76,17 @@ public class EditController {
       model.addAttribute("sourceHasErrors", true);
       model.addAttribute("kingHasErrors", false);
       model.addAttribute("newKing", new KingDTO());
+      model.addAttribute("kings", kingService.findAllKings());
+      model.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
+
       return "/edit";
     }
     model.addAttribute("newKing", new KingDTO());
     model.addAttribute("newSource", new SourceDTO());
     model.addAttribute("sourceHasErrors", false);
     model.addAttribute("kingHasErrors", false);
+    model.addAttribute("kings", kingService.findAllKings());
+    model.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
     sourceService.saveSource(source);
     model.addAttribute("isSource", true);
     return "edit";

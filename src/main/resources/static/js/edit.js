@@ -26,6 +26,7 @@ radioButtons.forEach(radioButton => {
             kingField.style.display = 'none';
             sourceField.style.display = 'none';
             createSourceForm.style.display = 'none';
+            createKingForm.style.display = 'none';
 
         } else if (radioButton.value === 'king') {
             kingField.style.display = 'block';

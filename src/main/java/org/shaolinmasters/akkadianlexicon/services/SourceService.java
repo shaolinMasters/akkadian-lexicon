@@ -75,6 +75,6 @@ public class SourceService {
   }
 
   public List<Source> listAllSourcesWithoutKingIdByTitleAsc() {
-    return sourceRepository.findByKing(null);
+    return sourceRepository.findByKing_IdOrderByTitleAsc();
   }
 }
