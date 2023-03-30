@@ -1,9 +1,12 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.KingDTO;
+import org.shaolinmasters.akkadianlexicon.dtos.NotVerbDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.SourceDTO;
+import org.shaolinmasters.akkadianlexicon.dtos.VerbDTO;
 import org.shaolinmasters.akkadianlexicon.models.King;
 import org.shaolinmasters.akkadianlexicon.models.Source;
 import org.shaolinmasters.akkadianlexicon.services.*;
@@ -30,6 +33,8 @@ public class EditController {
 
   private final SourceService sourceService;
 
+  private final WordService wordService;
+
   @GetMapping
   public String get(Model m) {
     logger.info("Incoming request for '/edit' with method: GET");
@@ -37,8 +42,11 @@ public class EditController {
     m.addAttribute("kings", kingService.findAllKings());
     m.addAttribute("newKing", new KingDTO());
     m.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
+    m.addAttribute("newVerb", new VerbDTO());
+    m.addAttribute("newNotVerb", new NotVerbDTO());
     m.addAttribute("sourceHasErrors", false);
     m.addAttribute("kingHasErrors", false);
+    m.addAttribute("wordHasErrors", false);
     return "edit";
   }
 
@@ -51,15 +59,17 @@ public class EditController {
     if (bindingResult.hasErrors()) {
       model.addAttribute("kingHasErrors", true);
       model.addAttribute("sourceHasErrors", false);
+      model.addAttribute("wordHasErrors", false);
       model.addAttribute("newSource", new SourceDTO());
       model.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
       model.addAttribute("kings", kingService.findAllKings());
-      return "edit";
+      return "/edit";
     }
     model.addAttribute("sourceHasErrors", false);
     model.addAttribute("kingHasErrors", false);
+    model.addAttribute("wordHasErrors", false);
     model.addAttribute("isKing", true);
-    model.addAttribute("isSource", false);
+
     logger.info(String.valueOf(king));
     kingService.saveKing(king);
     addModelsToEditPage(model);
@@ -78,6 +88,7 @@ public class EditController {
 
       model.addAttribute("sourceHasErrors", true);
       model.addAttribute("kingHasErrors", false);
+      model.addAttribute("wordHasErrors", false);
       model.addAttribute("newKing", new KingDTO());
 
       logger.info("Adding modelattribute(named: newSource): " + source + "to view: edit");
@@ -89,6 +100,7 @@ public class EditController {
     }
     model.addAttribute("sourceHasErrors", false);
     model.addAttribute("kingHasErrors", false);
+    model.addAttribute("wordHasErrors", false);
     model.addAttribute("isSource", true);
     sourceService.saveSource(source);
     addModelsToEditPage(model);
@@ -103,8 +115,48 @@ public class EditController {
     return "edit";
   }
 
+  @PostMapping("/new/verb")
+  public String saveVerb(
+    @ModelAttribute  VerbDTO verb,
+    Model model
+  ) {
+    logger.info("Incoming request for '/new/source' with method: POST");
+    model.addAttribute("isWord", true);
+    model.addAttribute("sourceHasErrors", false);
+    model.addAttribute("kingHasErrors", false);
+    model.addAttribute("wordHasErrors", false);
+    wordService.saveVerb(verb);
+    addModelsToEditPage(model);
+    logger.info(String.valueOf(verb));
 
-  public void addModelsToEditPage(Model model){
+    return "/edit";
+  }
+
+  @PostMapping("/new/not-verb")
+  public String saveNotVerb(
+    @ModelAttribute  NotVerbDTO notVerb,
+    Model model
+  ) {
+    logger.info("Incoming request for '/new/source' with method: POST");
+    model.addAttribute("isWord", true);
+    String wordClass = notVerb.getWordClass();
+    switch (wordClass) {
+      case "noun" -> wordService.saveNoun(notVerb);
+      case "adjective" -> wordService.saveAdjective(notVerb);
+      case "pronoun" -> wordService.savePronoun(notVerb);
+      case "adverb" -> wordService.saveAdverb(notVerb);
+    }
+    model.addAttribute("sourceHasErrors", false);
+    model.addAttribute("kingHasErrors", false);
+    model.addAttribute("wordHasErrors", false);
+    addModelsToEditPage(model);
+    logger.info(String.valueOf(notVerb));
+
+    return "edit";
+  }
+
+
+  public void addModelsToEditPage(Model model) {
     SourceDTO sourceDTO = new SourceDTO();
     logger.info("Adding modelattribute(named: newSource): " + sourceDTO);
     model.addAttribute("newSource", sourceDTO);
@@ -117,5 +169,11 @@ public class EditController {
     List<Source> sources = sourceService.listAllSourcesWithoutKingIdByTitleAsc();
     logger.info("Adding modelattribute(named: sources): " + sources);
     model.addAttribute("sources", sources);
+    VerbDTO verbDTO = new VerbDTO();
+    logger.info("Adding modelattribute(named: newWord): " + verbDTO);
+    model.addAttribute("newVerb", verbDTO);
+    NotVerbDTO notVerbDTO = new NotVerbDTO();
+    logger.info("Adding modelattribute(named: newWord): " + notVerbDTO);
+    model.addAttribute("newNotVerb", notVerbDTO);
   }
 }
