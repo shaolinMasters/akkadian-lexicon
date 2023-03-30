@@ -28,7 +28,10 @@ public class SourceService {
   }
   @Transactional
   public void saveSource(SourceDTO sourceDTO) {
-    King king = kingService.findKingById(sourceDTO.getKingId());
+    King king = null;
+    if(sourceDTO.getKingId() != null){
+      king = kingService.findKingById(sourceDTO.getKingId());
+    }
     Source source = new Source(sourceDTO.getTitle(), sourceDTO.getCatalogueRef(), sourceDTO.getText(), king, sourceDTO.getBibliography());
     sourceRepository.save(source);
   }
