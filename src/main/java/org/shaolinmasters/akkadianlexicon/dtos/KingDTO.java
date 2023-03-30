@@ -11,10 +11,10 @@ public class KingDTO {
   @NotEmpty
   private String kingName;
 
-  @Size(min = 4,max = 4)
+//  @Size(min = 4,max = 4)
   private Short regnalYearFrom;
 
-  @Size(min = 4,max = 4)
+//  @Size(min = 4,max = 4)
   private Short regnalYearTo;
 
   private Long sourceId;
