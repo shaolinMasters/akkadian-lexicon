@@ -73,4 +73,9 @@ public class KingService {
 
 
   }
+
+  @Transactional
+  public void deleteKingById(Long id) {
+    kingRepository.deleteById(id);
+  }
 }

@@ -61,7 +61,7 @@
         </form>
         <form id="create-king-form"
               data-th-object="${newKing}"
-              th:style="${kingHasErrors ? 'display:block' : 'display:none'}"
+              th:style="${kingHasErrors || (isCreate && isKing) ? 'display:block' : 'display:none'}"
               method="post"
               data-th-action="@{/edit/new/king}"
               action="/king">

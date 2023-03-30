@@ -22,24 +22,11 @@ radioButtons.forEach(radioButton => {
     radioButton.addEventListener('change', () => {
 
         if (radioButton.value === 'word') {
-            searchField.style.display = 'block';
-            kingField.style.display = 'none';
-            sourceField.style.display = 'none';
-            createSourceForm.style.display = 'none';
-            createKingForm.style.display = 'none';
-
+            window.location = "edit?option=word";
         } else if (radioButton.value === 'king') {
-            kingField.style.display = 'block';
-            searchField.style.display = 'none';
-            sourceField.style.display = 'none';
-            createSourceForm.style.display = 'none';
-
+           window.location = "edit?option=king";
         } else if (radioButton.value === 'source') {
-            sourceField.style.display = 'block';
-            kingField.style.display = 'none';
-            searchField.style.display = 'none';
-            createKingForm.style.display ='none';
-
+            window.location = "edit?option=source";
         } else {
             kingField.style.display = 'none';
             searchField.style.display = 'none';
@@ -50,24 +37,38 @@ radioButtons.forEach(radioButton => {
 });
 
 document.getElementById('sources-new-button').onclick = function() {
-    // createSourceForm.style.display = 'block';
     window.location = "edit?option=source&action=create";
 }
 
-document.getElementById('king-new-button').onclick = function() {
-    createKingForm.style.display = 'block';
+document.getElementById('kings-new-button').onclick = function() {
+    window.location = "edit?option=king&action=create";
 }
 
 document.getElementById('sources-delete-button').onclick = function() {
     window.location = "edit?option=source&action=delete";
 }
 
+document.getElementById('kings-delete-button').onclick = function() {
+    window.location = "edit?option=king&action=delete";
+}
+
 const removableSourceInput = document.getElementById('removable-source-input');
+const removableKingInput = document.getElementById('removable-king-input');
+
 
 const sourceDeleteButtons = document.querySelectorAll(".source-delete-button");
-sourceDeleteButtons.forEach(button => {
+const kingDeleteButtons = document.querySelectorAll(".king-delete-button");
 
+sourceDeleteButtons.forEach(button => {
     button.addEventListener('click', () => {
         removableSourceInput.value = button.value;
     });
 });
+
+kingDeleteButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        removableKingInput.value = button.value;
+    });
+});
+
+
