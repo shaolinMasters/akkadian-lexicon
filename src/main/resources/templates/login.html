@@ -8,7 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/login.css}"/>
 </head>
 <body>
-<header th:replace="~{fragments/login-header.html}"></header>
+<header th:replace="~{fragments/header.html}"></header>
 <div class="center">
     <div class="messages" th:if="${param.error}">
         Invalid username and password.
@@ -32,6 +32,6 @@
         <input type="submit" value="Login">
     </form>
 </div>
-<footer th:replace="~{fragments/login-footer.html}"></footer>
+<footer th:replace="~{fragments/footer.html}"></footer>
 </body>
 </html>
