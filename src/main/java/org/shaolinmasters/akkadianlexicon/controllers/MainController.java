@@ -1,7 +1,8 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
+
 import lombok.RequiredArgsConstructor;
-import org.shaolinmasters.akkadianlexicon.models.WebContent;
+import org.shaolinmasters.akkadianlexicon.models.*;
 import org.shaolinmasters.akkadianlexicon.services.WebContentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +27,6 @@ public class MainController {
     model.addAttribute("content", aContent);
     return "home";
   }
-
 
   @GetMapping("/about")
   public String getAboutPage(Model model) {
@@ -57,6 +57,4 @@ public class MainController {
     logger.info("Incoming request for '/login' with method: GET");
     return "login";
   }
-
 }
-

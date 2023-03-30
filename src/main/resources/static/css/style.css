@@ -1,6 +1,7 @@
 html {
     position: relative;
     min-height: 100%;
+    background-color: #eddecc;
 }
 
 body {
@@ -27,7 +28,7 @@ h2 {
 }
 
 .nav-link{
-    color: azure;
+    color: #eddecc;
 
 }
 .nav-link:hover{
@@ -46,6 +47,49 @@ h2 {
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
     background-color: #5e3812;
+    color: #eddecc;
 }
 
+.btn-beige{
+    --bs-btn-color: #000;
+    --bs-btn-bg: #eddecc;
+    --bs-btn-border-color: #eddecc;
+    --bs-btn-hover-color: #000;
+    --bs-btn-hover-bg: #bfb09d;
+    --bs-btn-hover-border-color: #bfb09d;
+    --bs-btn-focus-shadow-rgb: 211,212,213;
+    --bs-btn-active-color: #000;
+    --bs-btn-active-bg: #bfb09d;
+    --bs-btn-active-border-color: #bfb09d;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #000;
+    --bs-btn-disabled-bg: #eddecc;
+    --bs-btn-disabled-border-color: #eddecc;
+}
 
+.btn-outline-beige {
+    --bs-btn-color: #eddecc;
+    --bs-btn-border-color: #eddecc;
+    --bs-btn-hover-color: #000;
+    --bs-btn-hover-bg: #eddecc;
+    --bs-btn-hover-border-color: #eddecc;
+    --bs-btn-focus-shadow-rgb: 248,249,250;
+    --bs-btn-active-color: #000;
+    --bs-btn-active-bg: #eddecc;
+    --bs-btn-active-border-color: #eddecc;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #eddecc;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #eddecc;
+    --bs-gradient: none
+}
+
+.btn-outline-beige.btn:hover {
+    color: var(--bs-btn-hover-color);
+    background-color: var(--bs-btn-hover-bg);
+    border-color: var(--bs-btn-hover-border-color);
+}
+
+main{
+    background-color:#eddecc;
+}

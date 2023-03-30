@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    <meta charset="utf-8">
     <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-keyboard@3.5.40/build/css/index.min.css" rel="stylesheet">
+    <!--/*/ <th:block th:insert="~{fragments/header-files.html}">
+            </th:block> /*/-->
     <link rel="stylesheet" th:href="@{/css/login.css}"/>
 </head>
 <body>
+<header th:replace="~{fragments/header.html}"></header>
 <div class="center">
-    <div th:if="${param.error}">
+    <div class="messages" th:if="${param.error}">
         Invalid username and password.
     </div>
-    <div th:if="${param.logout}">
+    <div class="messages" th:if="${param.logout}">
         You have been logged out.
     </div>
-    <h1>Akkadian Lexicon</h1>
-    <form th:action="@{/login}" method="post">
+    <h1>Admin Login</h1>
+    <form th:action="@{/login-user}" method="post">
         <div class="txt_field">
             <input type="text" class="form-control" id="username" required name="username">
             <span></span>
@@ -29,5 +32,6 @@
         <input type="submit" value="Login">
     </form>
 </div>
+<footer th:replace="~{fragments/footer.html}"></footer>
 </body>
 </html>

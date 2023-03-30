@@ -3,8 +3,10 @@ package org.shaolinmasters.akkadianlexicon.utils;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 import java.time.Year;
+import org.springframework.stereotype.Component;
 
 @Converter(autoApply = true)
+@Component
 public class YearAttributeConverter implements AttributeConverter<Year, Short> {
 
   @Override

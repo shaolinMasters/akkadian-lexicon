@@ -1,5 +1,9 @@
 package org.shaolinmasters.akkadianlexicon.dtos;
 
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotEmpty;
+import java.util.Optional;
+import java.util.OptionalLong;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,15 +12,14 @@ import lombok.ToString;
 @Setter
 @ToString
 public class SourceDTO {
-
+  @NotEmpty(message = "Title must not be empty.")
   private String title;
-
+  @NotEmpty(message = "Catalogue Reference must not be empty.")
   private String catalogueRef;
-
+  @NotEmpty(message = "Bibliography must not be empty")
   private String bibliography;
-
+  @NotEmpty(message = "Text must not be emtpy")
   private String text;
-
+  @Nullable
   private Long kingId;
-
 }
