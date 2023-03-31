@@ -112,6 +112,70 @@
             <!-- Submit button -->
             <button type="submit" class="btn btn-primary btn-block mb-4">Send</button>
         </form>
+        <div class="form-outline mb-4" th:style="${isWord && isCreate ? 'display:block' : 'display:none'}">
+            <label class="form-label" for="dropdown-sources">Choose the word-class: </label>
+            <select  class="form-control" id="dropdown-wordClasses">
+                <option value="0">Select a specific word-class</option>
+                <option  value="Verb" >Verb</option>
+                <option  value="Noun" >Noun</option>
+                <option  value="Pronoun" >Pronoun</option>
+                <option  value="Adverb" >Adverb</option>
+                <option  value="Adjective" >Adjective</option>
+            </select>
+        </div>
+        <!--<form id="create-verb-form"
+              data-th-object="${newVerb}"
+              th:style="${wordHasErrors ? 'display:block' : 'display:none'}"
+              method="post"
+              data-th-action="@{/edit/new/word}"
+              action="/word">
+            <div class="row">
+                <div class="col">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="name-input">Nominative: </label>
+                        <input type="text" id="nominative-input" class="form-control" data-th-field="*{nominative}"/>
+                        <br>
+                        <span style="color: red" th:if="${#fields.hasErrors('nominative')}" th:errors="*{nominative}"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="sumerianForm-input">Sumerian form:</label>
+                        <input type="number" id="sumerianForm-input" class="form-control" data-th-field="*{sumerianForm}"/>
+                        <br>
+                        <span style="color: red" th:if="${#fields.hasErrors('sumerianForm')}" th:errors="*{sumerianForm}"></span>
+                    </div>
+                    <div class="col">
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="meaning-input">Meaning (english): </label>
+                            <input type="number" id="meaning-input" class="form-control" data-th-field="*{meaning}"/>
+                            <br>
+                            <span style="color: red" th:if="${#fields.hasErrors('meaning')}" th:errors="*{meaning}"></span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        &lt;!&ndash;Verbal stem&ndash;&gt;
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="dropdown-sources">Verbal stem: </label>
+                            <select th:field="*{verbalStem}" class="form-control" id="dropdown-sources">
+                                <option value="0">Select the specific Verbal stem</option>
+                                <option th:each="verbalStem : ${verbalStems}" th:value="${verbalStem}" th:text="${verbalStem}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+            </div>
+
+
+            &lt;!&ndash; Submit button &ndash;&gt;
+            <button type="submit" class="btn btn-primary btn-block mb-4">Send</button>
+        </form>-->
 
     </div>
 </section>
