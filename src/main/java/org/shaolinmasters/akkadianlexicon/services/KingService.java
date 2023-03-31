@@ -3,6 +3,8 @@ package org.shaolinmasters.akkadianlexicon.services;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.KingDTO;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
@@ -50,6 +52,11 @@ public class KingService {
   }
 
   @Transactional
+  public void deleteKingById(Long id) {
+    kingRepository.deleteById(id);
+  }
+
+
   public void saveKing(KingDTO kingDTO) {
     if (!(kingDTO.getSourceId() == 0)) {
       Source source = sourceService.findSourceById(kingDTO.getSourceId());

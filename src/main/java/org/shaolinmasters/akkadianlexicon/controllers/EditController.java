@@ -3,7 +3,9 @@ package org.shaolinmasters.akkadianlexicon.controllers;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.KingDTO;
+import org.shaolinmasters.akkadianlexicon.dtos.NotVerbDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.SourceDTO;
+import org.shaolinmasters.akkadianlexicon.dtos.VerbDTO;
 import org.shaolinmasters.akkadianlexicon.models.King;
 import org.shaolinmasters.akkadianlexicon.models.Source;
 import org.shaolinmasters.akkadianlexicon.services.*;
@@ -32,6 +34,8 @@ public class EditController {
 
   private final SourceService sourceService;
 
+  private final WordService wordService;
+
   @GetMapping
   public String get(Model m) {
     logger.info("Incoming request for '/edit' with method: GET");
@@ -52,11 +56,16 @@ public class EditController {
       attributes.addFlashAttribute("newKing", king);
       return new RedirectView("/edit?option=king&action=create&error");
     }
+    //model.addAttribute("sourceHasErrors", false);
+    //model.addAttribute("kingHasErrors", false);
+    //model.addAttribute("isKing", true);
+    //model.addAttribute("isSource", false);
+    //logger.info(String.valueOf(king));
     kingService.saveKing(king);
     addModelsToEditPage(model);
+
     return new RedirectView("/edit?option=king&action=create");
   }
-
 
   @GetMapping(params = {"option=king", "action=create"})
   public String getCreateKing(Model m) {
@@ -77,7 +86,9 @@ public class EditController {
       return new RedirectView("/edit?option=source&action=create&error");
     }
 
+
     sourceService.saveSource(source);
+    addModelsToEditPage(model);
     return new RedirectView("/edit?option=source&action=create");
   }
 
@@ -87,6 +98,12 @@ public class EditController {
     m.addAttribute("isSource", true);
     m.addAttribute("isCreate", true);
     return "edit";
+  }
+
+  @PostMapping("/delete/source")
+  public String deleteSource(@RequestParam Long id, Model m) {
+    sourceService.deleteSourceById(id);
+    return "redirect:/edit?option=source&action=delete";
   }
 
   @GetMapping(params = {"option=king", "action=create", "error"})
@@ -108,12 +125,6 @@ public class EditController {
   }
 
 
-  @PostMapping("/delete/source")
-  public String deleteSource(@RequestParam Long id, Model m) {
-    sourceService.deleteSourceById(id);
-    return "redirect:/edit?option=source&action=delete";
-  }
-
   @GetMapping(params = {"option=source", "action=delete"})
   public String getDeleteSource(Model m) {
     addModelsToEditPage(m);
@@ -122,6 +133,61 @@ public class EditController {
     m.addAttribute("id", 0);
     return "edit";
   }
+
+
+
+
+
+  @PostMapping("/new/verb")
+  public String saveVerb(
+    @ModelAttribute  VerbDTO verb,
+    Model model
+  ) {
+    logger.info("Incoming request for '/new/source' with method: POST");
+    model.addAttribute("isWord", true);
+    model.addAttribute("sourceHasErrors", false);
+    model.addAttribute("kingHasErrors", false);
+    model.addAttribute("wordHasErrors", false);
+    wordService.saveVerb(verb);
+    addModelsToEditPage(model);
+    logger.info(String.valueOf(verb));
+
+    return "/edit";
+  }
+
+  @PostMapping("/new/not-verb")
+  public String saveNotVerb(
+    @ModelAttribute  NotVerbDTO notVerb,
+    Model model
+  ) {
+    logger.info("Incoming request for '/new/source' with method: POST");
+    model.addAttribute("isWord", true);
+    String wordClass = notVerb.getWordClass();
+    switch (wordClass) {
+      case "noun" -> wordService.saveNoun(notVerb);
+      case "adjective" -> wordService.saveAdjective(notVerb);
+      case "pronoun" -> wordService.savePronoun(notVerb);
+      case "adverb" -> wordService.saveAdverb(notVerb);
+    }
+    model.addAttribute("sourceHasErrors", false);
+    model.addAttribute("kingHasErrors", false);
+    model.addAttribute("wordHasErrors", false);
+    addModelsToEditPage(model);
+    logger.info(String.valueOf(notVerb));
+
+    return "edit";
+  }
+
+
+
+  @PostMapping("/delete/king")
+  public String deleteKing(@RequestParam Long id, Model m) {
+    m.addAttribute("isKing", true);
+    m.addAttribute("isDelete", true);
+    kingService.deleteKingById(id);
+    return "edit";
+  }
+
 
   public void addModelsToEditPage(Model model) {
     model.addAttribute("newSource", new SourceDTO());
