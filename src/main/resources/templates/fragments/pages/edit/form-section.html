@@ -1,0 +1,181 @@
+<section th:style="${isCreate ? 'display:block' : 'display:none'}">
+    <div class="container pt-5 pb-5">
+        <form id="create-source-form"
+              data-th-object="${newSource}"
+              th:style="${sourceHasErrors || (isCreate && isSource)  ? 'display:block' : 'display:none'}"
+              method="post"
+              data-th-action="@{/edit/new/source}"
+              action="/source">
+            <div class="row">
+                <div class="col">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="title-input">Title: </label>
+                        <input type="text" id="title-input" class="form-control" data-th-field="*{title}"/>
+                        <br>
+                        <span style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="catalogue-ref-input">Catalogue Reference Number:</label>
+                        <input type="text" id="catalogue-ref-input" class="form-control" data-th-field="*{catalogueRef}"/>
+                        <br>
+                        <span style="color: red" th:if="${#fields.hasErrors('catalogueRef')}" th:errors="*{catalogueRef}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <!--king-->
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="dropdown-ruler">Ruler: </label>
+                        <select th:field="*{kingId}" class="form-control" id="dropdown-ruler">
+                            <option value="">Select a specific Ruler</option>
+                            <option th:each="king : ${kings}" th:value="${king.id}" th:text="${king.name}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="bibliography-input">Bibliography: </label>
+                        <input type="text" id="bibliography-input" class="form-control" data-th-field="*{bibliography}"/>
+                        <br>
+                        <span style="color: red" th:if="${#fields.hasErrors('bibliography')}" th:errors="*{bibliography}"></span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Message input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="text-input">Text: </label>
+                    <textarea class="form-control" id="text-input" rows="10" data-th-field="*{text}"></textarea>
+                    <br>
+                    <span style="color: red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></span>
+                </div>
+            </div>
+
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">Send</button>
+        </form>
+        <form id="create-king-form"
+              data-th-object="${newKing}"
+              th:style="${kingHasErrors || (isCreate && isKing) ? 'display:block' : 'display:none'}"
+              method="post"
+              data-th-action="@{/edit/new/king}"
+              action="/king">
+            <div class="row">
+                <div class="col">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="name-input">Ruler's name: </label>
+                        <input type="text" id="name-input" class="form-control" data-th-field="*{kingName}"/>
+                        <br>
+                        <span style="color: red" th:if="${#fields.hasErrors('kingName')}" th:errors="*{kingName}"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="regnalYearFrom-input">Beginning of reign:</label>
+                        <input type="number" id="regnalYearFrom-input" class="form-control" data-th-field="*{regnalYearFrom}"/>
+                        <br>
+                        <span style="color: red" th:if="${#fields.hasErrors('regnalYearFrom')}" th:errors="*{regnalYearFrom}"></span>
+                    </div>
+                    <div class="col">
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="regnalYearTo-input">End of reign: </label>
+                            <input type="number" id="regnalYearTo-input" class="form-control" data-th-field="*{regnalYearTo}"/>
+                            <br>
+                            <span style="color: red" th:if="${#fields.hasErrors('regnalYearTo')}" th:errors="*{regnalYearTo}"></span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <!--Source-->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="dropdown-sources">Source connected to the Ruler: </label>
+                            <select th:field="*{sourceId}" class="form-control" id="dropdown-sources">
+                                <option value="0">Select a specific Source</option>
+                                <option th:each="source : ${sourcesWithoutKing}" th:value="${source.id}" th:text="${source.title}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+            </div>
+
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">Send</button>
+        </form>
+        <div class="form-outline mb-4" th:style="${isWord && isCreate ? 'display:block' : 'display:none'}">
+            <label class="form-label" for="dropdown-sources">Choose the word-class: </label>
+            <select  class="form-control" id="dropdown-wordClasses">
+                <option value="0">Select a specific word-class</option>
+                <option  value="Verb" >Verb</option>
+                <option  value="Noun" >Noun</option>
+                <option  value="Pronoun" >Pronoun</option>
+                <option  value="Adverb" >Adverb</option>
+                <option  value="Adjective" >Adjective</option>
+            </select>
+        </div>
+        <!--<form id="create-verb-form"
+              data-th-object="${newVerb}"
+              th:style="${wordHasErrors ? 'display:block' : 'display:none'}"
+              method="post"
+              data-th-action="@{/edit/new/word}"
+              action="/word">
+            <div class="row">
+                <div class="col">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="name-input">Nominative: </label>
+                        <input type="text" id="nominative-input" class="form-control" data-th-field="*{nominative}"/>
+                        <br>
+                        <span style="color: red" th:if="${#fields.hasErrors('nominative')}" th:errors="*{nominative}"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="sumerianForm-input">Sumerian form:</label>
+                        <input type="number" id="sumerianForm-input" class="form-control" data-th-field="*{sumerianForm}"/>
+                        <br>
+                        <span style="color: red" th:if="${#fields.hasErrors('sumerianForm')}" th:errors="*{sumerianForm}"></span>
+                    </div>
+                    <div class="col">
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="meaning-input">Meaning (english): </label>
+                            <input type="number" id="meaning-input" class="form-control" data-th-field="*{meaning}"/>
+                            <br>
+                            <span style="color: red" th:if="${#fields.hasErrors('meaning')}" th:errors="*{meaning}"></span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        &lt;!&ndash;Verbal stem&ndash;&gt;
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="dropdown-sources">Verbal stem: </label>
+                            <select th:field="*{verbalStem}" class="form-control" id="dropdown-sources">
+                                <option value="0">Select the specific Verbal stem</option>
+                                <option th:each="verbalStem : ${verbalStems}" th:value="${verbalStem}" th:text="${verbalStem}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+            </div>
+
+
+            &lt;!&ndash; Submit button &ndash;&gt;
+            <button type="submit" class="btn btn-primary btn-block mb-4">Send</button>
+        </form>-->
+
+    </div>
+</section>

@@ -1,14 +1,14 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
+import java.util.EnumSet;
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.KingDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.NotVerbDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.SourceDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.VerbDTO;
-import org.shaolinmasters.akkadianlexicon.models.King;
-import org.shaolinmasters.akkadianlexicon.models.Source;
+import org.shaolinmasters.akkadianlexicon.models.enums.VerbalStem;
+import org.shaolinmasters.akkadianlexicon.models.enums.VowelClass;
 import org.shaolinmasters.akkadianlexicon.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,82 +40,165 @@ public class EditController {
   @GetMapping
   public String get(Model m) {
     logger.info("Incoming request for '/edit' with method: GET");
-    m.addAttribute("newSource", new SourceDTO());
-    m.addAttribute("kings", kingService.findAllKings());
-    m.addAttribute("newKing", new KingDTO());
-    m.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
-    m.addAttribute("newVerb", new VerbDTO());
-    m.addAttribute("newNotVerb", new NotVerbDTO());
-    m.addAttribute("sourceHasErrors", false);
-    m.addAttribute("kingHasErrors", false);
-    m.addAttribute("wordHasErrors", false);
+    addModelsToEditPage(m);
+
     return "edit";
   }
 
+  @GetMapping(params = {"option=king"})
+  public String getKing(Model m) {
+    addModelsToEditPage(m);
+    m.addAttribute("isKing", true);
+    return "edit";
+  }
+
+  @GetMapping(params = {"option=word"})
+  public String getWord(Model m) {
+    addModelsToEditPage(m);
+    m.addAttribute("isWord", true);
+    return "edit";
+  }
+
+  @GetMapping(params = {"option=source"})
+  public String getSource(Model m) {
+    addModelsToEditPage(m);
+    m.addAttribute("isSource", true);
+    return "edit";
+  }
+
+  @GetMapping(params = {"option=source", "action=create"})
+  public String getCreateSource(Model m) {
+    addModelsToEditPage(m);
+    m.addAttribute("isSource", true);
+    m.addAttribute("isCreate", true);
+    return "edit";
+  }
+
+  @GetMapping(params = {"option=source", "action=delete"})
+  public String getDeleteSource(Model m) {
+    addModelsToEditPage(m);
+    m.addAttribute("isSource", true);
+    m.addAttribute("isDelete", true);
+    m.addAttribute("id", 0);
+    return "edit";
+  }
+
+  @GetMapping(params = {"option=king", "action=create"})
+  public String getCreateKing(Model m) {
+    addModelsToEditPage(m);
+    m.addAttribute("isKing", true);
+    m.addAttribute("isCreate", true);
+    return "edit";
+  }
+
+  @GetMapping(params = {"option=king", "action=delete"})
+  public String getDeleteKing(Model m) {
+    addModelsToEditPage(m);
+    m.addAttribute("isKing", true);
+    m.addAttribute("isDelete", true);
+    m.addAttribute("id", 0);
+    return "edit";
+  }
+
+  @GetMapping(params = {"option=word", "action=create"})
+  public String getCreateWord(Model m) {
+    addModelsToEditPage(m);
+    m.addAttribute("isWord", true);
+    m.addAttribute("isCreate", true);
+    return "edit";
+  }
+
+
   @PostMapping("/new/king")
-  public String saveKing(
+  public RedirectView saveKing(
     @ModelAttribute("newKing") @Validated KingDTO king,
     BindingResult bindingResult,
-    Model model) {
+    Model model,
+    RedirectAttributes attributes) {
     logger.info("Incoming request for '/new/king' with method: POST");
     if (bindingResult.hasErrors()) {
-      model.addAttribute("kingHasErrors", true);
-      model.addAttribute("sourceHasErrors", false);
-      model.addAttribute("wordHasErrors", false);
-      model.addAttribute("newSource", new SourceDTO());
-      model.addAttribute("sources", sourceService.listAllSourcesWithoutKingIdByTitleAsc());
-      model.addAttribute("kings", kingService.findAllKings());
-      return "/edit";
+      attributes.addFlashAttribute("org.springframework.validation.BindingResult.newKing", bindingResult);
+      attributes.addFlashAttribute("newKing", king);
+      return new RedirectView("/edit?option=king&action=create&error");
     }
-    model.addAttribute("sourceHasErrors", false);
-    model.addAttribute("kingHasErrors", false);
-    model.addAttribute("wordHasErrors", false);
-    model.addAttribute("isKing", true);
-
-    logger.info(String.valueOf(king));
+    //model.addAttribute("sourceHasErrors", false);
+    //model.addAttribute("kingHasErrors", false);
+    //model.addAttribute("isKing", true);
+    //model.addAttribute("isSource", false);
+    //logger.info(String.valueOf(king));
     kingService.saveKing(king);
     addModelsToEditPage(model);
 
-    return "edit";
+    return new RedirectView("/edit?option=king&action=create");
   }
 
+
   @PostMapping("/new/source")
-  public String saveSource(
+  public RedirectView saveSource(
     @ModelAttribute("newSource") @Validated SourceDTO source,
     BindingResult bindingResult,
-    Model model) {
-    logger.info("Incoming request for '/new/source' with method: POST");
-    model.addAttribute("isSource", true);
+    Model model,
+    RedirectAttributes attributes) {
     if (bindingResult.hasErrors()) {
-
-      model.addAttribute("sourceHasErrors", true);
-      model.addAttribute("kingHasErrors", false);
-      model.addAttribute("wordHasErrors", false);
-      model.addAttribute("newKing", new KingDTO());
-
-      logger.info("Adding modelattribute(named: newSource): " + source + "to view: edit");
-      model.addAttribute("newSource", source);
-      List<King> kings = kingService.findAllKings();
-      logger.info("Adding modelattribute(named: kings): " + kings + "to view: edit");
-      model.addAttribute("kings", kings);
-      return "/edit";
+      attributes.addFlashAttribute("org.springframework.validation.BindingResult.newSource", bindingResult);
+      attributes.addFlashAttribute("newSource", source);
+      return new RedirectView("/edit?option=source&action=create&error");
     }
-    model.addAttribute("sourceHasErrors", false);
-    model.addAttribute("kingHasErrors", false);
-    model.addAttribute("wordHasErrors", false);
-    model.addAttribute("isSource", true);
     sourceService.saveSource(source);
     addModelsToEditPage(model);
-    return "edit";
+    return new RedirectView("/edit?option=source&action=create");
   }
 
   @PostMapping("/delete/source")
   public String deleteSource(@RequestParam Long id, Model m) {
-    m.addAttribute("isSource", true);
-    m.addAttribute("isDelete", true);
     sourceService.deleteSourceById(id);
-    return "edit";
+    return "redirect:/edit?option=source&action=delete";
   }
+
+
+
+  @PostMapping("/delete/king")
+  public String deleteKing(@RequestParam Long id, Model m) {
+    m.addAttribute("isKing", true);
+    m.addAttribute("isDelete", true);
+    kingService.deleteKingById(id);
+    return "redirect:/edit?option=king&action=delete";
+  }
+
+
+
+  @GetMapping(params = {"option=king", "action=create", "error"})
+  public String getCreateKingError(Model m) {
+    if (m.containsAttribute("newKing") && m.containsAttribute("org.springframework.validation.BindingResult.newKing")) {
+      Object kdto = m.getAttribute("newKing");
+      Object error = m.getAttribute("org.springframework.validation.BindingResult.newKing");
+      addModelsToEditPage(m);
+      m.addAttribute("newKing", kdto);
+      m.addAttribute("org.springframework.validation.BindingResult.newKing", error);
+      m.addAttribute("kingHasErrors", true);
+      m.addAttribute("isKing", true);
+      m.addAttribute("isCreate", true);
+      return "edit";
+    }
+    return "redirect:/edit";
+  }
+
+  @GetMapping(params = {"option=source", "action=create", "error"})
+  public String getCreateSourceError(Model m) {
+    if (m.containsAttribute("newSource") && m.containsAttribute("org.springframework.validation.BindingResult.newSource")) {
+      Object sdto = m.getAttribute("newSource");
+      Object error = m.getAttribute("org.springframework.validation.BindingResult.newSource");
+      addModelsToEditPage(m);
+      m.addAttribute("newSource", sdto);
+      m.addAttribute("org.springframework.validation.BindingResult.newSource", error);
+      m.addAttribute("sourceHasErrors", true);
+      m.addAttribute("isSource", true);
+      m.addAttribute("isCreate", true);
+      return "edit";
+    }
+    return "redirect:/edit";
+  }
+
 
   @PostMapping("/new/verb")
   public String saveVerb(
@@ -157,34 +242,36 @@ public class EditController {
 
 
 
-  @PostMapping("/delete/king")
-  public String deleteKing(@RequestParam Long id, Model m) {
-    m.addAttribute("isKing", true);
-    m.addAttribute("isDelete", true);
-    kingService.deleteKingById(id);
-    return "edit";
+
+
+
+  public void addModelsToEditPage(Model model) {
+    model.addAttribute("newSource", new SourceDTO());
+    model.addAttribute("kings", kingService.findAllKingsOrderByRegnalYearFromAscNameAsc());
+    model.addAttribute("sources", sourceService.listAllSourcesByTitleAsc());
+    model.addAttribute("newKing", new KingDTO());
+    model.addAttribute("sourcesWithoutKing", sourceService.listAllSourcesWithoutKingByTitleAsc());
+    model.addAttribute("sourceHasErrors", false);
+    model.addAttribute("kingHasErrors", false);
+    model.addAttribute("wordHasErrors", false);
+    model.addAttribute("isCreate", false);
+    model.addAttribute("isDelete", false);
+    model.addAttribute("isSource", false);
+    model.addAttribute("isKing", false);
+    model.addAttribute("isWord", false);
+    model.addAttribute("VerbalStems", EnumSet.allOf(VerbalStem.class));
+    model.addAttribute("VowelClasses", EnumSet.allOf(VowelClass.class));
+    model.addAttribute("newVerb", new VerbDTO());
+    model.addAttribute("newNotVerb", new NotVerbDTO());
   }
 
 
 
-  public void addModelsToEditPage(Model model){
-    SourceDTO sourceDTO = new SourceDTO();
-    logger.info("Adding modelattribute(named: newSource): " + sourceDTO);
-    model.addAttribute("newSource", sourceDTO);
-    List<King> kings = kingService.findAllKings();
-    logger.info("Adding modelattribute(named: kings): " + kings);
-    model.addAttribute("kings", kings);
-    KingDTO kingDTO = new KingDTO();
-    logger.info("Adding modelattribute(named: newKing): " + kingDTO);
-    model.addAttribute("newKing", kingDTO);
-    List<Source> sources = sourceService.listAllSourcesWithoutKingIdByTitleAsc();
-    logger.info("Adding modelattribute(named: sources): " + sources);
-    model.addAttribute("sources", sources);
-    VerbDTO verbDTO = new VerbDTO();
-    logger.info("Adding modelattribute(named: newWord): " + verbDTO);
-    model.addAttribute("newVerb", verbDTO);
-    NotVerbDTO notVerbDTO = new NotVerbDTO();
-    logger.info("Adding modelattribute(named: newWord): " + notVerbDTO);
-    model.addAttribute("newNotVerb", notVerbDTO);
-  }
+
+
+
+
+
+
+
 }

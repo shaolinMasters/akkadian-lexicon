@@ -81,7 +81,7 @@ public class SearchController {
   }
 
   public void addKingsAndSourcesToModel(Model model) {
-    List<King> kings = kingService.findAllKings();
+    List<King> kings = kingService.findAllKingsOrderByRegnalYearFromAscNameAsc();
     logger.info("Adding modelattribute(named: kings): " + kings + "to view: search");
     model.addAttribute("kings", kings);
 
