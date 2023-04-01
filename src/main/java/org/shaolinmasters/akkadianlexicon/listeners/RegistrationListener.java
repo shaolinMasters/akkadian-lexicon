@@ -1,5 +1,6 @@
 package org.shaolinmasters.akkadianlexicon.listeners;
 
+import jakarta.annotation.PostConstruct;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.UUID;
@@ -12,7 +13,6 @@ import org.shaolinmasters.akkadianlexicon.services.UserService;
 import org.shaolinmasters.akkadianlexicon.services.WebContentService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,25 +20,29 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class RegistrationListener implements ApplicationListener<OnRegistrationCompleteEvent> {
 
-//  @Value( "${email.confirmationUrlPath}" )
-  private String emailConfirmationUrlPath;
-
-//  @Value( "${server.port}" )
-  private Integer port;
-
-  private final Environment environment;
-
   private final WebContentService webContentService;
   private final EmailService emailService;
   private final UserService userService;
 
+  @Value("${registration.confirmationUrlPath}")
+  private String emailConfirmationUrlPath;
+
+  private String url;
+
+  @Value("${server.port}")
+  private int port;
+
+  @PostConstruct
+  private void setUrl() throws UnknownHostException {
+    this.url = InetAddress.getLocalHost().getHostAddress() + ":" + port + emailConfirmationUrlPath;
+  }
 
   @Override
   public void onApplicationEvent(OnRegistrationCompleteEvent onRegistrationCompleteEvent) {
     try {
       confirmRegistration(onRegistrationCompleteEvent);
-    } catch (UnknownHostException e) {
-      throw new RuntimeException(e);
+    } catch (UnknownHostException ignored) {
+      logger.error("Could not get host address.");
     }
   }
 
@@ -47,23 +51,16 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     String token = UUID.randomUUID().toString();
     userService.createRegistrationToken(user, token);
     String emailAddress = user.getEmail();
-    emailConfirmationUrlPath = environment.getProperty("confirmationUrlPath" );
-//    port=Integer.parseInt(environment.getProperty("server.port"));
-    port= 8080;
-    String confirmationUrl = InetAddress.getLocalHost().getHostAddress() + ":" + port + emailConfirmationUrlPath + "?token=" + token;
-    logger.info("a teljes confirmationurl: " + confirmationUrl);
+    String confirmationUrl = url + "?token=" + token;
 
     String emailSubject = webContentService.findByTitle("EMAIL_SUBJECT").getContent();
     String emailText = webContentService.findByTitle("EMAIL_TEXT").getContent();
     String emailActivationText = webContentService.findByTitle("EMAIL_ACTIVATION_TEXT").getContent();
+    logger.info(confirmationUrl);
 
-    emailText = (emailText + "<br/>"
-      + "<a href='" + confirmationUrl + "'>" + emailActivationText + "</a>"
-      + "<p style=\"display:none;\">This paragraph should be hidden.</p>\n");
+    emailText = emailText + "<br/>" + "<a href=\"http://" + confirmationUrl + "\" >" + emailActivationText + "</a>";
     emailService.sendEmail(emailAddress, emailSubject, emailText);
-
     logger.info("Confirmation email has been sent to: " + emailAddress);
   }
-
 
 }

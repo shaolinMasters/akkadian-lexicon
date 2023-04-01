@@ -19,9 +19,9 @@ import org.springframework.beans.factory.annotation.Value;
 @Setter
 public class RegistrationToken {
 
-//  @Value( "${email.tokenExpirationDayCount}" )
+  @Value( "${registration.tokenExpirationDayCount}" )
   @Transient
-  private Integer expirationDayCount=1;
+  private int expirationDayCount;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +46,7 @@ public class RegistrationToken {
     this.expiryDate = calculateExpiryDate(expirationDayCount);
   }
 
-  private LocalDateTime calculateExpiryDate(Integer days) {
+  private LocalDateTime calculateExpiryDate(int days) {
     return LocalDateTime.now().plus(days, ChronoUnit.DAYS);
   }
 }

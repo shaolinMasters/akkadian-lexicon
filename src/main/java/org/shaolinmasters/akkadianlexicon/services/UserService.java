@@ -39,7 +39,7 @@ public class UserService implements UserDetailsService {
     throw new UsernameNotFoundException("User with email: " + email + " not found.");
   }
 
-  public User registerNewAccount(UserDTO userDto, Role role) {
+  public User createAccountWithRole(UserDTO userDto, Role role) {
     User userToRegister = new User();
     Set<Authority> authorities = new HashSet<>();
     authorities.add(authorityService.findByRole(role));
