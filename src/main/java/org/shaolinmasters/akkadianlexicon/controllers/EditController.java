@@ -3,6 +3,7 @@ package org.shaolinmasters.akkadianlexicon.controllers;
 import java.util.EnumSet;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.dtos.KingDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.NotVerbDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.SourceDTO;
@@ -27,9 +28,8 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/edit")
+@Slf4j
 public class EditController {
-
-  private final Logger logger = LoggerFactory.getLogger(EditController.class);
 
   private final KingService kingService;
 

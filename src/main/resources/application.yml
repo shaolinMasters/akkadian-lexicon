@@ -3,6 +3,9 @@ spring:
         name: Akkadian Lexicon
     profiles:
         active: ${ENVIRONMENT}
+email:
+    tokenExpirationDayCount: 1
+    confirmationUrlPath: /users/registrationConfirm
 
 
 
