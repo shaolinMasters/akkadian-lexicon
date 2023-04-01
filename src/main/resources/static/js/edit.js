@@ -124,13 +124,30 @@ document.getElementById('sources-delete-button').onclick = function () {
     });
 
 
-/*const wordClassList = document.getElementById('dropdown-wordClasses');
+const wordClassList = document.querySelector("#dropdown-wordClasses");
 
-    wordClassList.addEventListener('onchange', function showVerbForm(event) {
-        if(wordClassList.value === 'Verb') {
-            createVerbForm.style.display = 'block'
-        }
-    })*/
+const notVerbWordclassInput = document.querySelector("#not-verb-wordclass-input");
+
+
+/*   wordClassList.addEventListener('onchange',
+function showVerbForm() {
+       if(wordClassList.value === 'Verb') {
+           createVerbForm.style.display = 'block'
+       }
+
+   })*/
+
+function getWordForm() {
+    if(wordClassList.value === "Verb"){
+        createVerbForm.style.display = 'block'
+        createNotVerbForm.style.display = 'none'
+    }
+    else{
+        createNotVerbForm.style.display = 'block'
+        createVerbForm.style.display = 'none'
+        notVerbWordclassInput.value = wordClassList.value;
+    }
+}
 
 
 

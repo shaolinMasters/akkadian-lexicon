@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.shaolinmasters.akkadianlexicon.models.enums.VerbalStem;
+import org.shaolinmasters.akkadianlexicon.models.enums.VowelClass;
 
 @Getter
 @Setter
@@ -16,10 +17,9 @@ public class VerbDTO {
 
   private String nominative;
 
-  private String vowelClass;
+  private VowelClass vowelClassName;
 
-  private String verbalStem;
-
+  private VerbalStem verbalStemName;
 
 
 }

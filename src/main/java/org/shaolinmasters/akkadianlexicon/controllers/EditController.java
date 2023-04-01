@@ -102,6 +102,7 @@ public class EditController {
 
   @GetMapping(params = {"option=word", "action=create"})
   public String getCreateWord(Model m) {
+    logger.info("getCreateWord");
     addModelsToEditPage(m);
     m.addAttribute("isWord", true);
     m.addAttribute("isCreate", true);
@@ -121,11 +122,6 @@ public class EditController {
       attributes.addFlashAttribute("newKing", king);
       return new RedirectView("/edit?option=king&action=create&error");
     }
-    //model.addAttribute("sourceHasErrors", false);
-    //model.addAttribute("kingHasErrors", false);
-    //model.addAttribute("isKing", true);
-    //model.addAttribute("isSource", false);
-    //logger.info(String.valueOf(king));
     kingService.saveKing(king);
     addModelsToEditPage(model);
 
@@ -201,44 +197,83 @@ public class EditController {
 
 
   @PostMapping("/new/verb")
-  public String saveVerb(
-    @ModelAttribute  VerbDTO verb,
-    Model model
+  public RedirectView saveVerb(
+    @ModelAttribute @Validated VerbDTO verb,
+    BindingResult bindingResult,
+    Model model,
+    RedirectAttributes attributes
   ) {
-    logger.info("Incoming request for '/new/source' with method: POST");
-    model.addAttribute("isWord", true);
-    model.addAttribute("sourceHasErrors", false);
-    model.addAttribute("kingHasErrors", false);
-    model.addAttribute("wordHasErrors", false);
+    if (bindingResult.hasErrors()) {
+      bindingResult.getAllErrors().stream().forEach(System.out::println);
+      attributes.addFlashAttribute("org.springframework.validation.BindingResult.newVerb", bindingResult);
+      attributes.addFlashAttribute("newVerb", verb);
+      return new RedirectView("/edit?option=word&action=create&wordclass=verb&error");
+    }
+
     wordService.saveVerb(verb);
     addModelsToEditPage(model);
-    logger.info(String.valueOf(verb));
-
-    return "/edit";
+    return new RedirectView("/edit?option=word&action=create");
   }
 
   @PostMapping("/new/not-verb")
-  public String saveNotVerb(
-    @ModelAttribute  NotVerbDTO notVerb,
-    Model model
+  public RedirectView saveNotVerb(
+    @ModelAttribute @Validated NotVerbDTO notVerb,
+    BindingResult bindingResult,
+    Model model,
+    RedirectAttributes attributes
   ) {
-    logger.info("Incoming request for '/new/source' with method: POST");
-    model.addAttribute("isWord", true);
+    if (bindingResult.hasErrors()) {
+      attributes.addFlashAttribute("org.springframework.validation.BindingResult.newNotVerb", bindingResult);
+      attributes.addFlashAttribute("newNotVerb", notVerb);
+      return new RedirectView("/edit?option=word&action=create&wordclass=notverb&error");
+    }
     String wordClass = notVerb.getWordClass();
     switch (wordClass) {
-      case "noun" -> wordService.saveNoun(notVerb);
-      case "adjective" -> wordService.saveAdjective(notVerb);
-      case "pronoun" -> wordService.savePronoun(notVerb);
-      case "adverb" -> wordService.saveAdverb(notVerb);
+      case "Noun" -> wordService.saveNoun(notVerb);
+      case "Adjective" -> wordService.saveAdjective(notVerb);
+      case "Pronoun" -> wordService.savePronoun(notVerb);
+      case "Adverb" -> wordService.saveAdverb(notVerb);
     }
-    model.addAttribute("sourceHasErrors", false);
-    model.addAttribute("kingHasErrors", false);
-    model.addAttribute("wordHasErrors", false);
     addModelsToEditPage(model);
-    logger.info(String.valueOf(notVerb));
-
-    return "edit";
+    return new RedirectView("/edit?option=word&action=create");
   }
+
+  @GetMapping(params = {"option=word", "action=create", "wordclass=verb","error"})
+  public String getCreateVerbError(Model m) {
+    logger.info("getCreateVerb");
+    if (m.containsAttribute("newVerb") && m.containsAttribute("org.springframework.validation.BindingResult.newVerb")) {
+      Object verbdto = m.getAttribute("newVerb");
+      Object error = m.getAttribute("org.springframework.validation.BindingResult.newVerb");
+      addModelsToEditPage(m);
+      m.addAttribute("newVerb", verbdto);
+      m.addAttribute("org.springframework.validation.BindingResult.newVerb", error);
+      m.addAttribute("wordHasErrors", true);
+      m.addAttribute("isWord", true);
+      m.addAttribute("isCreate", true);
+      return "edit";
+    }
+    return "redirect:/edit";
+  }
+
+
+  @GetMapping(params = {"option=word", "action=create", "wordclass=notverb","error"})
+  public String getCreateNotVerbError(Model m) {
+    logger.info("getCreateNotVerbErroban vagyok");
+    if (m.containsAttribute("newNotVerb") && m.containsAttribute("org.springframework.validation.BindingResult.newNotVerb")) {
+      Object notVerbdto = m.getAttribute("newNotVerb");
+      Object error = m.getAttribute("org.springframework.validation.BindingResult.newNotVerb");
+      addModelsToEditPage(m);
+      m.addAttribute("newNotVerb", notVerbdto);
+      m.addAttribute("org.springframework.validation.BindingResult.newNotVerb", error);
+      m.addAttribute("wordHasErrors", true);
+      m.addAttribute("isWord", true);
+      m.addAttribute("isCreate", true);
+      return "edit";
+    }
+    return "redirect:/edit";
+  }
+
+
 
 
 
@@ -259,8 +294,8 @@ public class EditController {
     model.addAttribute("isSource", false);
     model.addAttribute("isKing", false);
     model.addAttribute("isWord", false);
-    model.addAttribute("VerbalStems", EnumSet.allOf(VerbalStem.class));
-    model.addAttribute("VowelClasses", EnumSet.allOf(VowelClass.class));
+    model.addAttribute("verbalStems", EnumSet.allOf(VerbalStem.class));
+    model.addAttribute("vowelClasses", EnumSet.allOf(VowelClass.class));
     model.addAttribute("newVerb", new VerbDTO());
     model.addAttribute("newNotVerb", new NotVerbDTO());
   }

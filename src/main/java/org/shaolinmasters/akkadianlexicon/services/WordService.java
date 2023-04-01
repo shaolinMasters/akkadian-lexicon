@@ -29,9 +29,11 @@ public class WordService {
     vocabularyForm.setSumerianForm(verb.getSumerianForm());
     vocabularyForm.setMeaning(verb.getMeaning());
 
+
     word.setVocabularyForm(vocabularyForm);
-    word.setVerbalStem(verb.getVerbalStem());
-    word.setVowelClass(verb.getVowelClass());
+    word.setVerbalStem(verb.getVerbalStemName());
+    word.setVowelClass(verb.getVowelClassName());
+
 
     wordRepository.save(word);
   }
