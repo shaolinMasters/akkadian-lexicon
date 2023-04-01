@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.NotVerbDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.VerbDTO;
 import org.shaolinmasters.akkadianlexicon.models.*;
+import org.shaolinmasters.akkadianlexicon.models.enums.VowelClass;
 import org.shaolinmasters.akkadianlexicon.repositories.WordRepositoryI;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +30,9 @@ public class WordService {
     vocabularyForm.setSumerianForm(verb.getSumerianForm());
     vocabularyForm.setMeaning(verb.getMeaning());
 
-
     word.setVocabularyForm(vocabularyForm);
-    word.setVerbalStem(verb.getVerbalStemName());
-    word.setVowelClass(verb.getVowelClassName());
-
+    word.setVerbalStem(verb.getVerbalStem());
+    word.setVowelClass(verb.getVowelClass());
 
     wordRepository.save(word);
   }

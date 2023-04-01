@@ -17,9 +17,8 @@ public class VerbDTO {
 
   private String nominative;
 
-  private VowelClass vowelClassName;
+  private VowelClass vowelClass;
 
-  private VerbalStem verbalStemName;
-
+  private VerbalStem verbalStem;
 
 }

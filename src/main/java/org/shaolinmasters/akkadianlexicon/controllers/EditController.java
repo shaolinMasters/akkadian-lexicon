@@ -204,7 +204,7 @@ public class EditController {
     RedirectAttributes attributes
   ) {
     if (bindingResult.hasErrors()) {
-      bindingResult.getAllErrors().stream().forEach(System.out::println);
+//      bindingResult.getAllErrors().stream().forEach(System.out::println);
       attributes.addFlashAttribute("org.springframework.validation.BindingResult.newVerb", bindingResult);
       attributes.addFlashAttribute("newVerb", verb);
       return new RedirectView("/edit?option=word&action=create&wordclass=verb&error");

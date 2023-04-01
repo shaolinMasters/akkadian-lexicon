@@ -160,9 +160,9 @@
                         <!--Verbal stem-->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="dropdown-verbalStems">Verbal stem: </label>
-                            <select th:field="*{verbalStemName}" class="form-control" id="dropdown-verbalStems">
+                            <select th:field="*{verbalStem}" class="form-control" id="dropdown-verbalStems">
                                 <option value="">Select the specific Verbal stem</option>
-                                <option th:each="verbalStem : ${T(org.shaolinmasters.akkadianlexicon.models.enums.VerbalStem).values()}"  th:value="${T(org.shaolinmasters.akkadianlexicon.models.enums.VerbalStem).D}" th:text="${verbalStem.getStemName()}"></option>
+                                <option th:each="verbalStem : ${T(org.shaolinmasters.akkadianlexicon.models.enums.VerbalStem).values()}"  th:value="${verbalStem.name()}" th:text="${verbalStem.getStemName()}"></option>
                             </select>
                         </div>
                     </div>
@@ -170,9 +170,9 @@
                         <!--Vowel class-->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="dropdown-vowelClasses">Vowel class: </label>
-                            <select th:field="*{vowelClassName}" class="form-control" id="dropdown-vowelClasses">
+                            <select th:field="*{vowelClass}" class="form-control" id="dropdown-vowelClasses">
                                 <option value="">Select the specific Vowel class</option>
-                                <option th:each="vowelClass : ${T(org.shaolinmasters.akkadianlexicon.models.enums.VowelClass).values()}" th:value="${T(org.shaolinmasters.akkadianlexicon.models.enums.VowelClass).AA}" th:text="${vowelClass.getClassName()}"></option>
+                                <option th:each="vowelClass : ${T(org.shaolinmasters.akkadianlexicon.models.enums.VowelClass).values()}" th:value="${vowelClass.name()}" th:text="${vowelClass.getClassName()}"></option>
                             </select>
                         </div>
                     </div>
