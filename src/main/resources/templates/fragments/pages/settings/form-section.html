@@ -1,0 +1,33 @@
+<section th:style="${isCreate ? 'display:block' : 'display:none'}">
+    <div class="container pt-5 pb-5">
+        <form id="create-admin-form"
+              data-th-object="${newAdmin}"
+              th:style="${adminHasErrors || (isCreate && isAdmin)  ? 'display:block' : 'display:none'}"
+              method="post"
+              data-th-action="@{/settings/user?option=admin&action=create}"
+              action="/settings/user?option=admin&action=create">
+            <div class="row">
+                <div class="col">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="email-input">Email: </label>
+                        <input type="email" id="email-input" class="form-control" data-th-field="*{email}"/>
+                        <br>
+<!--                        <span style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>-->
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="name-input">Name:</label>
+                        <input type="text" id="name-input" class="form-control" data-th-field="*{name}"/>
+                        <br>
+<!--                        <span style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+                    </div>
+                </div>
+            </div>
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">Send</button>
+        </form>
+    </div>
+    <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}">
+    </div>
+</section>

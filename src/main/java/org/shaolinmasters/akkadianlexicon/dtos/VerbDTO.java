@@ -20,5 +20,4 @@ public class VerbDTO {
   private VowelClass vowelClass;
 
   private VerbalStem verbalStem;
-
 }

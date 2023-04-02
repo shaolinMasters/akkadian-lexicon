@@ -1,23 +1,29 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
-
 import lombok.RequiredArgsConstructor;
-import org.shaolinmasters.akkadianlexicon.models.*;
+import lombok.extern.slf4j.Slf4j;
+import org.shaolinmasters.akkadianlexicon.dtos.ConfirmAdminDTO;
+import org.shaolinmasters.akkadianlexicon.models.WebContent;
+import org.shaolinmasters.akkadianlexicon.services.RegistrationTokenService;
+import org.shaolinmasters.akkadianlexicon.services.UserService;
 import org.shaolinmasters.akkadianlexicon.services.WebContentService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class MainController {
 
   private final WebContentService contentService;
 
-  private final Logger logger = LoggerFactory.getLogger(MainController.class);
+  private final UserService userService;
+
+  private final RegistrationTokenService registrationTokenService;
 
   @GetMapping("/")
   public String getHomePage(Model model) {
@@ -46,10 +52,37 @@ public class MainController {
     return "bibliography";
   }
 
-
   @GetMapping("/login")
   public String login() {
     logger.info("Incoming request for '/login' with method: GET");
+    return "login";
+  }
+
+  @GetMapping(value = "/register", params = "token")
+  public String confirmRegistration(Model model, @RequestParam("token") String tokenString) {
+    ConfirmAdminDTO confirmAdminDTO = new ConfirmAdminDTO();
+    if (registrationTokenService.isValidToken(tokenString)) {
+      model.addAttribute("isValidToken", true);
+      confirmAdminDTO.setTokenString(tokenString);
+      model.addAttribute("confirmAdmin", confirmAdminDTO);
+    } else {
+      model.addAttribute("confirmAdmin", confirmAdminDTO);
+      model.addAttribute("isValidToken", false);
+    }
+    return "password";
+  }
+
+  @PostMapping("/register")
+  public String setPasswordAndConfirm(
+      @ModelAttribute("confirmAdmin") ConfirmAdminDTO confirmAdminDTO, Model model) {
+    if (registrationTokenService.isValidToken(confirmAdminDTO.getTokenString())) {
+      // if passwords are OK
+      userService.confirmAdminUser(confirmAdminDTO);
+    } else {
+      model.addAttribute("confirmAdmin", new ConfirmAdminDTO());
+      model.addAttribute("isValidToken", false);
+      return "password";
+    }
     return "login";
   }
 }

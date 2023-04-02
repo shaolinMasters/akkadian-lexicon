@@ -2,9 +2,9 @@ package org.shaolinmasters.akkadianlexicon.exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.controllers.SearchController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.shaolinmasters.akkadianlexicon.dtos.AdminDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,19 +13,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 @RequiredArgsConstructor
+@Slf4j
 public class GlobalExceptionHandler {
-
-  private final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
   private final SearchController searchController;
 
-  @ResponseStatus
+  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
   @ExceptionHandler(Exception.class)
-  public String handleException( HttpServletRequest request,Exception ex){
+  public String handleException(HttpServletRequest request, Exception ex) {
     String requestURI = request.getRequestURI();
     logger.error("Requested URI: " + requestURI);
     logger.error("Exception Raised: " + ex);
-    return "edit";
+    return "error";
   }
 
   @ResponseStatus(value = HttpStatus.NOT_FOUND)
@@ -69,5 +68,17 @@ public class GlobalExceptionHandler {
         return "error";
       }
     }
+  }
+
+  @ResponseStatus(value = HttpStatus.IM_USED)
+  @ExceptionHandler(UserAlreadyExistException.class)
+  public String handleUserAlreadyExistException(Exception ex, Model model) {
+    model.addAttribute("newAdmin", new AdminDTO());
+    model.addAttribute("adminHasErrors", false);
+    model.addAttribute("isDelete", false);
+    model.addAttribute("isCreate", true);
+    model.addAttribute("isAdmin", true);
+    model.addAttribute("error", ex.getMessage());
+    return "settings";
   }
 }

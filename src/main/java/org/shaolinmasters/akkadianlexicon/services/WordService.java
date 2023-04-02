@@ -2,15 +2,16 @@ package org.shaolinmasters.akkadianlexicon.services;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.dtos.NotVerbDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.VerbDTO;
 import org.shaolinmasters.akkadianlexicon.models.*;
-import org.shaolinmasters.akkadianlexicon.models.enums.VowelClass;
 import org.shaolinmasters.akkadianlexicon.repositories.WordRepositoryI;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class WordService {
 
   private final WordRepositoryI wordRepository;
@@ -48,7 +49,6 @@ public class WordService {
     word.setVocabularyForm(vocabularyForm);
 
     wordRepository.save(word);
-
   }
 
   public void saveAdjective(NotVerbDTO notVerb) {

@@ -26,13 +26,12 @@ public class Verb extends Word {
   @Column(nullable = false)
   private VerbalStem verbalStem;
 
-//  public void setVerbalStem (String verbalStem) {
-//    this.verbalStem = VerbalStem.valueOf(verbalStem);
-//  }
-//
-//  public void setVowelClass (String vowelClass) {
-//    this.vowelClass = VowelClass.valueOf(vowelClass);
-//  }
-
+  //  public void setVerbalStem (String verbalStem) {
+  //    this.verbalStem = VerbalStem.valueOf(verbalStem);
+  //  }
+  //
+  //  public void setVowelClass (String vowelClass) {
+  //    this.vowelClass = VowelClass.valueOf(vowelClass);
+  //  }
 
 }
