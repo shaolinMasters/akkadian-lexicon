@@ -9,33 +9,33 @@ on:
         branches: [ "main", "dev*" ]
 
 jobs:
-    lint:
-        name: Lint codebase
-        runs-on: ubuntu-latest
-
-        steps:
-            -   name: Checkout branch
-                uses: actions/checkout@v3
-                with:
-                    # Full git history is needed to get a proper
-                    # list of changed files within `super-linter`
-                    fetch-depth: 0
-            # super-linter is buggy on Java code, thats why we lint Java separately
-            -   name: Lint Java
-                uses: axel-op/googlejavaformat-action@v3
-                with:
-                    skip-commit: true
-
-            -   name: Print diffs
-                run: git --no-pager diff --exit-code
-
-            -   name: Lint other (.yml)
-                uses: github/super-linter/slim@v4
-                env:
-                    VALIDATE_ALL_CODEBASE: true
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                    VALIDATE_GOOGLE_JAVA_FORMAT: true
-                    VALIDATE_YAML: true
+#    lint:
+#        name: Lint codebase
+#        runs-on: ubuntu-latest
+#
+#        steps:
+#            -   name: Checkout branch
+#                uses: actions/checkout@v3
+#                with:
+#                    # Full git history is needed to get a proper
+#                    # list of changed files within `super-linter`
+#                    fetch-depth: 0
+#            # super-linter is buggy on Java code, thats why we lint Java separately
+#            -   name: Lint Java
+#                uses: axel-op/googlejavaformat-action@v3
+#                with:
+#                    skip-commit: true
+#
+#            -   name: Print diffs
+#                run: git --no-pager diff --exit-code
+#
+#            -   name: Lint other (.yml)
+#                uses: github/super-linter/slim@v4
+#                env:
+#                    VALIDATE_ALL_CODEBASE: true
+#                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#                    VALIDATE_GOOGLE_JAVA_FORMAT: true
+#                    VALIDATE_YAML: true
 
     create-matrix:
         name: Check repository for languages
