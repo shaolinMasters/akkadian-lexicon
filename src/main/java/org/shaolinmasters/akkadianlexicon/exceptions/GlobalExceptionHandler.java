@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
   @ResponseStatus(value = HttpStatus.NOT_FOUND)
   @ExceptionHandler(ResourceNotFoundException.class)
   public String handleResourceNotFoundException(
-    HttpServletRequest request, Exception ex, Model model) {
+      HttpServletRequest request, Exception ex, Model model) {
     String requestURI = request.getRequestURI();
     logger.error("Requested URI: " + requestURI);
     logger.error("Exception Raised: " + ex);
@@ -81,6 +81,4 @@ public class GlobalExceptionHandler {
     model.addAttribute("error", ex.getMessage());
     return "settings";
   }
-
-
 }

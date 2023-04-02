@@ -1,9 +1,6 @@
 package org.shaolinmasters.akkadianlexicon.listeners;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.persistence.Transient;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.UUID;
@@ -14,7 +11,6 @@ import org.shaolinmasters.akkadianlexicon.models.RegistrationToken;
 import org.shaolinmasters.akkadianlexicon.models.User;
 import org.shaolinmasters.akkadianlexicon.services.EmailService;
 import org.shaolinmasters.akkadianlexicon.services.RegistrationTokenService;
-import org.shaolinmasters.akkadianlexicon.services.UserService;
 import org.shaolinmasters.akkadianlexicon.services.WebContentService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
@@ -29,7 +25,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
   private final EmailService emailService;
   private final RegistrationTokenService registrationTokenService;
 
-  @Value( "${registration.tokenExpirationDayCount}" )
+  @Value("${registration.tokenExpirationDayCount}")
   private Integer expirationDayCount;
 
   @Value("${registration.confirmationUrlPath}")
@@ -37,7 +33,6 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
   @Value("${domain}")
   private String domain;
-
 
   private String url;
 
@@ -51,27 +46,35 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
   @Override
   public void onApplicationEvent(OnRegistrationCompleteEvent onRegistrationCompleteEvent) {
-      User user = onRegistrationCompleteEvent.getUser();
-      RegistrationToken registrationToken = createRegistrationTokenForUser(user);
-      registrationTokenService.saveRegistrationToken(registrationToken);
-      String confirmationUrl = createConfirmationUrlWithRegistrationToken(registrationToken);
-      sendRegistrationConfirmationEmailToUser(user, confirmationUrl);
+    User user = onRegistrationCompleteEvent.getUser();
+    RegistrationToken registrationToken = createRegistrationTokenForUser(user);
+    registrationTokenService.saveRegistrationToken(registrationToken);
+    String confirmationUrl = createConfirmationUrlWithRegistrationToken(registrationToken);
+    sendRegistrationConfirmationEmailToUser(user, confirmationUrl);
   }
 
   private void sendRegistrationConfirmationEmailToUser(User user, String confirmationUrl) {
     String emailAddress = user.getEmail();
     String emailSubject = webContentService.findByTitle("EMAIL_SUBJECT").getContent();
     String emailText = webContentService.findByTitle("EMAIL_TEXT").getContent();
-    String emailActivationText = webContentService.findByTitle("EMAIL_ACTIVATION_TEXT").getContent();
+    String emailActivationText =
+        webContentService.findByTitle("EMAIL_ACTIVATION_TEXT").getContent();
 
-    emailText = emailText + "<br/>" + "<a href=\"http://" + confirmationUrl + "\" >" + emailActivationText + "</a>";
+    emailText =
+        emailText
+            + "<br/>"
+            + "<a href=\"http://"
+            + confirmationUrl
+            + "\" >"
+            + emailActivationText
+            + "</a>";
     emailText = emailText + "<br/>" + "<p>Your username: " + emailAddress + "</p>";
     emailService.sendEmail(emailAddress, emailSubject, emailText);
     logger.info("Confirmation email has been sent to: " + emailAddress);
   }
 
   private String createConfirmationUrlWithRegistrationToken(RegistrationToken registrationToken) {
-    return  url + "?token=" + registrationToken.getTokenString();
+    return url + "?token=" + registrationToken.getTokenString();
   }
 
   private RegistrationToken createRegistrationTokenForUser(User user) {
@@ -82,5 +85,4 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
   private LocalDateTime calculateExpiryDate(Integer days) {
     return LocalDateTime.now().plus(days, ChronoUnit.DAYS);
   }
-
 }

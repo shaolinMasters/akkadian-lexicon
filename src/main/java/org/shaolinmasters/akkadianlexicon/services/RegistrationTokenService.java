@@ -31,7 +31,8 @@ public class RegistrationTokenService {
   }
 
   public RegistrationToken findByTokenString(String tokenString) {
-    Optional<RegistrationToken> optionalRegistrationToken = registrationTokenRepository.findByToken(tokenString);
+    Optional<RegistrationToken> optionalRegistrationToken =
+        registrationTokenRepository.findByToken(tokenString);
     if (optionalRegistrationToken.isPresent()) {
       return optionalRegistrationToken.get();
     }

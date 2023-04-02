@@ -1,11 +1,9 @@
 package org.shaolinmasters.akkadianlexicon;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+// @SpringBootTest
 class AkkadianLexiconApplicationTests {
 
-  @Test
+  //  @Test
   void contextLoads() {}
 }

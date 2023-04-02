@@ -48,7 +48,6 @@ public class WordService {
     word.setVocabularyForm(vocabularyForm);
 
     wordRepository.save(word);
-
   }
 
   public void saveAdjective(NotVerbDTO notVerb) {

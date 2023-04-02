@@ -37,7 +37,7 @@ public class User {
   @Column(name = "enabled", columnDefinition = "boolean default false")
   private boolean enabled;
 
-  public User(String email, Set<Authority> authorities){
+  public User(String email, Set<Authority> authorities) {
     this.email = email;
     this.authorities = authorities;
   }

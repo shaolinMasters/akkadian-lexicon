@@ -12,5 +12,4 @@ public class ConfirmAdminDTO {
   private String tokenString;
   private String password;
   private String confirmPassword;
-
 }

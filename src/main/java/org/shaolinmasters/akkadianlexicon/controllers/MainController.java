@@ -1,6 +1,5 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.dtos.ConfirmAdminDTO;
@@ -26,7 +25,6 @@ public class MainController {
   private final UserService userService;
 
   private final RegistrationTokenService registrationTokenService;
-
 
   @GetMapping("/")
   public String getHomePage(Model model) {
@@ -76,11 +74,11 @@ public class MainController {
     return "password";
   }
 
-
   @PostMapping("/register")
-  public String setPasswordAndConfirm(@ModelAttribute("confirmAdmin") ConfirmAdminDTO confirmAdminDTO, Model model) {
+  public String setPasswordAndConfirm(
+      @ModelAttribute("confirmAdmin") ConfirmAdminDTO confirmAdminDTO, Model model) {
     if (registrationTokenService.isValidToken(confirmAdminDTO.getTokenString())) {
-      //if passwords are OK
+      // if passwords are OK
       userService.confirmAdminUser(confirmAdminDTO);
     } else {
       model.addAttribute("confirmAdmin", new ConfirmAdminDTO());

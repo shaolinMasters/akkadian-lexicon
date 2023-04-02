@@ -1,8 +1,6 @@
 package org.shaolinmasters.akkadianlexicon.services;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
@@ -18,12 +16,10 @@ public class AuthorityService {
 
   private final AuthorityRepositoryI authorityRepository;
 
-  public Authority findByRole(Role role){
+  public Authority findByRole(Role role) {
     Optional<Authority> result = authorityRepository.findByRole(role);
-    if(result.isPresent()){
+    if (result.isPresent()) {
       return result.get();
-    }
-    else throw new ResourceNotFoundException("Not found authority with role: " + role);
+    } else throw new ResourceNotFoundException("Not found authority with role: " + role);
   }
-
 }

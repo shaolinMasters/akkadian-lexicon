@@ -3,8 +3,6 @@ package org.shaolinmasters.akkadianlexicon.services;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.KingDTO;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
@@ -56,29 +54,29 @@ public class KingService {
     kingRepository.deleteById(id);
   }
 
-
   public void saveKing(KingDTO kingDTO) {
     if (!(kingDTO.getSourceId() == 0)) {
       Source source = sourceService.findSourceById(kingDTO.getSourceId());
       King king =
-        new King(
-          kingDTO.getKingName(),
-          yearAttributeConverter.convertToEntityAttribute(Short.parseShort(kingDTO.getRegnalYearFrom())),
-          yearAttributeConverter.convertToEntityAttribute(Short.parseShort(kingDTO.getRegnalYearTo())),
-          source);
+          new King(
+              kingDTO.getKingName(),
+              yearAttributeConverter.convertToEntityAttribute(
+                  Short.parseShort(kingDTO.getRegnalYearFrom())),
+              yearAttributeConverter.convertToEntityAttribute(
+                  Short.parseShort(kingDTO.getRegnalYearTo())),
+              source);
       source.setKing(king);
       kingRepository.save(king);
     } else {
       King king =
-        new King(
-          kingDTO.getKingName(),
-          yearAttributeConverter.convertToEntityAttribute(Short.parseShort(kingDTO.getRegnalYearFrom())),
-          yearAttributeConverter.convertToEntityAttribute(Short.parseShort(kingDTO.getRegnalYearTo())),
-          null);
+          new King(
+              kingDTO.getKingName(),
+              yearAttributeConverter.convertToEntityAttribute(
+                  Short.parseShort(kingDTO.getRegnalYearFrom())),
+              yearAttributeConverter.convertToEntityAttribute(
+                  Short.parseShort(kingDTO.getRegnalYearTo())),
+              null);
       kingRepository.save(king);
     }
-
-
   }
-
 }

@@ -8,5 +8,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface AuthorityRepositoryI extends JpaRepository<Authority, Long> {
 
   Optional<Authority> findByRole(Role role);
-
 }

@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.dtos.AdminDTO;
@@ -16,7 +15,6 @@ import org.shaolinmasters.akkadianlexicon.models.RegistrationToken;
 import org.shaolinmasters.akkadianlexicon.models.SecurityUser;
 import org.shaolinmasters.akkadianlexicon.models.User;
 import org.shaolinmasters.akkadianlexicon.models.enums.Role;
-import org.shaolinmasters.akkadianlexicon.repositories.RegistrationTokenRepositoryI;
 import org.shaolinmasters.akkadianlexicon.repositories.UserRepositoryI;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -46,11 +44,10 @@ public class UserService implements UserDetailsService {
   @Transactional
   public User createAccountWithRole(AdminDTO adminDto, Role role) {
     String email = adminDto.getEmail();
-    try{
+    try {
       findUserByEmail(email);
       throw new UserAlreadyExistException("User with email: " + email + " already exists.");
-    }
-    catch (ResourceNotFoundException exception){
+    } catch (ResourceNotFoundException exception) {
       User userToRegister = new User();
       Set<Authority> authorities = new HashSet<>();
       authorities.add(authorityService.findByRole(role));
@@ -60,18 +57,18 @@ public class UserService implements UserDetailsService {
     }
   }
 
-  public User findUserByEmail(String email){
+  public User findUserByEmail(String email) {
     Optional<User> optionalUser = userRepository.findByEmailIgnoreCase(email);
-    if(optionalUser.isPresent()){
+    if (optionalUser.isPresent()) {
       return optionalUser.get();
     }
     throw new ResourceNotFoundException("User with email: " + email + " not found.");
   }
 
-
   @Transactional
   public void confirmAdminUser(ConfirmAdminDTO confirmAdminDTO) {
-    RegistrationToken registrationToken = registrationTokenService.findByTokenString(confirmAdminDTO.getTokenString());
+    RegistrationToken registrationToken =
+        registrationTokenService.findByTokenString(confirmAdminDTO.getTokenString());
     User user = registrationToken.getUser();
     user.setEnabled(true);
     user.setPassword(passwordEncoder.encode(confirmAdminDTO.getPassword()));
