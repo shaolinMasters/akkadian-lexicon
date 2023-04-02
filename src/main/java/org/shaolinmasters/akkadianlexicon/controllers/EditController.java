@@ -184,7 +184,7 @@ public class EditController {
 
   @PostMapping("/delete/user")
   public String deleteUser(@RequestParam Long id, Model m) {
-    userService.deleteUser(id);
+    userService.deleteUserById(id);
     m.addAttribute("isUser", true);
     m.addAttribute("isDelete", true);
     return "redirect:/edit?option=user&action=delete";
