@@ -35,14 +35,18 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
   @Value("${registration.confirmationUrlPath}")
   private String emailConfirmationUrlPath;
 
+  @Value("${domain}")
+  private String domain;
+
+
   private String url;
 
   @Value("${server.port}")
   private int port;
 
   @PostConstruct
-  private void setUrl() throws UnknownHostException {
-    this.url = InetAddress.getLocalHost().getHostAddress() + ":" + port + emailConfirmationUrlPath;
+  private void setUrl() {
+    this.url = domain + ":" + port + emailConfirmationUrlPath;
   }
 
   @Override

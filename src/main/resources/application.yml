@@ -8,6 +8,7 @@ registration:
     confirmationUrlPath: /register
 server:
     port: ${WEBSERVER_PORT}
+domain: ${DOMAIN}
 
 
 
