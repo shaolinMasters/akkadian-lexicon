@@ -64,13 +64,13 @@ public class MainController {
 
   @GetMapping(value = "/register", params = "token")
   public String confirmRegistration(Model model, @RequestParam("token") String tokenString) {
-
+    ConfirmAdminDTO confirmAdminDTO = new ConfirmAdminDTO();
     if (registrationTokenService.isValidToken(tokenString)) {
       model.addAttribute("isValidToken", true);
-      ConfirmAdminDTO confirmAdminDTO = new ConfirmAdminDTO();
       confirmAdminDTO.setTokenString(tokenString);
       model.addAttribute("confirmAdmin", confirmAdminDTO);
     } else {
+      model.addAttribute("confirmAdmin", confirmAdminDTO);
       model.addAttribute("isValidToken", false);
     }
     return "password";
@@ -83,6 +83,7 @@ public class MainController {
       //if passwords are OK
       userService.confirmAdminUser(confirmAdminDTO);
     } else {
+      model.addAttribute("confirmAdmin", new ConfirmAdminDTO());
       model.addAttribute("isValidToken", false);
       return "password";
     }

@@ -1,0 +1,37 @@
+<section>
+    <div class="container pt-5 pb-5">
+        <form id="confirm-admin-form"
+              data-th-object="${confirmAdmin}"
+              method="post"
+              th:style="${isValidToken  ? 'display:block' : 'display:none'}"
+              data-th-action="@{/register}"
+              action="/register">
+            <div class="row">
+                <div class="col">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="password-input">Password: </label>
+                        <input type="password" id="password-input" class="form-control" data-th-field="*{password}"/>
+                        <br>
+<!--                        <span style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-outline mb-4">
+                        <label class="form-label" for="confirm-password-input">Confirm:</label>
+                        <input type="password" id="confirm-password-input" class="form-control" data-th-field="*{confirmPassword}"/>
+                        <br>
+<!--                        <span style="color: red" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></span>-->
+                    </div>
+                </div>
+            </div>
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">Send</button>
+            <input type="hidden" id="tokenString-input" class="form-control" data-th-field="*{tokenString}" th:if="${confirmAdmin.tokenString != null}" th:value="${confirmAdmin.tokenString}"/>
+            <div class="alert alert-danger" role="alert" th:if="${!isValidToken}">
+                Your token is not valid. Please contact with Gabor Erdos.
+            </div>
+        </form>
+    </div>
+</section>

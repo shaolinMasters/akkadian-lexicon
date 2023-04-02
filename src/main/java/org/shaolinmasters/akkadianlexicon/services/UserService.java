@@ -21,6 +21,7 @@ import org.shaolinmasters.akkadianlexicon.repositories.UserRepositoryI;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,6 +32,7 @@ public class UserService implements UserDetailsService {
   private final UserRepositoryI userRepository;
   private final AuthorityService authorityService;
   private final RegistrationTokenService registrationTokenService;
+  private final PasswordEncoder passwordEncoder;
 
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -72,7 +74,7 @@ public class UserService implements UserDetailsService {
     RegistrationToken registrationToken = registrationTokenService.findByTokenString(confirmAdminDTO.getTokenString());
     User user = registrationToken.getUser();
     user.setEnabled(true);
-    user.setPassword(confirmAdminDTO.getPassword());
+    user.setPassword(passwordEncoder.encode(confirmAdminDTO.getPassword()));
     userRepository.save(user);
     registrationTokenService.deleteToken(registrationToken);
   }
