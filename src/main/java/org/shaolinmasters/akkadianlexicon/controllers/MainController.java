@@ -46,17 +46,6 @@ public class MainController {
     return "bibliography";
   }
 
-  @PreAuthorize("hasRole('ROLE_ADMIN')")
-  @GetMapping("/admin")
-  public String getAdmin() {
-    return "admin";
-  }
-
-  @PreAuthorize("hasRole('ROLE_SUPERADMIN')")
-  @GetMapping("/superadmin")
-  public String getSuperAdmin() {
-    return "superadmin";
-  }
 
   @GetMapping("/login")
   public String login() {
