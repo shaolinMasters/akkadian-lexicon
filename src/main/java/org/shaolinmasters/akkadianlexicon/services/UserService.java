@@ -1,5 +1,6 @@
 package org.shaolinmasters.akkadianlexicon.services;
 
+import jakarta.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +44,7 @@ public class UserService implements UserDetailsService {
     throw new UsernameNotFoundException("User with email: " + email + " not found.");
   }
 
+  @Transactional
   public User createAccountWithRole(AdminDTO adminDto, Role role) {
     String email = adminDto.getEmail();
     try {
@@ -83,17 +85,5 @@ public class UserService implements UserDetailsService {
   @Transactional
   public void deleteUserById(Long id) {
     userRepository.deleteById(id);
-  }
-
-  public List<User> listAllAdminWithoutActiveId(Long id) {
-    return userRepository.findByIdNotAndAuthorities_RoleOrderByNameAsc(id,Role.ROLE_ADMIN);
-  }
-
-  public Optional<User> findById(Long id) {
-    return userRepository.findById(id);
-  }
-
-  public User findUserByName(String name) {
-    return userRepository.findByName(name);
   }
 }
