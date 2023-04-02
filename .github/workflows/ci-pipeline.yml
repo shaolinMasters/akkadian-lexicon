@@ -107,7 +107,7 @@ jobs:
 
     code_style_check_and_build:
         name: Code style check and build
-        needs: lint
+#        needs: lint
         runs-on: ubuntu-latest
 
         steps:
