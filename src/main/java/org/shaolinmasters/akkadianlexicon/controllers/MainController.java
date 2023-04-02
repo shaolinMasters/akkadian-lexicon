@@ -52,6 +52,12 @@ public class MainController {
     return "admin";
   }
 
+  @PreAuthorize("hasRole('ROLE_SUPERADMIN')")
+  @GetMapping("/superadmin")
+  public String getSuperAdmin() {
+    return "superadmin";
+  }
+
   @GetMapping("/login")
   public String login() {
     logger.info("Incoming request for '/login' with method: GET");
