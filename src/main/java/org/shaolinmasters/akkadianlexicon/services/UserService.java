@@ -1,6 +1,8 @@
 package org.shaolinmasters.akkadianlexicon.services;
 
 import java.util.Optional;
+
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.models.SecurityUser;
 import org.shaolinmasters.akkadianlexicon.models.User;
@@ -23,5 +25,9 @@ public class UserService implements UserDetailsService {
       return new SecurityUser(result.get());
     }
     throw new UsernameNotFoundException("User with email: " + email + " not found.");
+  }
+  @Transactional
+  public void deleteUser(Long id) {
+    userRepository.deleteById(id);
   }
 }

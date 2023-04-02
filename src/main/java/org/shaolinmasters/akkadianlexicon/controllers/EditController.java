@@ -37,6 +37,8 @@ public class EditController {
 
   private final WordService wordService;
 
+  private final UserService userService;
+
   @GetMapping
   public String get(Model m) {
     logger.info("Incoming request for '/edit' with method: GET");
@@ -153,6 +155,14 @@ public class EditController {
   public String deleteSource(@RequestParam Long id, Model m) {
     sourceService.deleteSourceById(id);
     return "redirect:/edit?option=source&action=delete";
+  }
+
+  @PostMapping("/delete/user")
+  public String deleteUser(@RequestParam Long id, Model m) {
+    userService.deleteUser(id);
+    m.addAttribute("isUser", true);
+    m.addAttribute("isDelete", true);
+    return "redirect:/edit?option=user&action=delete";
   }
 
 
