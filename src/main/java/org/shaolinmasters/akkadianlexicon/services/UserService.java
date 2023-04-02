@@ -41,7 +41,6 @@ public class UserService implements UserDetailsService {
     throw new UsernameNotFoundException("User with email: " + email + " not found.");
   }
 
-  @Transactional
   public User createAccountWithRole(AdminDTO adminDto, Role role) {
     String email = adminDto.getEmail();
     try {
@@ -74,5 +73,10 @@ public class UserService implements UserDetailsService {
     user.setPassword(passwordEncoder.encode(confirmAdminDTO.getPassword()));
     userRepository.save(user);
     registrationTokenService.deleteToken(registrationToken);
+  }
+
+  @Transactional
+  public void deleteUserById(Long id) {
+    userRepository.deleteById(id);
   }
 }

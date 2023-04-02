@@ -3,7 +3,6 @@ package org.shaolinmasters.akkadianlexicon.controllers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.dtos.AdminDTO;
-import org.shaolinmasters.akkadianlexicon.dtos.SourceDTO;
 import org.shaolinmasters.akkadianlexicon.events.OnRegistrationCompleteEvent;
 import org.shaolinmasters.akkadianlexicon.models.User;
 import org.shaolinmasters.akkadianlexicon.models.enums.Role;
@@ -12,14 +11,10 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @Slf4j
@@ -90,5 +85,12 @@ public class SettingsController {
     model.addAttribute("isCreate", false);
     model.addAttribute("isDelete", false);
     model.addAttribute("isAdmin", false);
+  }
+  @PostMapping("/delete/user")
+  public String deleteAdmin(@RequestParam Long id, Model m) {
+    userService.deleteUserById(id);
+    //m.addAttribute("isUser", true);
+    m.addAttribute("isDelete", true);
+    return "redirect:/settings?action=delete";
   }
 }
