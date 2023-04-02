@@ -8,6 +8,7 @@ import org.shaolinmasters.akkadianlexicon.models.User;
 import org.shaolinmasters.akkadianlexicon.models.enums.Role;
 import org.shaolinmasters.akkadianlexicon.services.UserService;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/settings")
+@PreAuthorize("hasRole('ROLE_SUPERADMIN')")
 public class SettingsController {
 
   private final ApplicationEventPublisher eventPublisher;

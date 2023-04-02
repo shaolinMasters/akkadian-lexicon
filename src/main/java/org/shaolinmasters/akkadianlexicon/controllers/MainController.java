@@ -7,7 +7,6 @@ import org.shaolinmasters.akkadianlexicon.models.WebContent;
 import org.shaolinmasters.akkadianlexicon.services.RegistrationTokenService;
 import org.shaolinmasters.akkadianlexicon.services.UserService;
 import org.shaolinmasters.akkadianlexicon.services.WebContentService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,7 +51,6 @@ public class MainController {
     model.addAttribute("content", aContent);
     return "bibliography";
   }
-
 
   @GetMapping("/login")
   public String login() {

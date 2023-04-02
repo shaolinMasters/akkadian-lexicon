@@ -2,7 +2,6 @@ package org.shaolinmasters.akkadianlexicon.models.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Getter

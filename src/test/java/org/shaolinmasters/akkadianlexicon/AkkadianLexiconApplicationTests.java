@@ -1,6 +1,5 @@
 package org.shaolinmasters.akkadianlexicon;
 
-
 // @SpringBootTest
 class AkkadianLexiconApplicationTests {
 

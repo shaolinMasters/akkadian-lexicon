@@ -2,6 +2,7 @@ package org.shaolinmasters.akkadianlexicon.services;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
 import org.shaolinmasters.akkadianlexicon.models.WebContent;
 import org.shaolinmasters.akkadianlexicon.repositories.WebContentRepositoryI;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class WebContentService {
 
   private final WebContentRepositoryI webContentRepository;
