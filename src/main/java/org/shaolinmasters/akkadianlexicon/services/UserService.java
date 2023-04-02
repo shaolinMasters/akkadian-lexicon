@@ -27,7 +27,7 @@ public class UserService implements UserDetailsService {
     throw new UsernameNotFoundException("User with email: " + email + " not found.");
   }
   @Transactional
-  public void deleteUser(Long id) {
+  public void deleteUserById(Long id) {
     userRepository.deleteById(id);
   }
 }
