@@ -5,9 +5,9 @@ import org.shaolinmasters.akkadianlexicon.models.RegistrationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface RegistrationRepositoryI extends JpaRepository<RegistrationToken,Long> {
+public interface RegistrationTokenRepositoryI extends JpaRepository<RegistrationToken,Long> {
 
-  @Query("select r from RegistrationToken r where r.token = ?1")
+  @Query("select r from RegistrationToken r where r.tokenString = ?1")
   Optional<RegistrationToken> findByToken(String token);
 
 }

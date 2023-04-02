@@ -2,6 +2,7 @@ package org.shaolinmasters.akkadianlexicon.controllers;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -10,12 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@Slf4j
 public class CustomErrorController
- // implements ErrorController
+//  implements ErrorController
 {
-
-  private final Logger logger = LoggerFactory.getLogger(CustomErrorController.class);
-
 //  @RequestMapping("/error")
 //  public String handleError(HttpServletRequest request, Model model) {
 //    logger.error("Requested URI: " + request.getRequestURI());

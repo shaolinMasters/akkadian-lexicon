@@ -2,6 +2,7 @@ package org.shaolinmasters.akkadianlexicon.controllers;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.models.King;
 import org.shaolinmasters.akkadianlexicon.models.Source;
 import org.shaolinmasters.akkadianlexicon.models.Word;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/search")
+@Slf4j
 public class SearchController {
 
   private final WordService wordService;
@@ -24,7 +26,6 @@ public class SearchController {
   private final KingService kingService;
 
   private final SourceService sourceService;
-  private final Logger logger = LoggerFactory.getLogger(SearchController.class);
 
   @GetMapping
   public String get(Model model) {

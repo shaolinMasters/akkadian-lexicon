@@ -5,7 +5,7 @@ spring:
         active: ${ENVIRONMENT}
 registration:
     tokenExpirationDayCount: 1
-    confirmationUrlPath: /users/registrationConfirm
+    confirmationUrlPath: /register
 server:
     port: ${WEBSERVER_PORT}
 

@@ -7,6 +7,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class UserDTO {
-  private String email;
+public class ConfirmAdminDTO {
+
+  private String tokenString;
+  private String password;
+  private String confirmPassword;
+
 }

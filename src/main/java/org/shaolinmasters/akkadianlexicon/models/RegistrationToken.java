@@ -1,5 +1,6 @@
 package org.shaolinmasters.akkadianlexicon.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -7,46 +8,39 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Transient;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 @Getter
 @Setter
 public class RegistrationToken {
 
-  @Value( "${registration.tokenExpirationDayCount}" )
-  @Transient
-  private int expirationDayCount;
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String token;
+  @Column(name = "token")
+  private String tokenString;
 
   @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
   @JoinColumn(nullable = false, name = "user_id")
   private User user;
 
-  private LocalDateTime expiryDate;
+  private LocalDateTime expiryDateTime;
 
   public RegistrationToken() {
     super();
   }
 
-  public RegistrationToken(String token, User user) {
+  public RegistrationToken(String tokenString, User user, LocalDateTime expiryDateTime) {
     super();
-    this.token = token;
+    this.tokenString = tokenString;
     this.user = user;
-    this.expiryDate = calculateExpiryDate(expirationDayCount);
+    this.expiryDateTime = expiryDateTime;
   }
 
-  private LocalDateTime calculateExpiryDate(int days) {
-    return LocalDateTime.now().plus(days, ChronoUnit.DAYS);
-  }
+
 }

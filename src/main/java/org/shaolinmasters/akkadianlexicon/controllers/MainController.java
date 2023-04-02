@@ -1,30 +1,32 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
 
-import java.util.Calendar;
-import java.util.Locale;
 import lombok.RequiredArgsConstructor;
-import org.shaolinmasters.akkadianlexicon.models.*;
+import lombok.extern.slf4j.Slf4j;
+import org.shaolinmasters.akkadianlexicon.dtos.ConfirmAdminDTO;
+import org.shaolinmasters.akkadianlexicon.models.WebContent;
+import org.shaolinmasters.akkadianlexicon.services.RegistrationTokenService;
 import org.shaolinmasters.akkadianlexicon.services.UserService;
 import org.shaolinmasters.akkadianlexicon.services.WebContentService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.WebRequest;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class MainController {
 
   private final WebContentService contentService;
 
-  private final Logger logger = LoggerFactory.getLogger(MainController.class);
-
   private final UserService userService;
+
+  private final RegistrationTokenService registrationTokenService;
+
 
   @GetMapping("/")
   public String getHomePage(Model model) {
@@ -60,29 +62,30 @@ public class MainController {
     return "login";
   }
 
-  @GetMapping("/users/registrationConfirm")
-  public String confirmRegistration
-    (WebRequest request, Model model, @RequestParam("token") String token) {
+  @GetMapping(value = "/register", params = "token")
+  public String confirmRegistration(Model model, @RequestParam("token") String tokenString) {
 
-//    Locale locale = request.getLocale();
-//
-//    VerificationToken verificationToken = userService.getVerificationToken(token);
-//    if (verificationToken == null) {
-//      String message = messages.getMessage("auth.message.invalidToken", null, locale);
-//      model.addAttribute("message", message);
-//      return "redirect:/badUser.html?lang=" + locale.getLanguage();
-//    }
-//
-//    User user = verificationToken.getUser();
-//    Calendar cal = Calendar.getInstance();
-//    if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-//      String messageValue = messages.getMessage("auth.message.expired", null, locale)
-//      model.addAttribute("message", messageValue);
-//      return "redirect:/badUser.html?lang=" + locale.getLanguage();
-//    }
-//
-//    user.setEnabled(true);
-    userService.confirmRegistration(token);
-    return "redirect:/login";
+    if (registrationTokenService.isValidToken(tokenString)) {
+      model.addAttribute("isValidToken", true);
+      ConfirmAdminDTO confirmAdminDTO = new ConfirmAdminDTO();
+      confirmAdminDTO.setTokenString(tokenString);
+      model.addAttribute("confirmAdmin", confirmAdminDTO);
+    } else {
+      model.addAttribute("isValidToken", false);
+    }
+    return "password";
+  }
+
+
+  @PostMapping("/register")
+  public String setPasswordAndConfirm(@ModelAttribute("confirmAdmin") ConfirmAdminDTO confirmAdminDTO, Model model) {
+    if (registrationTokenService.isValidToken(confirmAdminDTO.getTokenString())) {
+      //if passwords are OK
+      userService.confirmAdminUser(confirmAdminDTO);
+    } else {
+      model.addAttribute("isValidToken", false);
+      return "password";
+    }
+    return "login";
   }
 }
