@@ -1,10 +1,6 @@
 package org.shaolinmasters.akkadianlexicon.services;
 
-import jakarta.transaction.Transactional;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +40,6 @@ public class UserService implements UserDetailsService {
     throw new UsernameNotFoundException("User with email: " + email + " not found.");
   }
 
-  @Transactional
   public User createAccountWithRole(AdminDTO adminDto, Role role) {
     String email = adminDto.getEmail();
     try {
