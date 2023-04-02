@@ -2,6 +2,7 @@ package org.shaolinmasters.akkadianlexicon.controllers;
 
 import java.util.EnumSet;
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.dtos.KingDTO;
