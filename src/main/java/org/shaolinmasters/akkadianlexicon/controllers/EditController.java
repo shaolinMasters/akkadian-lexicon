@@ -107,7 +107,6 @@ public class EditController {
 
   @GetMapping(params = {"option=word", "action=create"})
   public String getCreateWord(Model m) {
-    logger.info("getCreateWord");
     addModelsToEditPage(m);
     m.addAttribute("isWord", true);
     m.addAttribute("isCreate", true);
@@ -154,6 +153,11 @@ public class EditController {
       attributes.addFlashAttribute("newKing", king);
       return new RedirectView("/edit?option=king&action=create&error");
     }
+    //model.addAttribute("sourceHasErrors", false);
+    //model.addAttribute("kingHasErrors", false);
+    //model.addAttribute("isKing", true);
+    //model.addAttribute("isSource", false);
+    //logger.info(String.valueOf(king));
     kingService.saveKing(king);
     addModelsToEditPage(model);
 
