@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.NotVerbDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.VerbDTO;
 import org.shaolinmasters.akkadianlexicon.models.*;
+import org.shaolinmasters.akkadianlexicon.models.enums.VowelClass;
 import org.shaolinmasters.akkadianlexicon.repositories.WordRepositoryI;
 import org.springframework.stereotype.Service;
 
