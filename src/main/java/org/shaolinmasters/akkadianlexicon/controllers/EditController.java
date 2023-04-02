@@ -187,6 +187,14 @@ public class EditController {
     return "redirect:/edit?option=source&action=delete";
   }
 
+  @PostMapping("/delete/user")
+  public String deleteUser(@RequestParam Long id, Model m) {
+    userService.deleteUser(id);
+    m.addAttribute("isUser", true);
+    m.addAttribute("isDelete", true);
+    return "redirect:/edit?option=user&action=delete";
+  }
+
 
 
   @PostMapping("/delete/king")
