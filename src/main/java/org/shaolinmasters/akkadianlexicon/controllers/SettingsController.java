@@ -95,8 +95,9 @@ public class SettingsController {
   }
 
   @PostMapping("/delete/user")
-  public String deleteUser(@RequestParam Long id, Model m) {
+  public String deleteAdmin(@RequestParam Long id, Model m) {
     userService.deleteUserById(id);
+    //m.addAttribute("isUser", true);
     m.addAttribute("isDelete", true);
     return "redirect:/settings?action=delete";
   }
