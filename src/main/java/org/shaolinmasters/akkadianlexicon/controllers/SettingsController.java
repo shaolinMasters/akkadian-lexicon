@@ -37,8 +37,8 @@ public class SettingsController {
   }
 
   @GetMapping(
-      value = "/user",
-      params = {"option=admin", "action=create"})
+    value = "/user",
+    params = {"option=admin", "action=create"})
   public String getCreateAdmin(Model model) {
     addModelsToSettingsPage(model);
     model.addAttribute("isCreate", true);
@@ -47,15 +47,15 @@ public class SettingsController {
   }
 
   @PostMapping(
-      value = "/user",
-      params = {"option=admin", "action=create"})
+    value = "/user",
+    params = {"option=admin", "action=create"})
   public RedirectView createAdmin(
     @ModelAttribute("newAdmin") @Validated AdminDTO adminDto,
     BindingResult bindingResult,
     Model model,
     RedirectAttributes attributes
-    ) {
-    if(bindingResult.hasErrors()) {
+  ) {
+    if (bindingResult.hasErrors()) {
       attributes.addFlashAttribute("org.springframework.validation.BindingResult.newAdmin", bindingResult);
       attributes.addFlashAttribute("newAdmin", adminDto);
       return new RedirectView("/settings/user?option=admin&action=create&error");
@@ -67,7 +67,8 @@ public class SettingsController {
     model.addAttribute("isAdmin", true);
     return new RedirectView("/settings");
   }
-  @GetMapping(value = "user",  params = {"option=admin", "action=create", "error"})
+
+  @GetMapping(value = "user", params = {"option=admin", "action=create", "error"})
   public String getCreateAdminError(Model m) {
     if (m.containsAttribute("newAdmin") && m.containsAttribute("org.springframework.validation.BindingResult.newAdmin")) {
       Object adto = m.getAttribute("newAdmin");
@@ -85,13 +86,14 @@ public class SettingsController {
 
   @GetMapping(
     value = "/user",
-    params= {"option=admin", "action=delete"})
+    params = {"option=admin", "action=delete"})
   public String getDeleteAdmin(Model m) {
     addModelsToSettingsPage(m);
     m.addAttribute("isDelete", true);
     m.addAttribute("id", 0);
     return "settings";
   }
+
   @PostMapping("/delete/user")
   public String deleteUser(@RequestParam Long id, Model m) {
     userService.deleteUserById(id);

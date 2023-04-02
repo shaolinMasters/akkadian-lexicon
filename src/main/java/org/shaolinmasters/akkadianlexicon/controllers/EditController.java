@@ -2,7 +2,6 @@ package org.shaolinmasters.akkadianlexicon.controllers;
 
 import java.util.EnumSet;
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.dtos.KingDTO;
@@ -32,6 +31,8 @@ import org.springframework.web.servlet.view.RedirectView;
 @Slf4j
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 public class EditController {
+
+  private final Logger logger = LoggerFactory.getLogger(EditController.class);
 
   private final KingService kingService;
 
@@ -182,14 +183,6 @@ public class EditController {
     return "redirect:/edit?option=source&action=delete";
   }
 
-  @PostMapping("/delete/user")
-  public String deleteUser(@RequestParam Long id, Model m) {
-    userService.deleteUserById(id);
-    m.addAttribute("isUser", true);
-    m.addAttribute("isDelete", true);
-    return "redirect:/edit?option=user&action=delete";
-  }
-
 
 
   @PostMapping("/delete/king")
@@ -262,7 +255,6 @@ public class EditController {
     return new RedirectView("/edit?option=word&action=create");
   }
 
-
   @PostMapping("/new/not-verb")
   public RedirectView saveNotVerb(
     @ModelAttribute @Validated NotVerbDTO notVerb,
@@ -282,6 +274,9 @@ public class EditController {
       case "Pronoun" -> wordService.savePronoun(notVerb);
       case "Adverb" -> wordService.saveAdverb(notVerb);
     }
+    model.addAttribute("sourceHasErrors", false);
+    model.addAttribute("kingHasErrors", false);
+    model.addAttribute("wordHasErrors", false);
     addModelsToEditPage(model);
     return new RedirectView("/edit?option=word&action=create");
   }
