@@ -1,6 +1,8 @@
 package org.shaolinmasters.akkadianlexicon.services;
 
 import java.util.List;
+
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.dtos.NotVerbDTO;
@@ -88,5 +90,10 @@ public class WordService {
     word.setVocabularyForm(vocabularyForm);
 
     wordRepository.save(word);
+  }
+
+  @Transactional
+  public void deleteWordById(Long id) {
+    wordRepository.deleteById(id);
   }
 }

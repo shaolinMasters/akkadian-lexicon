@@ -87,6 +87,58 @@
             </div>
         </div>
     </div>
+    <div class="container pt-5 pb-5 position-relative" th:style="${isWord  ? 'display:block' : 'display:none'}">
+        <tr id="vocabularyFormsSegment" th:each="word: ${words}">
+            <td>
+                <div th:unless="${#strings.isEmpty(word)}">
+                    <h4>Matches:</h4>
+                    <p>
+                        <span class="title-key">Nominative: </span>
+                        <span th:text="${word.getVocabularyForm().getNominative()}"> nominative</span>
+                    </p>
+                    <p>
+                        <span class="title-key">Sumerian Form: </span>
+                        <span th:text="${word.getVocabularyForm().getSumerianForm()}"> sumerian form</span>
+                    </p>
+                    <p>
+                        <span class="title-key">Meaning: </span>
+                        <span th:text="${word.getVocabularyForm().getMeaning()}"> meaning</span>
+                    </p>
+                </div>
+                <div class="ms-auto p-2">
+                    <span>
+                         <button th:value="${word.getId()}" type="button" class="btn btn-outline-danger word-delete-button" data-bs-toggle="modal" data-bs-target="#delete-word-modal">Delete</button>
+                    </span>
+                </div>
+                <hr>
+            </td>
+        </tr>
+    </div>
+    <div class="modal fade" id="delete-word-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="wordModalLabel">Delete</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete?
+                </div>
+                <div class="modal-footer">
+                    <form id="delete-word-form"
+                          data-th-object="${id}"
+                          method="post"
+                          data-th-action="@{/edit/delete/word}"
+                          action="/edit/delete/word">
+                        <input id="removable-word-input" type="hidden" value="1" name="id">
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 
