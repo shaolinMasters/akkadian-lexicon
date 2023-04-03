@@ -8,6 +8,8 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @ToString
 public enum Degree {
-  EXAMPLE("example");
+  PHD("PhD."),
+  HABIL("PhD. habil."),
+  PROF("Prof.");
   private final String degreeName;
 }
