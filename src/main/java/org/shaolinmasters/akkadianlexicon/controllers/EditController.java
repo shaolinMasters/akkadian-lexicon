@@ -1,6 +1,8 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
 import java.util.EnumSet;
+import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.dtos.KingDTO;
@@ -30,8 +32,6 @@ import org.springframework.web.servlet.view.RedirectView;
 @Slf4j
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 public class EditController {
-
-  private final Logger logger = LoggerFactory.getLogger(EditController.class);
 
   private final KingService kingService;
 
