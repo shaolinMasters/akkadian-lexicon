@@ -1,21 +1,23 @@
 console.log("edit.js");
 
 const radioButtons = document.querySelectorAll('input[type="radio"]');
-const searchField = document.getElementById('search-field');
+const searchEditField = document.getElementById('search-field');
 const kingField = document.getElementById('king-field');
 const sourceField = document.getElementById('source-field');
-const createSourceForm = document.getElementById('create-source-form');
-const createKingForm = document.getElementById('create-king-form');
+/*const createSourceForm = document.getElementById('create-source-form');
+const createKingForm = document.getElementById('create-king-form');*/
 const createVerbForm = document.getElementById('create-verb-form');
 const createNotVerbForm = document.getElementById('create-not-verb-form');
+const wordField = document.getElementById('word-field');
 
 radioButtons.forEach(radioButton => {
     //if radio button is checked
     if (radioButton.checked) {
         if (radioButton.value === 'word') {
-            searchField.style.display = 'block';
+            searchEditField.style.display = 'block';
         } else if (radioButton.value === 'king') {
             kingField.style.display = 'block';
+
         } else if (radioButton.value === 'source') {
             sourceField.style.display = 'block';
         }
@@ -31,56 +33,11 @@ radioButtons.forEach(radioButton => {
             window.location = "edit?option=source";
         } else {
             kingField.style.display = 'none';
-            searchField.style.display = 'none';
+            searchEditField.style.display = 'none';
             sourceField.style.display = 'none';
-            createSourceForm.style.display = 'none';
 
         }
-        /*if (radioButton.value === 'word') {
-            searchField.style.display = 'block';
-            kingField.style.display = 'none';
-            sourceField.style.display = 'none';
-            createSourceForm.style.display = 'none';
-            createKingForm.style.display = 'none';
-            wordClassField.style.display = 'none';
-
-
-
-
-        } else if (radioButton.value === 'king') {
-            kingField.style.display = 'block';
-            searchField.style.display = 'none';
-            sourceField.style.display = 'none';
-            createSourceForm.style.display = 'none';
-            wordClassField.style.display = 'none';
-
-
-
-        } else if (radioButton.value === 'source') {
-            sourceField.style.display = 'block';
-            kingField.style.display = 'none';
-            searchField.style.display = 'none';
-            createKingForm.style.display ='none';
-            wordClassField.style.display = 'none';
-*/
-
-
     });
-
-    /*radioButton.addEventListener('change', () => {
-        if (radioButton.value === 'verb') {
-            createVerbForm.style.display = 'block';
-            createNotVerbForm.style.display = 'none';
-
-        } else if (radioButton.value === 'notVerb') {
-            createNotVerbForm.style.display = 'block';
-            createVerbForm.style.display = 'none';
-
-        } else {
-            createVerbForm.style.display = 'none';
-            createNotVerbForm.style.display = 'none';
-        }
-    });*/
 });
 
 document.getElementById('sources-new-button').onclick = function () {
@@ -95,33 +52,49 @@ document.getElementById('kings-new-button').onclick = function () {
 document.getElementById('sources-delete-button').onclick = function () {
     window.location = "edit?option=source&action=delete";
 }
-    document.getElementById('kings-delete-button').onclick = function () {
-        window.location = "edit?option=king&action=delete";
-    }
 
-    document.getElementById('word-new-button').onclick = function () {
-        //wordClassField.style.display = 'block';
-        window.location = "edit?option=word&action=create";
-    }
+document.getElementById('kings-delete-button').onclick = function () {
+    window.location = "edit?option=king&action=delete";
+}
 
-    const removableSourceInput = document.getElementById('removable-source-input');
-    const removableKingInput = document.getElementById('removable-king-input');
+document.getElementById('word-new-button').onclick = function () {
+
+    window.location = "edit?option=word&action=create";
+}
+
+document.getElementById('words-delete-button').onclick = function () {
+    window.location = "edit?option=word&action=delete";
+}
 
 
-    const sourceDeleteButtons = document.querySelectorAll(".source-delete-button");
-    const kingDeleteButtons = document.querySelectorAll(".king-delete-button");
 
-    sourceDeleteButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            removableSourceInput.value = button.value;
-        });
+const removableSourceInput = document.getElementById('removable-source-input');
+const removableKingInput = document.getElementById('removable-king-input');
+const removableWordInput = document.getElementById('removable-word-input');
+
+const sourceDeleteButtons = document.querySelectorAll(".source-delete-button");
+const kingDeleteButtons = document.querySelectorAll(".king-delete-button");
+const wordDeleteButtons = document.querySelectorAll(".word-delete-button");
+
+
+
+sourceDeleteButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        removableSourceInput.value = button.value;
     });
+});
 
-    kingDeleteButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            removableKingInput.value = button.value;
-        });
+kingDeleteButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        removableKingInput.value = button.value;
     });
+});
+
+wordDeleteButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        removableWordInput.value = button.value;
+    });
+});
 
 
 const wordClassList = document.querySelector("#dropdown-wordClasses");
@@ -129,20 +102,11 @@ const wordClassList = document.querySelector("#dropdown-wordClasses");
 const notVerbWordclassInput = document.querySelector("#not-verb-wordclass-input");
 
 
-/*   wordClassList.addEventListener('onchange',
-function showVerbForm() {
-       if(wordClassList.value === 'Verb') {
-           createVerbForm.style.display = 'block'
-       }
-
-   })*/
-
 function getWordForm() {
-    if(wordClassList.value === "Verb"){
+    if (wordClassList.value === "Verb") {
         createVerbForm.style.display = 'block'
         createNotVerbForm.style.display = 'none'
-    }
-    else{
+    } else {
         createNotVerbForm.style.display = 'block'
         createVerbForm.style.display = 'none'
         notVerbWordclassInput.value = wordClassList.value;

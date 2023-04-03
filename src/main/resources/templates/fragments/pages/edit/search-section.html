@@ -1,6 +1,6 @@
 <section class="search-bg">
     <div class="container p-5">
-        <form name="searchForm" th:object="${sourceDTO}" method="post" th:action="@{/edit}">
+        <form name="searchForm" th:object="${SourceDTO}" method="get" th:action="@{/edit}">
             <div class="row mb-3 text-center">
                 <div class="col-md-4">
                     <label>
@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-md-4">
                     <label>
-                        <span>King</span>
+                        <span>Ruler</span>
                         <br>
                         <input type="radio" th:name="option" value="king" th:checked="${isKing}">
                     </label>
@@ -27,15 +27,20 @@
             <!--            radio button separator-->
             <hr>
             <!--            radio button separator-->
-            <div id="search-field" class="row-cols-1">
+            <div id="search-field"><!--class="row-cols-1"-->
                 <div>
-                    <label for="search-word">Search:</label>
-                    <input class="input" type="text" id="search-word" th:name="word" autofocus="autofocus">
-                    <input type="submit" value="search">
+                    <div id="search-edit-field" th:style="${isWord && isDelete ? 'display:block' : 'display:none'}">
+                    <label for="search-word-to-edit">Search:</label>
+                    <input class="input" type="text" id="search-word-to-edit" th:name="word" autofocus="autofocus">
+                    <input type="submit" value="search" id="search-word-edit">
                     <div class="simple-keyboard p-3" style="display: none"></div>
                     <br>
                     <br>
-                    <button type="button" id="word-new-button" class="btn btn-success">New</button>                </div>
+                    </div>
+                    <button type="button" id="word-new-button" class="btn btn-success">New</button>
+                    <button type="button" id="words-delete-button" class="btn btn-danger">Delete</button>
+                </div>
+
             </div>
             <div id="king-field">
                 <div>
@@ -64,5 +69,8 @@
 <!--                <span th:if="${error != null}" th:text="${error}"></span>-->
 <!--            </div>-->
         </form>
+    </div>
+    <div id="errorMessage">
+        <span th:if="${error != null}" th:text="${error}"></span>
     </div>
 </section>
