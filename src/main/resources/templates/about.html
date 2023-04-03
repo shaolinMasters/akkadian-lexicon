@@ -5,17 +5,28 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-keyboard@3.5.40/build/css/index.min.css" rel="stylesheet">
     <!--/*/ <th:block th:insert="~{fragments/header-files.html}">
             </th:block> /*/-->
-    <link rel="stylesheet" th:href="@{/css/search.css}"/>
+    <link rel="stylesheet" th:href="@{/css/about.css}"/>
 </head>
 <body class="d-flex flex-column h-100">
 <header th:replace="~{fragments/header.html}"></header>
 <main>
+    <div class="container text-center">
+        <h2>About</h2>
+        <div style="display: block">
+            <img  class="about-image" src="/img/about.jpg" alt="akkadians2" width="800">
+        </div>
     <div th:if="${content != null}">
-        [(${content.getContent()})]
+        <div class="about-text">
+            <p>
+                [(${content.getContent()})]
+            </p>
+        </div>
     </div>
     <div class="container" th:unless="${content != null}">
         <p>NO CONTENT HERE</p>
     </div>
+    </div>
+
 </main>
 <footer th:replace="~{fragments/footer.html}"></footer>
 </body>
