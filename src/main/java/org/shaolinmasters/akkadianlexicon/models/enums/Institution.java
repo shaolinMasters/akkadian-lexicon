@@ -8,7 +8,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @ToString
 public enum Institution {
-  ÁTE("Állatorvostudományi Egyetem"),
+  ATE("Állatorvostudományi Egyetem"),
   ANNYE("Andrássy Gyula Budapesti Német Nyelvű Egyetem"),
   BCE("Budapesti Corvinus Egyetem"),
   BGE("Budapesti Gazdasági Egyetem"),
