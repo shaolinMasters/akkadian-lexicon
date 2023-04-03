@@ -1,21 +1,15 @@
 package org.shaolinmasters.akkadianlexicon.models;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
+
 import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString.Exclude;
+import org.shaolinmasters.akkadianlexicon.models.enums.Degree;
+import org.shaolinmasters.akkadianlexicon.models.enums.Institution;
 
 @Entity
 @Getter
@@ -36,6 +30,14 @@ public class User {
 
   @Column(name = "enabled", columnDefinition = "boolean default false")
   private boolean enabled;
+
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private Degree degree;
+
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private Institution institution;
 
   public User(String email, Set<Authority> authorities) {
     this.email = email;
