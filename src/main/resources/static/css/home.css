@@ -1,0 +1,25 @@
+
+.obelisk_image {
+    border-radius: 10px;
+}
+
+
+.container {
+    padding-bottom: 40px;
+    padding-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.home_image {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.home_text {
+    line-height: 31px;
+    font-size: 15pt;
+    padding-left: 25px;
+    padding-right: 25px;
+}

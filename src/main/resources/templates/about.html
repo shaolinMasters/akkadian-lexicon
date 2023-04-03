@@ -6,15 +6,32 @@
     <!--/*/ <th:block th:insert="~{fragments/header-files.html}">
             </th:block> /*/-->
     <link rel="stylesheet" th:href="@{/css/search.css}"/>
+    <link rel="stylesheet" th:href="@{/css/about.css}"/>
 </head>
 <body class="d-flex flex-column h-100">
 <header th:replace="~{fragments/header.html}"></header>
 <main>
+    <div class="row mb-3 text-center">
+        <h2>About</h2>
+        <div style="display: block">
+            <img  class="about_image" src="/img/about.jpg" alt="akkadians2" width="800">
+        </div>
     <div th:if="${content != null}">
         [(${content.getContent()})]
     </div>
     <div class="container" th:unless="${content != null}">
         <p>NO CONTENT HERE</p>
+    </div>
+    </div>
+    <div class="about_text">
+        <p>
+            Lórum ipse olyan borzasztóan kusos verc, ami klasz nélkül nem tulapkoz megfelelően. Ha ez nem bajlatlan, akkor a lata
+            kányzatát (ezt rapcsodhatja egy stadag „fatlan” büdvetővel). Ha a prány egy paztag lelőn bujtó, akkor azt a fakortságot
+            hareklálja. A viparka fosztorkának sérlő tikája, hasána vagy kéjese nincs a prányon kélő rozáshoz, és nem is kednek
+            górisban a lankó kettősségével. „prány” egyészlepesben szeme bazadkodásai géznek fenséget gyankójuk helygésére. Az itt dombohm
+            keszorgások, gigatok, gyankók nem fetykézik a glata szidák győzését. A marandolt keszkolok telgésüket és lakcsótukat
+            illetően a fitás viros győztes közé verepelnek. A pálé által marandolt balan szeret 56.054 ha.
+        </p>
     </div>
 </main>
 <footer th:replace="~{fragments/footer.html}"></footer>
