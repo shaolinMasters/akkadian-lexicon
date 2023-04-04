@@ -220,15 +220,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
             + confirmationUrl
             + "\""
             + emailActivationText
-            + "\" </a>"
-            + "                                                                style=\"height:39px; v-text-anchor:middle; width:97px\" arcsize=\"50%\" stroke=\"f\" fillcolor=\"#92755b\">"
-            + "                                                                <w:anchorlock></w:anchorlock>"
-            + "                                                                <center"
-            + "                                                                    style='color:#ffffff; font-family:arial, \"helvetica neue\", helvetica, sans-serif; font-size:14px; font-weight:400; line-height:14px; mso-text-raise:1px'>"
-            + "                                                                    Confirm"
-            + "                                                                </center>"
-            + "                                                                </v:roundrect></a>"
-            + "                                                                <![endif]--><!--[if !mso]><!--><span class=\"msohide es-button-border-2 es-button-border\" style=\" border-style:solid;border-color:#92755b;background:#92755b;border-width:0px;display:inline-block;border-radius:30px;width:auto;mso-border-alt:10px;mso-hide:all\"><a href=\""
+            + "\" </a> style=\"height:39px; v-text-anchor:middle; width:97px\" arcsize=\"50%\" stroke=\"f\" fillcolor=\"#92755b\"> <w:anchorlock></w:anchorlock> <center style='color:#ffffff; font-family:arial, \"helvetica neue\", helvetica, sans-serif; font-size:14px; font-weight:400; line-height:14px; mso-text-raise:1px'> Confirm </center> </v:roundrect></a> <![endif]--><!--[if !mso]><!--><span class=\"msohide es-button-border-2 es-button-border\" style=\" border-style:solid;border-color:#92755b;background:#92755b;border-width:0px;display:inline-block;border-radius:30px;width:auto;mso-border-alt:10px;mso-hide:all\"><a href=\""
             + "http://"
             + confirmationUrl
             + "\" >"
