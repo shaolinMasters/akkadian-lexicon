@@ -1,9 +1,7 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
-import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.dtos.KingDTO;
@@ -35,7 +33,6 @@ import org.springframework.web.servlet.view.RedirectView;
 @Slf4j
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 public class EditController {
-
 
   private final KingService kingService;
 
@@ -143,30 +140,23 @@ public class EditController {
     return "edit";
   }
 
-
   @PostMapping("/new/king")
   public RedirectView saveKing(
-    @ModelAttribute("newKing") @Validated KingDTO king,
-    BindingResult bindingResult,
-    Model model,
-    RedirectAttributes attributes) {
+      @ModelAttribute("newKing") @Validated KingDTO king,
+      BindingResult bindingResult,
+      Model model,
+      RedirectAttributes attributes) {
     logger.info("Incoming request for '/new/king' with method: POST");
     if (bindingResult.hasErrors()) {
       attributes.addFlashAttribute("org.springframework.validation.BindingResult.newKing", bindingResult);
       attributes.addFlashAttribute("newKing", king);
       return new RedirectView("/edit?option=king&action=create&error");
     }
-    //model.addAttribute("sourceHasErrors", false);
-    //model.addAttribute("kingHasErrors", false);
-    //model.addAttribute("isKing", true);
-    //model.addAttribute("isSource", false);
-    //logger.info(String.valueOf(king));
     kingService.saveKing(king);
     addModelsToEditPage(model);
-
+    attributes.addFlashAttribute("isCreated", true);
     return new RedirectView("/edit?option=king&action=create");
   }
-
 
   @PostMapping("/new/source")
   public RedirectView saveSource(
@@ -181,16 +171,16 @@ public class EditController {
     }
     sourceService.saveSource(source);
     addModelsToEditPage(model);
+    attributes.addFlashAttribute("isCreated", true);
     return new RedirectView("/edit?option=source&action=create");
   }
 
   @PostMapping("/delete/source")
-  public String deleteSource(@RequestParam Long id, Model m) {
+  public String deleteSource(@RequestParam Long id, RedirectAttributes attributes) {
     sourceService.deleteSourceById(id);
+    attributes.addFlashAttribute("isDeleted", true);
     return "redirect:/edit?option=source&action=delete";
   }
-
-
 
   @PostMapping("/delete/king")
   public String deleteKing(@RequestParam Long id, Model m) {
@@ -208,14 +198,11 @@ public class EditController {
   }
 
   @PostMapping("/delete/word")
-  public String deleteWord(@RequestParam Long id, Model m) {
-    m.addAttribute("isWord", true);
-    m.addAttribute("isDelete", true);
+  public String deleteWord(@RequestParam Long id,  RedirectAttributes attributes) {
     wordService.deleteWordById(id);
+    attributes.addFlashAttribute("isDeleted", true);
     return "redirect:/edit?option=word&action=delete";
   }
-
-
 
   @GetMapping(params = {"option=king", "action=create", "error"})
   public String getCreateKingError(Model m) {
@@ -249,7 +236,6 @@ public class EditController {
     return "redirect:/edit";
   }
 
-
   @PostMapping("/new/verb")
   public RedirectView saveVerb(
     @ModelAttribute @Validated VerbDTO verb,
@@ -266,8 +252,10 @@ public class EditController {
 
     wordService.saveVerb(verb);
     addModelsToEditPage(model);
+    attributes.addFlashAttribute("isCreated", true);
     return new RedirectView("/edit?option=word&action=create");
   }
+
 
   @PostMapping("/new/not-verb")
   public RedirectView saveNotVerb(
@@ -288,10 +276,8 @@ public class EditController {
       case "Pronoun" -> wordService.savePronoun(notVerb);
       case "Adverb" -> wordService.saveAdverb(notVerb);
     }
-    model.addAttribute("sourceHasErrors", false);
-    model.addAttribute("kingHasErrors", false);
-    model.addAttribute("wordHasErrors", false);
     addModelsToEditPage(model);
+    attributes.addFlashAttribute("isCreated", true);
     return new RedirectView("/edit?option=word&action=create");
   }
 
@@ -312,8 +298,7 @@ public class EditController {
     return "redirect:/edit";
   }
 
-
-  @GetMapping(params = {"option=word", "action=create", "wordclass=notverb","error"})
+  @GetMapping(params = {"option=word", "action=create", "wordclass=notverb", "error"})
   public String getCreateNotVerbError(Model m) {
     logger.info("getCreateNotVerbErroban vagyok");
     if (m.containsAttribute("newNotVerb") && m.containsAttribute("org.springframework.validation.BindingResult.newNotVerb")) {
@@ -329,13 +314,6 @@ public class EditController {
     }
     return "redirect:/edit";
   }
-
-
-
-
-
-
-
 
   public void addModelsToEditPage(Model model) {
     model.addAttribute("newSource", new SourceDTO());
@@ -357,14 +335,4 @@ public class EditController {
     model.addAttribute("newVerb", new VerbDTO());
     model.addAttribute("newNotVerb", new NotVerbDTO());
   }
-
-
-
-
-
-
-
-
-
-
 }

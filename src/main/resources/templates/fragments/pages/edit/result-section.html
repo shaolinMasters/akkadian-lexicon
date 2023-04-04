@@ -1,5 +1,5 @@
 <section th:style="${isDelete ? 'display:block' : 'display:none'}">
-<!--    SOURCE-->
+    <!--    SOURCE-->
     <div class="container pt-5 pb-5 position-relative" th:style="${isSource  ? 'display:block' : 'display:none'}">
 
         <tr th:each="source: ${sources}">
@@ -9,7 +9,8 @@
                 </div>
                 <div class="ms-auto p-2">
                     <span>
-                         <button th:value="${source.getId()}" type="button" class="btn btn-outline-danger source-delete-button" data-bs-toggle="modal" data-bs-target="#delete-source-modal">Delete</button>
+                         <button th:value="${source.getId()}" type="button" class="btn btn-outline-danger source-delete-button"
+                                 data-bs-toggle="modal" data-bs-target="#delete-source-modal">Delete</button>
                     </span>
                 </div>
             </div>
@@ -44,7 +45,7 @@
         </div>
     </div>
 
-<!--    KING-->
+    <!--    KING-->
     <div class="container pt-5 pb-5 position-relative" th:style="${isKing  ? 'display:block' : 'display:none'}">
         <tr th:each="king: ${kings}">
             <div class="d-flex bd-highlight mb-3 align-items-center">
@@ -53,7 +54,8 @@
                 </div>
                 <div class="ms-auto p-2">
                     <span>
-                         <button th:value="${king.getId()}" type="button" class="btn btn-outline-danger king-delete-button" data-bs-toggle="modal" data-bs-target="#delete-king-modal">Delete</button>
+                         <button th:value="${king.getId()}" type="button" class="btn btn-outline-danger king-delete-button"
+                                 data-bs-toggle="modal" data-bs-target="#delete-king-modal">Delete</button>
                     </span>
                 </div>
             </div>
@@ -108,7 +110,8 @@
                     </div>
                     <div class="ms-auto p-2 col-md-6">
                     <span class="float-end">
-                         <button th:value="${word.getId()}" type="button" class="btn btn-outline-danger word-delete-button" data-bs-toggle="modal" data-bs-target="#delete-word-modal">Delete</button>
+                         <button th:value="${word.getId()}" type="button" class="btn btn-outline-danger word-delete-button"
+                                 data-bs-toggle="modal" data-bs-target="#delete-word-modal">Delete</button>
                     </span>
                     </div>
                 </div>
@@ -144,4 +147,43 @@
     </div>
 </section>
 
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="deletionToast" class="toast text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Deletion</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Succesfully deleted item.
+        </div>
+    </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="creationToast" class="toast text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Creation</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Succesfully added item.
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript" th:if="${isDeleted != null && isDeleted == true}">
+    /*<![CDATA[*/
+    const deletionToastElement = document.getElementById('deletionToast')
+    const toast = new bootstrap.Toast(deletionToastElement)
+    toast.show();
+    /*]]>*/
+</script>
+
+<script th:inline="javascript" th:if="${isCreated != null && isCreated == true}">
+    /*<![CDATA[*/
+    const creationToastElement = document.getElementById('creationToast')
+    const toast = new bootstrap.Toast(creationToastElement)
+    toast.show();
+    /*]]>*/
+</script>
 
