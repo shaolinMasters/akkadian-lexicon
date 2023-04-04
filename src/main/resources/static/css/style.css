@@ -93,3 +93,7 @@ h2 {
 main{
     background-color:#eddecc;
 }
+
+input[type="radio"] {
+    accent-color: #5e3812;
+}

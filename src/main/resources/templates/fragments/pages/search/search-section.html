@@ -63,8 +63,10 @@
                     </tr>
                 </div>
             </div>
-            <div id="errorMessage">
-                <span th:if="${error != null}" th:text="${error}"></span>
+            <div id="errorMessage" class="pt-3">
+                <div class="alert alert-warning" role="alert" th:if="${error != null}">
+                    <span  th:text="${error}">Not found.</span>
+                </div>
             </div>
         </form>
     </div>
