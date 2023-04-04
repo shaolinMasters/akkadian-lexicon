@@ -1,0 +1,17 @@
+.bib_text {
+    padding-bottom: 20px;
+    margin-top: 20px;
+    line-height: 35px;
+    font-size: 15pt;
+
+    text-align: left;
+}
+
+.bib_image {
+    border-radius: 15px;
+}
+
+h2 {
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
