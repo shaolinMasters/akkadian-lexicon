@@ -70,9 +70,8 @@ public class SettingsController {
     User registeredUser = userService.createAccountWithRole(adminDto, Role.ROLE_ADMIN);
     eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registeredUser));
     addModelsToSettingsPage(model);
-    model.addAttribute("isCreate", true);
-    model.addAttribute("isAdmin", true);
-    return new RedirectView("/settings");
+    attributes.addFlashAttribute("isCreated", true);
+    return new RedirectView("/settings/user?option=admin&action=create");
   }
   @GetMapping(value = "user",  params = {"option=admin", "action=create", "error"})
   public String getCreateAdminError(Model m) {
@@ -105,13 +104,13 @@ public class SettingsController {
   }
 
   @PostMapping("/delete/user")
-  public String deleteUser(@RequestParam Long id, Model m) {
+  public String deleteUser(@RequestParam Long id,  RedirectAttributes attributes) {
     Optional<User> user = userService.findById(id);
     user.ifPresent(value -> value.setAuthorities(Collections.emptySet()));
     user.ifPresent(registrationTokenService::deleteTokenByDeletedUser);
     userService.deleteUserById(id);
-    m.addAttribute("isDelete", true);
-    return "redirect:/settings?action=delete";
+    attributes.addFlashAttribute("isDeleted", true);
+    return "redirect:/settings?user=admin&action=delete";
   }
 
   public void addModelsToSettingsPage(Model model) {
