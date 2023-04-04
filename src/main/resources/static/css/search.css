@@ -39,3 +39,7 @@
 .source-text{
     float: none !important;
 }
+
+#errorMessage {
+    width: fit-content;
+}

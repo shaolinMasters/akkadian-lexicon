@@ -65,9 +65,11 @@
                     <button type="button" id="sources-delete-button" class="btn btn-danger">Delete</button>
                 </div>
             </div>
+            <div id="errorMessage" class="pt-3">
+                <div class="alert alert-warning" role="alert" th:if="${error != null}">
+                    <span  th:text="${error}">Not found.</span>
+                </div>
+            </div>
         </form>
-    </div>
-    <div id="errorMessage">
-        <span th:if="${error != null}" th:text="${error}"></span>
     </div>
 </section>
