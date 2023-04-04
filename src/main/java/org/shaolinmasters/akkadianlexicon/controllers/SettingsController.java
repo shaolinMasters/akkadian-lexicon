@@ -6,6 +6,7 @@ import org.shaolinmasters.akkadianlexicon.dtos.AdminDTO;
 import org.shaolinmasters.akkadianlexicon.events.OnRegistrationCompleteEvent;
 import org.shaolinmasters.akkadianlexicon.models.User;
 import org.shaolinmasters.akkadianlexicon.models.enums.Role;
+import org.shaolinmasters.akkadianlexicon.services.AuthorityService;
 import org.shaolinmasters.akkadianlexicon.services.UserService;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -79,18 +80,29 @@ public class SettingsController {
     return "redirect:/settings";
   }
 
+  @GetMapping(
+    value = "/user",
+    params= {"option=admin", "action=delete"})
+  public String getDeleteAdmin(Model m) {
+    addModelsToSettingsPage(m);
+    m.addAttribute("isDelete", true);
+    m.addAttribute("id", 0);
+    return "settings";
+  }
+  @PostMapping("/delete/user")
+  public String deleteUser(@RequestParam Long id, Model m) {
+    userService.deleteUserById(id);
+    m.addAttribute("isDelete", true);
+    return "redirect:/settings?action=delete";
+  }
+
   public void addModelsToSettingsPage(Model model) {
     model.addAttribute("newAdmin", new AdminDTO());
     model.addAttribute("adminHasErrors", false);
     model.addAttribute("isCreate", false);
     model.addAttribute("isDelete", false);
     model.addAttribute("isAdmin", false);
-  }
-  @PostMapping("/delete/user")
-  public String deleteAdmin(@RequestParam Long id, Model m) {
-    userService.deleteUserById(id);
-    //m.addAttribute("isUser", true);
-    m.addAttribute("isDelete", true);
-    return "redirect:/settings?action=delete";
+    List<User> adminList = userService.listAllAdmin();
+    model.addAttribute("adminList", adminList);
   }
 }
