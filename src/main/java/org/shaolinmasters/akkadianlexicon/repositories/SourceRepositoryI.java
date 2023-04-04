@@ -5,8 +5,10 @@ import java.util.Optional;
 import org.shaolinmasters.akkadianlexicon.models.King;
 import org.shaolinmasters.akkadianlexicon.models.Source;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.lang.Nullable;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface SourceRepositoryI extends JpaRepository<Source, Long> {
 

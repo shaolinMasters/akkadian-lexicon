@@ -12,7 +12,7 @@ public interface RegistrationTokenRepositoryI extends JpaRepository<Registration
   @Transactional
   @Modifying
   @Query("delete from RegistrationToken r where r.user = ?1")
-  int deleteByUser(User user);
+  void deleteByUser(User user);
 
   @Query("select r from RegistrationToken r where r.tokenString = ?1")
   Optional<RegistrationToken> findByToken(String token);

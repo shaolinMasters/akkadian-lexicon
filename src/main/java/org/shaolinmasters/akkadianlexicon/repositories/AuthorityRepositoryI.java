@@ -10,10 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface AuthorityRepositoryI extends JpaRepository<Authority, Long> {
-  @Transactional
-  @Modifying
-  @Query("delete from Authority a where a.users = ?1")
-  void deleteByUsers(User users);
 
   Optional<Authority> findByRole(Role role);
 }

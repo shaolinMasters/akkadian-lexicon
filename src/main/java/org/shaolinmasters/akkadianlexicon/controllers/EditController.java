@@ -1,5 +1,6 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import org.shaolinmasters.akkadianlexicon.dtos.KingDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.NotVerbDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.SourceDTO;
 import org.shaolinmasters.akkadianlexicon.dtos.VerbDTO;
+import org.shaolinmasters.akkadianlexicon.models.King;
+import org.shaolinmasters.akkadianlexicon.models.Source;
 import org.shaolinmasters.akkadianlexicon.models.Word;
 import org.shaolinmasters.akkadianlexicon.models.enums.VerbalStem;
 import org.shaolinmasters.akkadianlexicon.models.enums.VowelClass;
@@ -193,6 +196,13 @@ public class EditController {
   public String deleteKing(@RequestParam Long id, Model m) {
     m.addAttribute("isKing", true);
     m.addAttribute("isDelete", true);
+    King king = kingService.findKingById(id);
+    if (!king.getSources().isEmpty()){
+      List<Source> sourcesOfKing = king.getSources();
+      for (Source s: sourcesOfKing ) {
+        s.setKing(null);
+      }
+    }
     kingService.deleteKingById(id);
     return "redirect:/edit?option=king&action=delete";
   }
