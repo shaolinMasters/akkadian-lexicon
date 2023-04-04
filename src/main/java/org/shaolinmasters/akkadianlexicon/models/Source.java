@@ -11,6 +11,12 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PostLoad;
+import jakarta.persistence.PrePersist;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -62,6 +68,17 @@ public class Source {
     this.text = text;
     this.king = king;
     this.bibliography = bibliography;
+  }
+
+
+  @PrePersist
+  private void encodeText() {
+    text = URLEncoder.encode(text.replace("\n", "%0A"), StandardCharsets.UTF_8);
+  }
+
+  @PostLoad
+  private void decodeText() {
+    text = URLDecoder.decode(text, StandardCharsets.UTF_8).replace("%0A", "\n");
   }
 
   // hashcode
