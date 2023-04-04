@@ -1,8 +1,12 @@
 package org.shaolinmasters.akkadianlexicon.services;
 
 import jakarta.transaction.Transactional;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.shaolinmasters.akkadianlexicon.dtos.KingDTO;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
@@ -78,5 +82,11 @@ public class KingService {
               null);
       kingRepository.save(king);
     }
+  }
+
+  public Map<Character, List<King>> getKingsMapGroupedByFirstLetter() {
+    List<King> kingList = findAllKingsOrderByRegnalYearFromAscNameAsc();
+    return kingList.stream()
+      .collect(Collectors.groupingBy(king -> king.getName().charAt(0), TreeMap::new, Collectors.toList()));
   }
 }

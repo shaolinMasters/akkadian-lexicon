@@ -27,45 +27,50 @@
             <!--            radio button separator-->
             <hr>
             <!--            radio button separator-->
-            <div id="search-field" class="row-cols-1">
-                <div>
-                    <label for="search-word">Search:</label>
-                    <input class="input" type="text" id="search-word" th:name="word" autofocus="autofocus">
-                    <input type="submit" value="search">
-                    <div class="simple-keyboard p-3" style="display: none"></div>
-                </div>
+            <!--            <div id="search-field" class="row-cols-1">-->
+            <!--                <div>-->
+            <!--                    <label for="search-word">Search:</label>-->
+            <!--                    <input class="input" type="text" id="search-word" th:name="word" autofocus="autofocus">-->
+            <!--                    <input type="submit" value="search">-->
+            <!--                    <div class="simple-keyboard p-3" style="display: none"></div>-->
+            <!--                </div>-->
 
-            </div>
+            <!--            </div>-->
             <div id="king-field">
                 <div>
-                    <tr th:each="king: ${kings}">
-                        <td>
-                            <a th:href="@{'/search?option=king&name=' + ${king.getName()} + '#results'}">
-                                <span th:text="${king.getName()}"></span>
-                                <span th:if="${king.getRegnalYearFrom() != null}"
-                                      th:text="' from ' + ${king.getRegnalYearFrom()}"></span>
-                                <span th:if="${king.getRegnalYearTo() != null}" th:text="' to ' + ${king.getRegnalYearTo()}"></span>
-                            </a>
-                        </td>
-                        <br>
-                    </tr>
+                        <th:block th:if="${iStat.index % 3 == 0}" th:utext="'<div class=\'row\'> '"/>
+                        <div class="col-md-4 colDiv">
+                            <p th:text="${letterGroup.key}"></p>
+                            <div th:each="king : ${letterGroup.value}">
+                                <td>
+                                    <a th:href="@{'/search?option=king&name=' + ${king.getName()} + '#results'}">
+                                        <span th:text="${king.getName()}"></span>
+                                        <span th:if="${king.getRegnalYearFrom() != null}"
+                                              th:text="' from ' + ${king.getRegnalYearFrom()}"></span>
+                                        <span th:if="${king.getRegnalYearTo() != null}" th:text="' to ' + ${king.getRegnalYearTo()}"></span>
+                                    </a>
+                                </td>
+                            </div>
+                        </div>
+                        <th:block th:if="${iStat.count % 3 == 0}" th:utext="'</div>'"/>
+                    </tbody>
                 </div>
             </div>
-            <div id="source-field">
-                <div>
-                    <tr th:each="source: ${sourceList}">
-                        <td>
-                            <a th:href="@{'/search?option=source&title=' + ${source.getTitle()} + '#results'}">
-                                <span th:text="${source.getTitle()}"></span>
-                            </a>
-                        </td>
-                        <br>
-                    </tr>
-                </div>
-            </div>
+            <!--            <div id="source-field">-->
+            <!--                <div>-->
+            <!--                    <tr th:each="source: ${sourceList}">-->
+            <!--                        <td>-->
+            <!--                            <a th:href="@{'/search?option=source&title=' + ${source.getTitle()} + '#results'}">-->
+            <!--                                <span th:text="${source.getTitle()}"></span>-->
+            <!--                            </a>-->
+            <!--                        </td>-->
+            <!--                        <br>-->
+            <!--                    </tr>-->
+            <!--                </div>-->
+            <!--            </div>-->
             <div id="errorMessage" class="pt-3">
                 <div class="alert alert-warning" role="alert" th:if="${error != null}">
-                    <span  th:text="${error}">Not found.</span>
+                    <span th:text="${error}">Not found.</span>
                 </div>
             </div>
         </form>
