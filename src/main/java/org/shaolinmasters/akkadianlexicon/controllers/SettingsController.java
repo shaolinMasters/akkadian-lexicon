@@ -7,6 +7,8 @@ import org.shaolinmasters.akkadianlexicon.dtos.SourceDTO;
 import org.shaolinmasters.akkadianlexicon.events.OnRegistrationCompleteEvent;
 import org.shaolinmasters.akkadianlexicon.models.User;
 import org.shaolinmasters.akkadianlexicon.models.enums.Role;
+import org.shaolinmasters.akkadianlexicon.services.AuthorityService;
+import org.shaolinmasters.akkadianlexicon.services.RegistrationTokenService;
 import org.shaolinmasters.akkadianlexicon.services.UserService;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,12 +16,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.security.Principal;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @Slf4j
@@ -30,6 +34,8 @@ public class SettingsController {
 
   private final ApplicationEventPublisher eventPublisher;
   private final UserService userService;
+
+  private final RegistrationTokenService registrationTokenService;
 
   @GetMapping
   public String get(Model model) {
@@ -82,6 +88,30 @@ public class SettingsController {
       return "settings";
     }
     return "redirect:/settings";
+  }
+
+  @GetMapping(
+    value = "/user",
+    params = {"option=admin", "action=delete"})
+  public String getDeleteAdmin(Model m, Principal principal) {
+    addModelsToSettingsPage(m);
+    User user = userService.findUserByEmail(principal.getName());
+    Long id = user.getId();
+    List<User> adminList = userService.listAllAdminWithoutActiveId(id);
+    m.addAttribute("adminList", adminList);
+    m.addAttribute("isDelete", true);
+    m.addAttribute("id", 0);
+    return "settings";
+  }
+
+  @PostMapping("/delete/user")
+  public String deleteUser(@RequestParam Long id, Model m) {
+    Optional<User> user = userService.findById(id);
+    user.ifPresent(value -> value.setAuthorities(Collections.emptySet()));
+    user.ifPresent(registrationTokenService::deleteTokenByDeletedUser);
+    userService.deleteUserById(id);
+    m.addAttribute("isDelete", true);
+    return "redirect:/settings?action=delete";
   }
 
   public void addModelsToSettingsPage(Model model) {

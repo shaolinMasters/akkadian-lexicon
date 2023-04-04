@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
 import org.shaolinmasters.akkadianlexicon.models.Authority;
+import org.shaolinmasters.akkadianlexicon.models.User;
 import org.shaolinmasters.akkadianlexicon.models.enums.Role;
 import org.shaolinmasters.akkadianlexicon.repositories.AuthorityRepositoryI;
 import org.springframework.stereotype.Service;
