@@ -24,6 +24,4 @@ public class AdminDTO {
   @NotNull(message = "Please select an Institution")
   private Institution institution;
 
-  //  private Institution institution;
-  //  private Degree degree;
 }

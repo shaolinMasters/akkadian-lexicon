@@ -3,6 +3,7 @@ package org.shaolinmasters.akkadianlexicon.services;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -85,6 +86,6 @@ public class UserService implements UserDetailsService {
   }
 
   public List<User> listAllAdmin () {
-    return userRepository.findByAuthorities_RoleOrderByEmailAsc(Role.ROLE_ADMIN);
+    return userRepository.findByAuthorities_RoleOrderByNameAsc(Role.ROLE_ADMIN);
   }
 }

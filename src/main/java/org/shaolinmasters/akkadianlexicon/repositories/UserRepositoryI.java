@@ -27,4 +27,5 @@ public interface UserRepositoryI extends JpaRepository<User, Long> {
   @Query("select u from User u order by u.email")
   List<User> findByEmail();
 
+
 }
