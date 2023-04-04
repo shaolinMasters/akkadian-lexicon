@@ -38,8 +38,9 @@
             <!--            </div>-->
             <div id="king-field">
                 <div>
+                    <tbody id="eachDiv" th:each="letterGroup, iStat: ${kingsMapByFirstLetter}">
                         <th:block th:if="${iStat.index % 3 == 0}" th:utext="'<div class=\'row\'> '"/>
-                        <div class="col-md-4 colDiv">
+                        <div class="col-md-4 text-center pt-5 pb-5">
                             <p th:text="${letterGroup.key}"></p>
                             <div th:each="king : ${letterGroup.value}">
                                 <td>
