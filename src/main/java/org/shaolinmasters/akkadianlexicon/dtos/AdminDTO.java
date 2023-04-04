@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.shaolinmasters.akkadianlexicon.models.enums.Degree;
+import org.shaolinmasters.akkadianlexicon.models.enums.Institution;
 
 @Getter
 @Setter
@@ -16,6 +18,9 @@ public class AdminDTO {
   private String email;
   @NotEmpty(message = "Name must not be empty")
   private String name;
+  private Degree degree;
+  private Institution institution;
+
   //  private Institution institution;
   //  private Degree degree;
 }

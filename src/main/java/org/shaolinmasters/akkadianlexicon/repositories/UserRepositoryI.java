@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepositoryI extends JpaRepository<User, Long> {
 
-  @Query("select u from User u inner join u.authorities authorities where authorities.role = ?1 order by u.email")
-  List<User> findByAuthorities_RoleOrderByEmailAsc(Role role);
+  @Query("select u from User u inner join u.authorities authorities where authorities.role = ?1 order by u.name")
+  List<User> findByAuthorities_RoleOrderByNameAsc(Role role);
 
 
 
