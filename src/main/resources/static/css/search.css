@@ -25,3 +25,13 @@
 .search-bg{
     background-color: #decdb8;
 }
+
+.result-title{
+    text-decoration: underline;
+    font-size: 23pt;
+}
+
+.title-value{
+    font-family: monospace;
+    font-size: 13pt;
+}
