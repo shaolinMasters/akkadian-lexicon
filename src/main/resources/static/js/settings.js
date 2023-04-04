@@ -17,3 +17,21 @@ adminDeleteButtons.forEach(button => {
         removableAdminInput.value = button.value;
     });
 });
+
+
+const textInputs = document.querySelectorAll('input[type="text"], input[type="email"]');
+const alerts = document.querySelectorAll('.alert');
+textInputs.forEach(textInput => {
+    textInput.addEventListener('focus', () => {
+        alerts.forEach(alert => {
+            alert.style.display='none';
+        });
+
+    });
+});
+
+function hideAlerts(){
+    alerts.forEach(alert => {
+        alert.style.display='none';
+    });
+}

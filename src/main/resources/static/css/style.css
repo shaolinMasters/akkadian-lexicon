@@ -102,3 +102,7 @@ main{
 input[type="radio"] {
     accent-color: #5e3812;
 }
+
+.alert{
+    width: fit-content;
+}
