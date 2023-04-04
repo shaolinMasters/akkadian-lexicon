@@ -10,9 +10,7 @@
 <body>
 <header th:replace="~{fragments/header.html}"></header>
 <div class="center">
-    <div class="messages" th:if="${param.error}">
-        Invalid username and password.
-    </div>
+
     <div class="messages" th:if="${param.logout}">
         You have been logged out.
     </div>
@@ -30,8 +28,15 @@
             <label>Password</label>
         </div>
         <input type="submit" value="Login">
+
+        <div id="errorMessage" class="pt-3">
+            <div class="alert alert-danger text-center" role="alert" th:if="${param.error}">
+                <span>Invalid username or password.</span>
+            </div>
+        </div>
     </form>
 </div>
 <footer th:replace="~{fragments/footer.html}"></footer>
+<script type="text/javascript" th:src="@{/js/login.js}"></script>
 </body>
 </html>
