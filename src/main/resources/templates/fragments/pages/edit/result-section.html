@@ -91,8 +91,8 @@
         <div class="container position-relative" th:style="${isWord  ? 'display:block' : 'display:none'}">
             <h4 class="result-title pt-3 pb-3" th:if="${words != null && !words.isEmpty()}">Matches:</h4>
             <tr th:each="word: ${words}">
-                <div class="d-flex bd-highlight mb-3 align-items-center">
-                    <div th:unless="${#strings.isEmpty(word)}" class="p-2">
+                <div class="row d-flex bd-highlight mb-3 align-items-center">
+                    <div th:unless="${#strings.isEmpty(word)}" class="p-2 col-md-6">
                         <p>
                             <span class="title-key">Nominative: </span>
                             <span class="title-value" th:text="${word.getVocabularyForm().getNominative()}"> nominative</span>
@@ -106,8 +106,8 @@
                             <span class="title-value" th:text="${word.getVocabularyForm().getMeaning()}"> meaning</span>
                         </p>
                     </div>
-                    <div class="ms-auto p-2">
-                    <span>
+                    <div class="ms-auto p-2 col-md-6">
+                    <span class="float-end">
                          <button th:value="${word.getId()}" type="button" class="btn btn-outline-danger word-delete-button" data-bs-toggle="modal" data-bs-target="#delete-word-modal">Delete</button>
                     </span>
                     </div>
