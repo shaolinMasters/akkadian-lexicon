@@ -33,17 +33,19 @@
                             <option value="">Select the specific Degree</option>
                             <option th:each="degree : ${T(org.shaolinmasters.akkadianlexicon.models.enums.Degree).values()}"  th:value="${degree.name()}" th:text="${degree.getDegreeName()}"></option>
                         </select>
+                        <span style="color: red" th:if="${#fields.hasErrors('degree')}" th:errors="*{degree}"></span>
                     </div>
                 </div>
 
                 <div class="col">
                     <!--Institution-->
                     <div class="form-outline mb-4">
-                        <label class="form-label" for="dropdown-degrees">Institution: </label>
-                        <select th:field="*{institution}" class="form-control" id="dropdown-institutoins">
+                        <label class="form-label" for="dropdown-institutions">Institution: </label>
+                        <select th:field="*{institution}" class="form-control" id="dropdown-institutions">
                             <option value="">Select the specific Institution</option>
                             <option th:each="institution : ${T(org.shaolinmasters.akkadianlexicon.models.enums.Institution).values()}"  th:value="${institution.name()}" th:text="${institution.getInstitutionName()}"></option>
                         </select>
+                        <span style="color: red" th:if="${#fields.hasErrors('institution')}" th:errors="*{institution}"></span>
                     </div>
                 </div>
             </div>

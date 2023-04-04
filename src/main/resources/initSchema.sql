@@ -104,3 +104,5 @@ CREATE TABLE `word_source` (
                                CONSTRAINT `FK52lgck6s6ci2s7recvrgbsl8w` FOREIGN KEY (`word_id`) REFERENCES `word` (`id`),
                                CONSTRAINT `FKqdbgd2h6xe2v48qt5yh2pdyro` FOREIGN KEY (`source_id`) REFERENCES `source` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
+
+
