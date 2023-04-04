@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.security.Principal;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @Slf4j
@@ -29,6 +32,8 @@ public class SettingsController {
 
   private final ApplicationEventPublisher eventPublisher;
   private final UserService userService;
+
+  private final RegistrationTokenService registrationTokenService;
 
   @GetMapping
   public String get(Model model) {
@@ -87,17 +92,23 @@ public class SettingsController {
   @GetMapping(
     value = "/user",
     params = {"option=admin", "action=delete"})
-  public String getDeleteAdmin(Model m) {
+  public String getDeleteAdmin(Model m, Principal principal) {
     addModelsToSettingsPage(m);
+    User user = userService.findUserByEmail(principal.getName());
+    Long id = user.getId();
+    List<User> adminList = userService.listAllAdminWithoutActiveId(id);
+    m.addAttribute("adminList", adminList);
     m.addAttribute("isDelete", true);
     m.addAttribute("id", 0);
     return "settings";
   }
 
   @PostMapping("/delete/user")
-  public String deleteAdmin(@RequestParam Long id, Model m) {
+  public String deleteUser(@RequestParam Long id, Model m) {
+    Optional<User> user = userService.findById(id);
+    user.get().setAuthorities(Collections.emptySet());
+    registrationTokenService.deleteTokenByDeletedUser(user.get());
     userService.deleteUserById(id);
-    //m.addAttribute("isUser", true);
     m.addAttribute("isDelete", true);
     return "redirect:/settings?action=delete";
   }
@@ -108,7 +119,6 @@ public class SettingsController {
     model.addAttribute("isCreate", false);
     model.addAttribute("isDelete", false);
     model.addAttribute("isAdmin", false);
-    List<User> adminList = userService.listAllAdmin();
-    model.addAttribute("adminList", adminList);
+
   }
 }

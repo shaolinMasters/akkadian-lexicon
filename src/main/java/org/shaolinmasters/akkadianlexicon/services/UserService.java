@@ -83,7 +83,15 @@ public class UserService implements UserDetailsService {
     userRepository.deleteById(id);
   }
 
-  public List<User> listAllAdmin () {
-    return userRepository.findByAuthorities_RoleOrderByNameAsc(Role.ROLE_ADMIN);
+  public List<User> listAllAdminWithoutActiveId(Long id) {
+    return userRepository.findByIdNotAndAuthorities_RoleOrderByNameAsc(id,Role.ROLE_ADMIN);
+  }
+
+  public Optional<User> findById(Long id) {
+    return userRepository.findById(id);
+  }
+
+  public User findUserByName(String name) {
+    return userRepository.findByName(name);
   }
 }

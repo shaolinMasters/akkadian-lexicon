@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.exceptions.ResourceNotFoundException;
 import org.shaolinmasters.akkadianlexicon.models.RegistrationToken;
+import org.shaolinmasters.akkadianlexicon.models.User;
 import org.shaolinmasters.akkadianlexicon.repositories.RegistrationTokenRepositoryI;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +42,9 @@ public class RegistrationTokenService {
 
   public void deleteToken(RegistrationToken registrationToken) {
     registrationTokenRepository.delete(registrationToken);
+  }
+
+  public void deleteTokenByDeletedUser(User user) {
+    registrationTokenRepository.deleteByUser(user);
   }
 }
