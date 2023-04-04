@@ -32,7 +32,6 @@ import org.springframework.web.servlet.view.RedirectView;
 @PreAuthorize("hasRole('ROLE_ADMIN')")
 public class EditController {
 
-  private final Logger logger = LoggerFactory.getLogger(EditController.class);
 
   private final KingService kingService;
 

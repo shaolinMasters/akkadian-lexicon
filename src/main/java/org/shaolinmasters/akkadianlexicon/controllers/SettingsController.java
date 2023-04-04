@@ -7,6 +7,7 @@ import org.shaolinmasters.akkadianlexicon.events.OnRegistrationCompleteEvent;
 import org.shaolinmasters.akkadianlexicon.models.User;
 import org.shaolinmasters.akkadianlexicon.models.enums.Role;
 import org.shaolinmasters.akkadianlexicon.services.AuthorityService;
+import org.shaolinmasters.akkadianlexicon.services.RegistrationTokenService;
 import org.shaolinmasters.akkadianlexicon.services.UserService;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.prepost.PreAuthorize;
