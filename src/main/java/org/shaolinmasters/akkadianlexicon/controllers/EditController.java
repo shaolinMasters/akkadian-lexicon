@@ -248,6 +248,7 @@ public class EditController {
     return new RedirectView("/edit?option=word&action=create");
   }
 
+
   @PostMapping("/new/not-verb")
   public RedirectView saveNotVerb(
       @ModelAttribute @Validated NotVerbDTO notVerb,
@@ -281,7 +282,7 @@ public class EditController {
       addModelsToEditPage(m);
       m.addAttribute("newVerb", verbdto);
       m.addAttribute("org.springframework.validation.BindingResult.newVerb", error);
-      m.addAttribute("wordHasErrors", true);
+      m.addAttribute("verbHasErrors", true);
       m.addAttribute("isWord", true);
       m.addAttribute("isCreate", true);
       return "edit";
@@ -299,7 +300,7 @@ public class EditController {
       addModelsToEditPage(m);
       m.addAttribute("newNotVerb", notVerbdto);
       m.addAttribute("org.springframework.validation.BindingResult.newNotVerb", error);
-      m.addAttribute("wordHasErrors", true);
+      m.addAttribute("notVerbHasErrors", true);
       m.addAttribute("isWord", true);
       m.addAttribute("isCreate", true);
       return "edit";
@@ -315,7 +316,8 @@ public class EditController {
     model.addAttribute("sourcesWithoutKing", sourceService.listAllSourcesWithoutKingByTitleAsc());
     model.addAttribute("sourceHasErrors", false);
     model.addAttribute("kingHasErrors", false);
-    model.addAttribute("wordHasErrors", false);
+    model.addAttribute("verbHasErrors", false);
+    model.addAttribute("notVerbHasErrors", false);
     model.addAttribute("isCreate", false);
     model.addAttribute("isDelete", false);
     model.addAttribute("isSource", false);
