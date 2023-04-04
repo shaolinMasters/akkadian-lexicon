@@ -3,6 +3,7 @@ package org.shaolinmasters.akkadianlexicon.services;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -82,5 +83,13 @@ public class UserService implements UserDetailsService {
   @Transactional
   public void deleteUserById(Long id) {
     userRepository.deleteById(id);
+  }
+
+  public Optional<User> findById(Long id) {
+    return userRepository.findById(id);
+  }
+
+  public List<User> listAllAdminWithoutActiveId(Long id) {
+   return userRepository.findByIdNotAndAuthorities_RoleOrderByNameAsc(id, Role.ROLE_ADMIN);
   }
 }
