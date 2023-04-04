@@ -25,7 +25,7 @@ public class Authority {
   @Column(nullable = false, unique = true)
   private Role role;
 
-  @ManyToMany(cascade= CascadeType.ALL, mappedBy = "authorities")
+  @ManyToMany(mappedBy = "authorities")
   @Exclude
   private Set<User> users;
 }
