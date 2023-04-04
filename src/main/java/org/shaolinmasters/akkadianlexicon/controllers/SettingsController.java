@@ -107,8 +107,8 @@ public class SettingsController {
   @PostMapping("/delete/user")
   public String deleteUser(@RequestParam Long id, Model m) {
     Optional<User> user = userService.findById(id);
-    user.get().setAuthorities(Collections.emptySet());
-    registrationTokenService.deleteTokenByDeletedUser(user.get());
+    user.ifPresent(value -> value.setAuthorities(Collections.emptySet()));
+    user.ifPresent(registrationTokenService::deleteTokenByDeletedUser);
     userService.deleteUserById(id);
     m.addAttribute("isDelete", true);
     return "redirect:/settings?action=delete";
