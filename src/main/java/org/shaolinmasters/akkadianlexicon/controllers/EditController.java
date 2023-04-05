@@ -234,7 +234,7 @@ public class EditController {
       Object kdto = m.getAttribute("newKing");
       addModelsToEditPage(m);
       m.addAttribute("reignTimeError", true);
-      m.addAttribute("error", "Beginning of reign must be greater then end of reign");
+      m.addAttribute("error", "Beginning of reign must be greater then end of reign or equal");
       m.addAttribute("newKing", kdto);
       m.addAttribute("isKing", true);
       m.addAttribute("isCreate", true);
