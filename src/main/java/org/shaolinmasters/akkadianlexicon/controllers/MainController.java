@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -88,7 +89,7 @@ public class MainController {
         return "password";
       }
       if (!confirmAdminDTO.getPassword().equals(confirmAdminDTO.getConfirmPassword())) {
-        model.addAttribute("error", "Passwords do not match");
+       model.addAttribute("error", "Passwords do not match");
         model.addAttribute("passwordsDoNotMatch", true);
         model.addAttribute("confirmAdmin", confirmAdminDTO);
         model.addAttribute("isValidToken", true);
