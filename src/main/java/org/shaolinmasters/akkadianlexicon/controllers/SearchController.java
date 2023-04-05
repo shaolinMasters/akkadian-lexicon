@@ -84,10 +84,11 @@ public class SearchController {
 //    logger.info("Adding modelattribute(named: kings): " + kings + "to view: search");
 //    model.addAttribute("kings", kings);
 
-    List<Source> sourceList = sourceService.listAllSourcesByTitleAsc();
-    logger.info("Adding modelattribute(named: sources): " + sourceList + "to view: search");
-    model.addAttribute("sourceList", sourceList);
+//    List<Source> sourceList = sourceService.listAllSourcesByTitleAsc();
+//    logger.info("Adding modelattribute(named: sources): " + sourceList + "to view: search");
+//    model.addAttribute("sourceList", sourceList);
 
+    model.addAttribute("sourcesMapByFirstLetter", sourceService.getSourcesMapGroupedByFirstLetter());
     model.addAttribute("kingsMapByFirstLetter", kingService.getKingsMapGroupedByFirstLetter());
   }
 }

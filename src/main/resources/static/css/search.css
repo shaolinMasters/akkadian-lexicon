@@ -29,6 +29,7 @@
 .result-title{
     text-decoration: underline;
     font-size: 23pt;
+    font-family: 'Fondamento', cursive;
 }
 
 .title-value{
@@ -38,5 +39,11 @@
 }
 .source-text{
     float: none !important;
+}
+
+.search-radio-button{
+    font-family: 'Fondamento', cursive;
+    font-size: 18pt;
+    color: #5e3812;
 }
 
