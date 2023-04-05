@@ -147,7 +147,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
       "<hr>"+
       "<h2>Welcome!</h2>"+
       "<p>"+emailStarterText+emailAddress+emailText+"</p>"+
-      "<button type=\"button\" onclick=\"location.href='http://"+confirmationUrl+"\">"+ "Confirm"+"<button>"+
+      "<button type=\"button\" onclick=\"location.href='http://"+confirmationUrl+"\">"+ "Confirm"+"</button>"+
       "<p1>Thank you,"+
       "</p1>"+
       "<br>"+
