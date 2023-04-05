@@ -140,6 +140,7 @@ public class EditController {
     return "edit";
   }
 
+
   @PostMapping("/new/king")
   public RedirectView saveKing(
       @ModelAttribute("newKing") @Validated KingDTO king,
@@ -158,6 +159,7 @@ public class EditController {
     attributes.addFlashAttribute("isCreated", true);
     return new RedirectView("/edit?option=king&action=create");
   }
+
 
   @PostMapping("/new/source")
   public RedirectView saveSource(
@@ -238,6 +240,7 @@ public class EditController {
     }
     return "redirect:/edit";
   }
+
 
   @PostMapping("/new/verb")
   public RedirectView saveVerb(
