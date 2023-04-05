@@ -84,7 +84,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
       "            h2 {"+
       "                font-family: 'times new roman', times, baskerville, georgia, serif;"+
       "                color: #92755b;"+
-      "                font-size: 20px;"+
+      "                font-size: 26px;"+
       "                text-align: center;"+
       "            }"+
       ""+
@@ -99,7 +99,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
       "            p {"+
       "                font-family: 'times new roman', times, baskerville, georgia, serif;"+
       "                color: #000000;"+
-      "                font-size: 12px;"+
+      "                font-size: 18px;"+
       "                text-align: center;"+
       "            }"+
       ""+
@@ -108,7 +108,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
       "                border: 1px solid;"+
       "                background: #92755b;"+
       "                border-radius: 25px;"+
-      "                font-size: 12px;"+
+      "                font-size: 16px;"+
       "                color: #ffffff;"+
       "                font-weight: 200;"+
       "                cursor: pointer;"+
@@ -126,7 +126,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
       "            p1 {"+
       "                font-family: 'times new roman', times, baskerville, georgia, serif;"+
       "                color: #000000;"+
-      "                font-size: 12px;"+
+      "                font-size: 18px;"+
       "                text-align: left;"+
       "                margin-left: 20px;"+
       "            }"+
@@ -134,7 +134,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
       "            p2 {"+
       "                font-family: 'times new roman', times, baskerville, georgia, serif;"+
       "                color: #000000;"+
-      "                font-size: 12px;"+
+      "                font-size: 18px;"+
       "                text-align: left;"+
       "                font-weight: bold;"+
       "                margin-left: 20px;"+
@@ -147,7 +147,9 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
       "<hr>"+
       "<h2>Welcome!</h2>"+
       "<p>"+emailStarterText+emailAddress+emailText+"</p>"+
-      "<button type=\"button\" onclick=\"location.href='http://"+confirmationUrl+"\">"+ "Confirm"+"</button>"+
+      "<button onclick=\"location.href='http://"+confirmationUrl+"'\" type=\"button\">"+
+      "    Confirm"+
+      "</button>"+
       "<p1>Thank you,"+
       "</p1>"+
       "<br>"+
@@ -157,6 +159,8 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
       "<hr>"+
       "</body>"+
       "</html>";
+
+
 
     emailService.sendEmail(emailAddress, emailSubject, String.valueOf(completeEmailText));
     logger.info("Confirmation email has been sent to: " + emailAddress);
