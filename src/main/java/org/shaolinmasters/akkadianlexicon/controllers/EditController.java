@@ -140,6 +140,7 @@ public class EditController {
     return "edit";
   }
 
+
   @PostMapping("/new/king")
   public RedirectView saveKing(
       @ModelAttribute("newKing") @Validated KingDTO king,
@@ -153,11 +154,16 @@ public class EditController {
       attributes.addFlashAttribute("newKing", king);
       return new RedirectView("/edit?option=king&action=create&error");
     }
+    if(Integer.parseInt(king.getRegnalYearTo()) > Integer.parseInt(king.getRegnalYearFrom())) {
+     attributes.addFlashAttribute("newKing", king);
+     return new RedirectView("/edit?option=king&action=create&reignError");
+    }
     kingService.saveKing(king);
     addModelsToEditPage(model);
     attributes.addFlashAttribute("isCreated", true);
     return new RedirectView("/edit?option=king&action=create");
   }
+
 
   @PostMapping("/new/source")
   public RedirectView saveSource(
@@ -222,6 +228,21 @@ public class EditController {
     return "redirect:/edit";
   }
 
+  @GetMapping(params = {"option=king", "action=create", "reignError"})
+  public String getCreateKingReignError(Model m) {
+    if (m.containsAttribute("newKing")) {
+      Object kdto = m.getAttribute("newKing");
+      addModelsToEditPage(m);
+      m.addAttribute("reignTimeError", true);
+      m.addAttribute("error", "Beginning of reign must be greater then end of reign or equal");
+      m.addAttribute("newKing", kdto);
+      m.addAttribute("isKing", true);
+      m.addAttribute("isCreate", true);
+      return "edit";
+    }
+    return "redirect:/edit";
+  }
+
   @GetMapping(params = {"option=source", "action=create", "error"})
   public String getCreateSourceError(Model m) {
     if (m.containsAttribute("newSource")
@@ -238,6 +259,7 @@ public class EditController {
     }
     return "redirect:/edit";
   }
+
 
   @PostMapping("/new/verb")
   public RedirectView saveVerb(
@@ -339,5 +361,6 @@ public class EditController {
     model.addAttribute("vowelClasses", EnumSet.allOf(VowelClass.class));
     model.addAttribute("newVerb", new VerbDTO());
     model.addAttribute("newNotVerb", new NotVerbDTO());
+    model.addAttribute("reignTimeError", false);
   }
 }

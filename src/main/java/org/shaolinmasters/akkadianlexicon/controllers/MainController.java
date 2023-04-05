@@ -1,5 +1,6 @@
 package org.shaolinmasters.akkadianlexicon.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.dtos.ConfirmAdminDTO;
@@ -9,10 +10,13 @@ import org.shaolinmasters.akkadianlexicon.services.UserService;
 import org.shaolinmasters.akkadianlexicon.services.WebContentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -65,18 +69,32 @@ public class MainController {
       model.addAttribute("isValidToken", true);
       confirmAdminDTO.setTokenString(tokenString);
       model.addAttribute("confirmAdmin", confirmAdminDTO);
+      model.addAttribute("passwordsDoNotMatch", false);
     } else {
       model.addAttribute("confirmAdmin", confirmAdminDTO);
       model.addAttribute("isValidToken", false);
+      model.addAttribute("passwordsDoNotMatch", false);
     }
     return "password";
   }
 
   @PostMapping("/register")
   public String setPasswordAndConfirm(
-      @ModelAttribute("confirmAdmin") ConfirmAdminDTO confirmAdminDTO, Model model) {
+    @ModelAttribute("confirmAdmin") @Validated ConfirmAdminDTO confirmAdminDTO, BindingResult bindingResult, Model model) {
     if (registrationTokenService.isValidToken(confirmAdminDTO.getTokenString())) {
-      // if passwords are OK
+      if(bindingResult.hasErrors()){
+        model.addAttribute("confirmAdmin", confirmAdminDTO);
+        model.addAttribute("isValidToken", true);
+        model.addAttribute("passwordsDoNotMatch", false);
+        return "password";
+      }
+      if (!confirmAdminDTO.getPassword().equals(confirmAdminDTO.getConfirmPassword())) {
+       model.addAttribute("error", "Passwords do not match");
+        model.addAttribute("passwordsDoNotMatch", true);
+        model.addAttribute("confirmAdmin", confirmAdminDTO);
+        model.addAttribute("isValidToken", true);
+        return "password";
+      }
       userService.confirmAdminUser(confirmAdminDTO);
     } else {
       model.addAttribute("confirmAdmin", new ConfirmAdminDTO());

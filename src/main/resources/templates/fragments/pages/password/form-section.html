@@ -3,7 +3,7 @@
         <form id="confirm-admin-form"
               data-th-object="${confirmAdmin}"
               method="post"
-              th:style="${isValidToken  ? 'display:block' : 'display:none'}"
+              th:style="${isValidToken ? 'display:block' : 'display:none'}"
               data-th-action="@{/register}"
               action="/register">
             <div class="row">
@@ -11,8 +11,11 @@
                     <div class="form-outline mb-4">
                         <label class="form-label" for="password-input">Password: </label>
                         <input type="password" id="password-input" class="form-control" data-th-field="*{password}"/>
+                        <span style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                         <br>
-<!--                        <span style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>-->
+                        <div th:style="${passwordsDoNotMatch ? 'display:block' : 'display:none'}">
+                            <span style="color: red" th:text="${error}">Password error</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -21,8 +24,7 @@
                     <div class="form-outline mb-4">
                         <label class="form-label" for="confirm-password-input">Confirm:</label>
                         <input type="password" id="confirm-password-input" class="form-control" data-th-field="*{confirmPassword}"/>
-                        <br>
-<!--                        <span style="color: red" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></span>-->
+                        <span style="color: red" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></span>
                     </div>
                 </div>
             </div>
