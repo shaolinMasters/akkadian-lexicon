@@ -6,11 +6,11 @@
       <env name="DB_PORT" value="3307" />
       <env name="DB_PW" value="pw" />
       <env name="DB_USERNAME" value="root" />
+      <env name="DOMAIN" value="localhost" />
       <env name="ENVIRONMENT" value="development" />
       <env name="GOOGLE_APP_PW" value="ynkz ttnw jluh kaku" />
       <env name="GOOGLE_ID" value="akkadianlexicontest@gmail.com" />
       <env name="WEBSERVER_PORT" value="8080" />
-      <env name="DOMAIN" value="localhost " />
     </envs>
     <module name="akkadian-lexicon" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="org.shaolinmasters.akkadianlexicon.AkkadianLexiconApplication" />

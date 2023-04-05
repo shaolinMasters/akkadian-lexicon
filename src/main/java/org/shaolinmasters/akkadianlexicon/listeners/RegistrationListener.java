@@ -74,11 +74,15 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
       "            body {"+
       "                background-color: #ffffff;"+
       "            }"+
+      "            a {"+
+      "                text-decoration: none;"+
+      "            }"+
       ""+
       "            h1 {"+
       "                font-family: 'times new roman', times, baskerville, georgia, serif;"+
       "                color: #92755b;"+
       "                text-align: center;"+
+      "                font-size: 32px;"+
       "            }"+
       ""+
       "            h2 {"+
@@ -123,7 +127,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
       "                text-align: center;"+
       "            }"+
       ""+
-      "            p1 {"+
+      "            #p1 {"+
       "                font-family: 'times new roman', times, baskerville, georgia, serif;"+
       "                color: #000000;"+
       "                font-size: 18px;"+
@@ -131,7 +135,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
       "                margin-left: 20px;"+
       "            }"+
       ""+
-      "            p2 {"+
+      "            #p2 {"+
       "                font-family: 'times new roman', times, baskerville, georgia, serif;"+
       "                color: #000000;"+
       "                font-size: 18px;"+
@@ -146,16 +150,20 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
       "<h1>Akkadian Lexicon</h1>"+
       "<hr>"+
       "<h2>Welcome!</h2>"+
-      "<p>"+emailStarterText+emailAddress+emailText+"</p>"+
-      "<button onclick=\"location.href='http://"+confirmationUrl+"'\" type=\"button\">"+
-      "    Confirm"+
+      "<p>"+emailStarterText+emailAddress+"</p>"+
+      "<p>"+emailText+"</p>"+
+      "<button>" +
+      "<a style=\"color: white;\" href=\"http://"
+      + confirmationUrl
+      + "\" >"
+      + "Confirm"
+      + "</a>" +
       "</button>"+
-      "<p1>Thank you,"+
-      "</p1>"+
-      "<br>"+
-      "<p2>"+
+      "<p id=\"p1\" >Thank you,"+
+      "</p>"+
+      "<p id=\"p2\" >"+
       "    Akkadian Lexicon"+
-      "</p2>"+
+      "</p>"+
       "<hr>"+
       "</body>"+
       "</html>";
