@@ -17,8 +17,8 @@
         <div style="display: block">
             <img  class="bib_image" src="/img/aboveTheTextImage.jpg" alt="akkadians" width="800">
         </div>
-        <div th:if="${content != null}">
-            <div class="bib_text">
+        <div class="d-flex justify-content-center" th:if="${content != null}">
+            <div class="bib_text" >
                 <p>
                     [(${content.getContent()})]
                 </p>

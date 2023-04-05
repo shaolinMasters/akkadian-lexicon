@@ -139,3 +139,35 @@ input[type="radio"] {
     color: #d4c6b6;
 }
 
+.accordion-button{
+    background-color: #decdb8;
+}
+
+.accordion-body{
+   background-color: #decdb8;
+}
+
+.accordion-collapse{
+    background-color: #decdb8;
+}
+
+.accordion-button:not(.collapsed){
+    background-color: #eddecc;
+}
+
+.accordion-button:hover{
+    background-color: #d2a882;
+}
+
+.home-text{
+    font-family: serif;
+}
+
+.about-text{
+    font-family: serif;
+}
+
+.bib_text{
+    font-family: serif;
+
+}
