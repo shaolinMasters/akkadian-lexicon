@@ -1,0 +1,33 @@
+h1 {
+    font-family: "Cinzel", sans-serif;
+    color: #5e3812;
+}
+
+#title-container{
+    text-align: center;
+}
+
+header{
+    background-color: #92755b;
+}
+
+.nav-link{
+    color: azure;
+
+}
+.nav-link:hover{
+    color: black;
+}
+.active{
+    text-decoration: underline;
+    text-decoration-color: azure;
+}
+.active:hover{
+    color: azure;
+}
+
+#footer-container {
+    background-color: #92755b;
+}
+
+
