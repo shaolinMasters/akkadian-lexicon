@@ -25,32 +25,46 @@
             </tr>
         </div>
         <div id="sourcesSegment">
-            <h4 class="result-title pt-3 pb-3" th:if="${sources != null && !sources.isEmpty()}">Sources of <span th:text="${sources.get(0).getKing().getName()}"></span>:</h4>
+            <h4 class="result-title pt-3 pb-3" th:if="${sources != null && !sources.isEmpty()}">Sources of <span
+                th:text="${sources.get(0).getKing().getName()}"></span>:</h4>
             <tr th:each="source: ${sources}">
-                <td>
-                    <div class="row" th:unless="${#strings.isEmpty(source)}">
-                        <div class="col-md-6">
-                            <p>
-                                <span class="title-key">Title: </span>
-                                <span th:text="${source.getTitle()}" class="title-value"> title</span>
-                            </p>
-                            <p th:unless="${#strings.isEmpty(source.getBibliography())}">
-                                <span class="title-key">Bibliography: </span>
-                                <span th:text="${source.getBibliography()}" class="title-value"> bibliography</span>
-                            </p>
-                            <p th:unless="${#strings.isEmpty(source.getCatalogueRef())}">
-                                <span class="title-key">Catalogue Reference: </span>
-                                <span th:text="${source.getCatalogueRef()}" class="title-value"> catalogue reference</span>
-                            </p>
-                            <p>
-                                <span class="title-key">Text: </span>
-                            </p>
+                <div class="accordion" id="source-accordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" th:text="${source.getTitle()}" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse collapsed" aria-labelledby="headingOne"
+                             data-bs-parent="#source-accordion">
+                            <div class="accordion-body">
+                                <div class="row" th:unless="${#strings.isEmpty(source)}">
+                                    <div class="col-md-6">
+                                        <p>
+                                            <span class="title-key">Title: </span>
+                                            <span th:text="${source.getTitle()}" class="title-value"> title</span>
+                                        </p>
+                                        <p th:unless="${#strings.isEmpty(source.getBibliography())}">
+                                            <span class="title-key">Bibliography: </span>
+                                            <span th:text="${source.getBibliography()}" class="title-value"> bibliography</span>
+                                        </p>
+                                        <p th:unless="${#strings.isEmpty(source.getCatalogueRef())}">
+                                            <span class="title-key">Catalogue Reference: </span>
+                                            <span th:text="${source.getCatalogueRef()}" class="title-value"> catalogue reference</span>
+                                        </p>
+                                        <p>
+                                            <span class="title-key">Text: </span>
+                                        </p>
+                                    </div>
+                                    <pre th:text="${source.getText()}" class="title-value source-text"> text</pre>
+                                </div>
+                            </div>
                         </div>
-                        <pre th:text="${source.getText()}" class="title-value source-text"> text</pre>
                     </div>
-                    <hr>
-                </td>
+
+                </div>
             </tr>
+            <br>
         </div>
         <tr id="sourceSegment">
             <td>
@@ -72,8 +86,10 @@
                         <p th:unless="${#strings.isEmpty(source.getKing().getName())}">
                             <span class="title-key">Ruler: </span>
                             <span class="title-value" th:text="${source.getKing().getName()}"> ruler name</span>
-                            <span class="title-value"  th:if="${source.getKing().getRegnalYearFrom() != null}" th:text="' (' + ${source.getKing().getRegnalYearFrom().toString()} + ' - '"> regnalyearfrom</span>
-                            <span class="title-value"  th:if="${source.getKing().getRegnalYearTo() != null}" th:text="${source.getKing().getRegnalYearTo().toString()} + ')'"> regnalyearto</span>
+                            <span class="title-value" th:if="${source.getKing().getRegnalYearFrom() != null}"
+                                  th:text="' (' + ${source.getKing().getRegnalYearFrom().toString()} + ' - '"> regnalyearfrom</span>
+                            <span class="title-value" th:if="${source.getKing().getRegnalYearTo() != null}"
+                                  th:text="${source.getKing().getRegnalYearTo().toString()} + ')'"> regnalyearto</span>
                         </p>
                         <p>
                             <span class="title-key">Text: </span>
