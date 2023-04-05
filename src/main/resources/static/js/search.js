@@ -16,6 +16,7 @@ radioButtons.forEach(radioButton => {
             kingField.style.display = 'block';
         }
         else if (radioButton.value === 'source'){
+            console.log("im source");
             sourceField.style.display = 'block';
         }
     }
@@ -37,6 +38,7 @@ radioButtons.forEach(radioButton => {
             sourceField.style.display = 'none';
 
         } else if (radioButton.value === 'source') {
+            console.log("im source again");
             sourceField.style.display = 'block';
             kingField.style.display = 'none';
             searchField.style.display = 'none';

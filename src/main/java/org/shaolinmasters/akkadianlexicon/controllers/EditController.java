@@ -185,9 +185,7 @@ public class EditController {
   }
 
   @PostMapping("/delete/king")
-  public String deleteKing(@RequestParam Long id, Model m) {
-    m.addAttribute("isKing", true);
-    m.addAttribute("isDelete", true);
+  public String deleteKing(@RequestParam Long id, Model m, RedirectAttributes attributes) {
     King king = kingService.findKingById(id);
     if (!king.getSources().isEmpty()){
       List<Source> sourcesOfKing = king.getSources();
@@ -196,6 +194,7 @@ public class EditController {
       }
     }
     kingService.deleteKingById(id);
+    attributes.addFlashAttribute("isDeleted", true);
     return "redirect:/edit?option=king&action=delete";
   }
 

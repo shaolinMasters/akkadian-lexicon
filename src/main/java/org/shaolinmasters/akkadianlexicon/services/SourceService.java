@@ -2,7 +2,10 @@ package org.shaolinmasters.akkadianlexicon.services;
 
 import jakarta.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.shaolinmasters.akkadianlexicon.dtos.SourceDTO;
@@ -42,12 +45,12 @@ public class SourceService {
       king = kingService.findKingById(sourceDTO.getKingId());
     }
     Source source =
-        new Source(
-            sourceDTO.getTitle(),
-            sourceDTO.getCatalogueRef(),
-            sourceDTO.getText(),
-            king,
-            sourceDTO.getBibliography());
+      new Source(
+        sourceDTO.getTitle(),
+        sourceDTO.getCatalogueRef(),
+        sourceDTO.getText(),
+        king,
+        sourceDTO.getBibliography());
     sourceRepository.save(source);
   }
 
@@ -79,5 +82,11 @@ public class SourceService {
   public List<Source> listAllSourcesWithoutKingByTitleAsc() {
     return sourceRepository.findAllByKingIdNullOrderByTitleAsc();
   }
+
+  public Map<Character, List<Source>> getSourcesMapGroupedByFirstLetter() {
+    List<Source> sourceList = listAllSourcesByTitleAsc();
+    return sourceList.stream().collect(Collectors.groupingBy(source -> source.getTitle().charAt(0), TreeMap::new, Collectors.toList()));
+  }
+
 
 }
