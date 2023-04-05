@@ -4,21 +4,21 @@
             <div class="row mb-3 text-center">
                 <div class="col-md-4">
                     <label>
-                        <span>Word</span>
+                        <span class="search-radio-button">Word</span>
                         <br>
                         <input id="word" type="radio" th:name="option" value="word" th:checked="${isWord}">
                     </label>
                 </div>
                 <div class="col-md-4">
                     <label>
-                        <span>Ruler</span>
+                        <span class="search-radio-button">Ruler</span>
                         <br>
                         <input type="radio" th:name="option" value="king" th:checked="${isKing}">
                     </label>
                 </div>
                 <div class="col-md-4">
                     <label>
-                        <span>Source</span>
+                        <span class="search-radio-button">Source</span>
                         <br>
                         <input type="radio" th:name="option" value="source" th:checked="${isSource}">
                     </label>
@@ -27,13 +27,16 @@
             <!--            radio button separator-->
             <hr>
             <!--            radio button separator-->
-            <div id="search-field"><!--class="row-cols-1"-->
+            <div id="search-field">
                 <div>
                     <div id="search-edit-field" th:style="${isWord && isDelete ? 'display:block' : 'display:none'}">
-                    <label for="search-word-to-edit">Search:</label>
-                    <input class="input" type="text" id="search-word-to-edit" th:name="word" autofocus="autofocus">
-                    <input type="submit" value="search" id="search-word-edit">
-                    <div class="simple-keyboard p-3" style="display: none"></div>
+                        <div class="container">
+                            <div class="d-flex justify-content-center">
+                                <input class="input" type="text" id="search-word-to-edit" th:name="word" autofocus="autofocus">
+                                <input type="submit" value="search" id="search-word-edit">
+                            </div>
+                            <div class="simple-keyboard p-3" style="display: none"></div>
+                        </div>
                     <br>
                     <br>
                     </div>
@@ -44,17 +47,6 @@
             </div>
             <div id="king-field">
                 <div>
-<!--                    <tr th:each="king: ${kings}">-->
-<!--                        <td>-->
-<!--                            <a th:href="@{'/search?option=source&king=' + ${king.getName()}}">-->
-<!--                                <span th:text="${king.getName()}"></span>-->
-<!--                                <span th:if="${king.getRegnalYearFrom() != null}"-->
-<!--                                      th:text="' from ' + ${king.getRegnalYearFrom()}"></span>-->
-<!--                                <span th:if="${king.getRegnalYearTo() != null}" th:text="' to ' + ${king.getRegnalYearTo()}"></span>-->
-<!--                            </a>-->
-<!--                        </td>-->
-<!--                        <br>-->
-<!--                    </tr>-->
                     <button type="button" id="kings-new-button" class="btn btn-success">New</button>
                     <button type="button" id="kings-delete-button"  class="btn btn-danger">Delete</button>
                 </div>

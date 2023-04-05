@@ -132,3 +132,10 @@ input[type="radio"] {
     font-family: Serif;
     font-size: 15pt;
 }
+
+.footer-links-title{
+    font-family: 'Fondamento', serif;
+    font-size: 30pt;
+    color: #d4c6b6;
+}
+

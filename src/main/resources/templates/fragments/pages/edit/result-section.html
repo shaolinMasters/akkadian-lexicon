@@ -5,7 +5,7 @@
         <tr th:each="source: ${sources}">
             <div class="d-flex bd-highlight mb-3 align-items-center">
                 <div class="p-2">
-                    <span class="align-middle" th:text="${source.getTitle()}"></span>
+                    <span class="align-middle search-item-link" th:text="${source.getTitle()}"></span>
                 </div>
                 <div class="ms-auto p-2">
                     <span>
@@ -50,7 +50,7 @@
         <tr th:each="king: ${kings}">
             <div class="d-flex bd-highlight mb-3 align-items-center">
                 <div class="p-2">
-                    <span class="align-middle" th:text="${king.getName()}"></span>
+                    <span class="align-middle search-item-link" th:text="${king.getName()}"></span>
                 </div>
                 <div class="ms-auto p-2">
                     <span>

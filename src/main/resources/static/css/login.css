@@ -97,6 +97,7 @@ input[type="submit"] {
     cursor: pointer;
     outline: none;
     margin-bottom: 20px;
+    font-family: "Cinzel", sans-serif;
 }
 
 input[type="submit"]:hover {
