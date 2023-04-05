@@ -10,7 +10,7 @@
                 <div class="col">
                     <div class="form-outline mb-4">
                         <label class="form-label" for="title-input">Title: </label>
-                        <input type="text" id="title-input" class="form-control" data-th-field="*{title}"/>
+                        <input type="text" id="title-input" class="form-control multipleinput" data-th-field="*{title}"/>
                         <span style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                 <!-- Message input -->
                 <div class="form-outline mb-4">
                     <label class="form-label" for="text-input">Text: </label>
-                    <textarea class="form-control" id="text-input" rows="10" data-th-field="*{text}"></textarea>
+                    <textarea class="form-control multipleinput" id="text-input" rows="10" data-th-field="*{text}"></textarea>
                     <span style="color: red" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></span>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                 <div class="col">
                     <div class="form-outline mb-4">
                         <label class="form-label" for="name-input">Ruler's name: </label>
-                        <input type="text" id="name-input" class="form-control" data-th-field="*{kingName}"/>
+                        <input type="text" id="name-input" class="multipleinput form-control" data-th-field="*{kingName}"/>
                         <span style="color: red" th:if="${#fields.hasErrors('kingName')}" th:errors="*{kingName}"></span>
                     </div>
                 </div>
@@ -131,14 +131,14 @@
                 <div class="col">
                     <div class="form-outline mb-4">
                         <label class="form-label" for="nominative-verb-input">Nominative: </label>
-                        <input type="text" id="nominative-verb-input" class="form-control" data-th-field="*{nominative}"/>
+                        <input type="text" id="nominative-verb-input" class="multipleinput form-control" data-th-field="*{nominative}"/>
                         <span style="color: red" th:if="${#fields.hasErrors('nominative')}" th:errors="*{nominative}"></span>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-outline mb-4">
                         <label class="form-label" for="sumerianForm-verb-input">Sumerian form:</label>
-                        <input type="text" id="sumerianForm-verb-input" class="form-control" data-th-field="*{sumerianForm}"/>
+                        <input type="text" id="sumerianForm-verb-input" class="multipleinput form-control" data-th-field="*{sumerianForm}"/>
                         <span style="color: red" th:if="${#fields.hasErrors('sumerianForm')}" th:errors="*{sumerianForm}"></span>
                     </div>
                     <div class="col">
@@ -150,6 +150,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
                 <div class="row">
                     <div class="col">
                         <!--Verbal stem-->
@@ -174,7 +175,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
 
             <!-- Submit button -->
@@ -192,14 +192,14 @@
                     <div class="form-outline mb-4">
                         <input id="not-verb-wordclass-input" th:field="*{wordClass}" type="hidden" value="0" name="wordclass-name">
                         <label class="form-label" for="name-input">Nominative: </label>
-                        <input type="text" id="nominative-input" class="form-control" data-th-field="*{nominative}"/>
+                        <input type="text" id="nominative-input" class="multipleinput form-control" data-th-field="*{nominative}"/>
                         <span style="color: red" th:if="${#fields.hasErrors('nominative')}" th:errors="*{nominative}"></span>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-outline mb-4">
                         <label class="form-label" for="sumerianForm-input">Sumerian form:</label>
-                        <input type="text" id="sumerianForm-input" class="form-control" data-th-field="*{sumerianForm}"/>
+                        <input type="text" id="sumerianForm-input" class="multipleinput form-control" data-th-field="*{sumerianForm}"/>
                     </div>
                     <div class="col">
                         <div class="form-outline mb-4">
@@ -214,5 +214,6 @@
             <!-- Submit button -->
             <button type="submit" class="btn btn-primary btn-block mb-4">Send</button>
         </form>
+        <div th:if="${isCreate != null && isCreate}" class="simple-keyboard-multiple-inputs p-3" style="display: none"></div>
     </div>
 </section>
