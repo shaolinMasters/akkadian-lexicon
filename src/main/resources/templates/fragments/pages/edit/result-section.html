@@ -1,0 +1,189 @@
+<section th:style="${isDelete ? 'display:block' : 'display:none'}">
+    <!--    SOURCE-->
+    <div class="container pt-5 pb-5 position-relative" th:style="${isSource  ? 'display:block' : 'display:none'}">
+
+        <tr th:each="source: ${sources}">
+            <div class="d-flex bd-highlight mb-3 align-items-center">
+                <div class="p-2">
+                    <span class="align-middle search-item-link" th:text="${source.getTitle()}"></span>
+                </div>
+                <div class="ms-auto p-2">
+                    <span>
+                         <button th:value="${source.getId()}" type="button" class="btn btn-outline-danger source-delete-button"
+                                 data-bs-toggle="modal" data-bs-target="#delete-source-modal">Delete</button>
+                    </span>
+                </div>
+            </div>
+            <hr>
+        </tr>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="delete-source-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="sourceModalLabel">Delete</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete?
+                </div>
+                <div class="modal-footer">
+                    <form id="delete-source-form"
+                          data-th-object="${id}"
+                          method="post"
+                          data-th-action="@{/edit/delete/source}"
+                          action="/edit/delete/source">
+                        <input id="removable-source-input" type="hidden" value="1" name="id">
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--    KING-->
+    <div class="container pt-5 pb-5 position-relative" th:style="${isKing  ? 'display:block' : 'display:none'}">
+        <tr th:each="king: ${kings}">
+            <div class="d-flex bd-highlight mb-3 align-items-center">
+                <div class="p-2">
+                    <span class="align-middle search-item-link" th:text="${king.getName()}"></span>
+                </div>
+                <div class="ms-auto p-2">
+                    <span>
+                         <button th:value="${king.getId()}" type="button" class="btn btn-outline-danger king-delete-button"
+                                 data-bs-toggle="modal" data-bs-target="#delete-king-modal">Delete</button>
+                    </span>
+                </div>
+            </div>
+            <hr>
+        </tr>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="delete-king-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="kingModalLabel">Delete</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete?
+                </div>
+                <div class="modal-footer">
+                    <form id="delete-king-form"
+                          data-th-object="${id}"
+                          method="post"
+                          data-th-action="@{/edit/delete/king}"
+                          action="/edit/delete/king">
+                        <input id="removable-king-input" type="hidden" value="1" name="id">
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="vocabularyFormsSegment">
+        <div class="container position-relative" th:style="${isWord  ? 'display:block' : 'display:none'}">
+            <h4 class="result-title pt-3 pb-3" th:if="${words != null && !words.isEmpty()}">Matches:</h4>
+            <tr th:each="word: ${words}">
+                <div class="row d-flex bd-highlight mb-3 align-items-center">
+                    <div th:unless="${#strings.isEmpty(word)}" class="p-2 col-md-6">
+                        <p>
+                            <span class="title-key">Nominative: </span>
+                            <span class="title-value" th:text="${word.getVocabularyForm().getNominative()}"> nominative</span>
+                        </p>
+                        <p>
+                            <span class="title-key">Sumerian Form: </span>
+                            <span class="title-value" th:text="${word.getVocabularyForm().getSumerianForm()}"> sumerian form</span>
+                        </p>
+                        <p>
+                            <span class="title-key">Meaning: </span>
+                            <span class="title-value" th:text="${word.getVocabularyForm().getMeaning()}"> meaning</span>
+                        </p>
+                    </div>
+                    <div class="ms-auto p-2 col-md-6">
+                    <span class="float-end">
+                         <button th:value="${word.getId()}" type="button" class="btn btn-outline-danger word-delete-button"
+                                 data-bs-toggle="modal" data-bs-target="#delete-word-modal">Delete</button>
+                    </span>
+                    </div>
+                </div>
+                <hr>
+            </tr>
+        </div>
+    </div>
+
+    <div class="modal fade" id="delete-word-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="wordModalLabel">Delete</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete?
+                </div>
+                <div class="modal-footer">
+                    <form id="delete-word-form"
+                          data-th-object="${id}"
+                          method="post"
+                          data-th-action="@{/edit/delete/word}"
+                          action="/edit/delete/word">
+                        <input id="removable-word-input" type="hidden" value="1" name="id">
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="deletionToast" class="toast text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Success</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Successfully deleted item.
+        </div>
+    </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="creationToast" class="toast text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Success</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Successfully added item.
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript" th:if="${isDeleted != null && isDeleted == true}">
+    /*<![CDATA[*/
+    const deletionToastElement = document.getElementById('deletionToast')
+    const toast = new bootstrap.Toast(deletionToastElement)
+    toast.show();
+    /*]]>*/
+</script>
+
+<script th:inline="javascript" th:if="${isCreated != null && isCreated == true}">
+    /*<![CDATA[*/
+    const creationToastElement = document.getElementById('creationToast')
+    const toast = new bootstrap.Toast(creationToastElement)
+    toast.show();
+    /*]]>*/
+</script>
+

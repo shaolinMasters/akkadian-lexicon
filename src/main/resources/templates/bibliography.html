@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bibliography</title>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+    <!--/*/ <th:block th:include="fragments/header-files.html">
+            </th:block> /*/-->
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bib.css}"/>
+</head>
+<body class="d-flex flex-column h-100">
+<header th:replace="fragments/header.html"></header>
+<main>
+    <div class="container text-center">
+        <h2>Bibliography</h2>
+        <div style="display: block">
+            <img  class="bib_image" src="/img/aboveTheTextImage.jpg" alt="akkadians" width="800">
+        </div>
+        <div class="d-flex justify-content-center" th:if="${content != null}">
+            <div class="bib_text" >
+                <p>
+                    [(${content.getContent()})]
+                </p>
+            </div>
+        </div>
+        <div class="container" th:unless="${content != null}">
+            <p>NO CONTENT HERE</p>
+        </div>
+    </div>
+
+
+</main>
+<footer th:replace="fragments/footer.html"></footer>
+</body>
+</html>

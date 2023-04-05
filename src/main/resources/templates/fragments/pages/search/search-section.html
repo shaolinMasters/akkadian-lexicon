@@ -1,0 +1,94 @@
+<section class="search-bg">
+    <div class="container p-5">
+        <form name="searchForm" th:object="${searchObjectDTO}" method="get" th:action="@{/search}">
+            <div class="row mb-3 text-center">
+                <div class="col-md-4">
+                    <label>
+                        <span class="search-radio-button">Word</span>
+                        <br>
+                        <input id="word" type="radio" th:name="option" value="word" th:checked="${isWord}">
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <span class="search-radio-button">Ruler</span>
+                        <br>
+                        <input type="radio" th:name="option" value="king" th:checked="${isKing}">
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <span class="search-radio-button">Source</span>
+                        <br>
+                        <input type="radio" th:name="option" value="source" th:checked="${isSource}">
+                    </label>
+                </div>
+            </div>
+            <!--            radio button separator-->
+            <hr>
+            <!--            radio button separator-->
+                        <div id="search-field" class="row-cols-1">
+                            <div class="container">
+                                <div class="d-flex justify-content-center">
+                                    <input class="input" type="text" id="search-word" th:name="word" autofocus="autofocus">
+                                    <input type="submit" value="search">
+                                </div>
+                                <div class="simple-keyboard p-3" style="display: none"></div>
+                            </div>
+
+                        </div>
+            <div id="king-field">
+                <div>
+                    <tbody id="eachDiv" th:each="letterGroup, iStat : ${kingsMapByFirstLetter}">
+                        <th:block th:if="${iStat.index % 3 == 0}" th:utext="'<div class=\'row\'> '"/>
+                        <div class="col-md-4 text-center pt-5 pb-5">
+                            <p class="first-letter" th:text="${letterGroup.key}"></p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item list-group-item-action" th:each="king : ${letterGroup.value}">
+                                    <span >
+                                        <a class="search-item-link" th:href="@{'/search?option=king&name=' + ${king.getName()} + '#results'}">
+                                            <span th:text="${king.getName()}"></span>
+                                            <span th:if="${king.getRegnalYearFrom() != null}"
+                                                  th:text="' from ' + ${king.getRegnalYearFrom()}"></span>
+                                            <span th:if="${king.getRegnalYearTo() != null}" th:text="' to ' + ${king.getRegnalYearTo()}"></span>
+                                        </a>
+                                    </span>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <th:block th:if="${iStat.count % 3 == 0}" th:utext="'</div>'"/>
+                    </tbody>
+                </div>
+            </div>
+            </div>
+
+                        <div id="source-field">
+                            <div>
+                                <tbody th:each="letterGroup, iStat : ${sourcesMapByFirstLetter}">
+                                <th:block th:if="${iStat.index % 3 == 0}" th:utext="'<div class=\'row\'> '"/>
+                                <div class="col-md-4 text-center pt-5 pb-5">
+                                    <p class="first-letter" th:text="${letterGroup.key}"></p>
+
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item list-group-item-action" th:each="source : ${letterGroup.value}">
+                                    <span >
+                                        <a class="search-item-link" th:href="@{'/search?option=source&title=' + ${source.getTitle()} + '#results'}">
+                                            <span th:text="${source.getTitle()}"></span>
+                                        </a>
+                                    </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <th:block th:if="${iStat.count % 3 == 0}" th:utext="'</div>'"/>
+                                </tbody>
+                            </div>
+                        </div>
+            <div id="errorMessage" class="pt-3">
+                <div class="alert alert-warning" role="alert" th:if="${error != null}">
+                    <span th:text="${error}">Not found.</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

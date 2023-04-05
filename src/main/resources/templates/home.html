@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Akkadian Lexicon</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/simple-keyboard@3.5.40/build/css/index.min.css" rel="stylesheet">
+    <!--/*/ <th:block th:insert="~{fragments/header-files.html}">
+            </th:block> /*/-->
+    <link rel="stylesheet" th:href="@{/css/home.css}"/>
 </head>
-<body>
-<header>
-    <h1>Akkadian Lexicon</h1>
-</header>
+<body class="d-flex flex-column h-100">
+<header th:replace="~{fragments/header.html}"></header>
 <main>
-    <div th:text="${content} ? ${content.getContent()} : 'NO CONTENT HERE'">
+    <div class="home-container container">
+        <div class="home-image">
+            <img class="obelisk_image" src="/img/wholw_obelisk.jpg" alt="obelisk" width="220">
+        </div>
+        <div th:if="${content != null}">
+            <div class="home-text">
+                <p>
+                    [(${content.getContent()})]
+                </p>
+            </div>
+        </div>
+        <div class="container home-text" th:unless="${content != null}">
+            <p>NO CONTENT HERE</p>
+        </div>
     </div>
-    <a href="" class="button">MORE</a>
 </main>
+<footer th:replace="~{fragments/footer.html}"></footer>
 </body>
 </html>

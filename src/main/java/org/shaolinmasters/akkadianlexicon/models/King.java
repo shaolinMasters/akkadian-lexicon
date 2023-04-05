@@ -1,18 +1,16 @@
 package org.shaolinmasters.akkadianlexicon.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import java.time.LocalDate;
+import jakarta.persistence.*;
+import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.ToString.Exclude;
+import org.shaolinmasters.akkadianlexicon.utils.YearAttributeConverter;
 
 @Entity
 @Getter
@@ -28,14 +26,17 @@ public class King {
   @Column(nullable = false)
   private String name;
 
-  @Column(name = "regnal_year_from")
-  private LocalDate regnalYearFrom;
+  @Column(name = "regnal_year_from", columnDefinition = "smallint")
+  @Convert(converter = YearAttributeConverter.class)
+  private Year regnalYearFrom;
 
-  @Column(name = "regnal_year_to")
-  private LocalDate regnalYearTo;
+  @Column(name = "regnal_year_to", columnDefinition = "smallint")
+  @Convert(converter = YearAttributeConverter.class)
+  private Year regnalYearTo;
 
-  @OneToMany(mappedBy = "king")
-  private List<Source> sources;
+  @OneToMany(mappedBy = "king", fetch = FetchType.LAZY)
+  @Exclude
+  private List<Source> sources = new ArrayList<>();
 
   @Override
   public boolean equals(Object o) {
@@ -54,5 +55,16 @@ public class King {
   @Override
   public int hashCode() {
     return Objects.hash(name, regnalYearFrom, regnalYearTo);
+  }
+
+  public void addSource(Source source) {
+    this.sources.add(source);
+  }
+
+  public King(String name, Year regnalYearFrom, Year regnalYearTo, Source source) {
+    this.name = name;
+    this.sources.add(source);
+    this.regnalYearFrom = regnalYearFrom;
+    this.regnalYearTo = regnalYearTo;
   }
 }

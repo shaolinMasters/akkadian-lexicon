@@ -3,7 +3,12 @@ spring:
         name: Akkadian Lexicon
     profiles:
         active: ${ENVIRONMENT}
-
+registration:
+    tokenExpirationDayCount: 1
+    confirmationUrlPath: /register
+server:
+    port: ${WEBSERVER_PORT}
+domain: ${DOMAIN}
 
 
 

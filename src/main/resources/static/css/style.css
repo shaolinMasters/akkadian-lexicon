@@ -1,4 +1,25 @@
+html {
+    position: relative;
+    min-height: 100%;
+    background-color: #eddecc;
+}
+
+body {
+    margin-bottom: 350px; /* Margin bottom by footer height */
+}
+
 h1 {
+    font-family: "Cinzel", sans-serif;
+    color: #5e3812;
+}
+
+h2 {
+    font-family: "Cinzel", sans-serif;
+    color: #92755b;
+    font-style: italic;
+}
+
+h4 {
     font-family: "Cinzel", sans-serif;
     color: #5e3812;
 }
@@ -7,27 +28,146 @@ h1 {
     text-align: center;
 }
 
-header{
+
+
+.header{
     background-color: #92755b;
 }
 
 .nav-link{
-    color: azure;
+    color: #eddecc;
 
 }
 .nav-link:hover{
     color: black;
 }
-.active{
-    text-decoration: underline;
-    text-decoration-color: azure;
-}
-.active:hover{
-    color: azure;
-}
+
 
 #footer-container {
     background-color: #92755b;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 350px; /* Set the fixed height of the footer here */
 }
 
 
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    background-color: #5e3812;
+    color: #eddecc;
+}
+
+.btn-beige{
+    --bs-btn-color: #000;
+    --bs-btn-bg: #eddecc;
+    --bs-btn-border-color: #eddecc;
+    --bs-btn-hover-color: #000;
+    --bs-btn-hover-bg: #bfb09d;
+    --bs-btn-hover-border-color: #bfb09d;
+    --bs-btn-focus-shadow-rgb: 211,212,213;
+    --bs-btn-active-color: #000;
+    --bs-btn-active-bg: #bfb09d;
+    --bs-btn-active-border-color: #bfb09d;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #000;
+    --bs-btn-disabled-bg: #eddecc;
+    --bs-btn-disabled-border-color: #eddecc;
+}
+
+.btn-outline-beige {
+    --bs-btn-color: #eddecc;
+    --bs-btn-border-color: #eddecc;
+    --bs-btn-hover-color: #000;
+    --bs-btn-hover-bg: #eddecc;
+    --bs-btn-hover-border-color: #eddecc;
+    --bs-btn-focus-shadow-rgb: 248,249,250;
+    --bs-btn-active-color: #000;
+    --bs-btn-active-bg: #eddecc;
+    --bs-btn-active-border-color: #eddecc;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #eddecc;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #eddecc;
+    --bs-gradient: none
+}
+
+.btn-outline-beige.btn:hover {
+    color: var(--bs-btn-hover-color);
+    background-color: var(--bs-btn-hover-bg);
+    border-color: var(--bs-btn-hover-border-color);
+}
+
+main{
+    background-color:#eddecc;
+}
+
+input[type="radio"] {
+    accent-color: #5e3812;
+}
+
+.alert{
+    width: fit-content;
+}
+
+
+.list-group-item {
+
+     background-color: transparent;
+    border-color: #eddecc;
+}
+
+.list-group-item:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.first-letter{
+    font-family: 'Cinzel';
+    font-size: 30pt;
+    color: #92755b;
+}
+
+.search-item-link {
+    text-decoration: none;
+    color: black;
+    font-family: Serif;
+    font-size: 15pt;
+}
+
+.footer-links-title{
+    font-family: 'Fondamento', serif;
+    font-size: 30pt;
+    color: #d4c6b6;
+}
+
+.accordion-button{
+    background-color: #decdb8;
+}
+
+.accordion-body{
+   background-color: #decdb8;
+}
+
+.accordion-collapse{
+    background-color: #decdb8;
+}
+
+.accordion-button:not(.collapsed){
+    background-color: #eddecc;
+}
+
+.accordion-button:hover{
+    background-color: #d2a882;
+}
+
+.home-text{
+    font-family: serif;
+}
+
+.about-text{
+    font-family: serif;
+}
+
+.bib_text{
+    font-family: serif;
+
+}

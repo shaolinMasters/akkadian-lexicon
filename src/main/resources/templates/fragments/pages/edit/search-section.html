@@ -1,0 +1,67 @@
+<section class="search-bg">
+    <div class="container p-5">
+        <form name="searchForm" th:object="${SourceDTO}" method="get" th:action="@{/edit}">
+            <div class="row mb-3 text-center">
+                <div class="col-md-4">
+                    <label>
+                        <span class="search-radio-button">Word</span>
+                        <br>
+                        <input id="word" type="radio" th:name="option" value="word" th:checked="${isWord}">
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <span class="search-radio-button">Ruler</span>
+                        <br>
+                        <input type="radio" th:name="option" value="king" th:checked="${isKing}">
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label>
+                        <span class="search-radio-button">Source</span>
+                        <br>
+                        <input type="radio" th:name="option" value="source" th:checked="${isSource}">
+                    </label>
+                </div>
+            </div>
+            <!--            radio button separator-->
+            <hr>
+            <!--            radio button separator-->
+            <div id="search-field">
+                <div>
+                    <div id="search-edit-field" th:style="${isWord && isDelete ? 'display:block' : 'display:none'}">
+                        <div class="container">
+                            <div class="d-flex justify-content-center">
+                                <input class="input" type="text" id="search-word-to-edit" th:name="word" autofocus="autofocus">
+                                <input type="submit" value="search" id="search-word-edit">
+                            </div>
+                            <div class="simple-keyboard p-3" style="display: none"></div>
+                        </div>
+                    <br>
+                    <br>
+                    </div>
+                    <button type="button" id="word-new-button" class="btn btn-success">New</button>
+                    <button type="button" id="words-delete-button" class="btn btn-danger">Delete</button>
+                </div>
+
+            </div>
+            <div id="king-field">
+                <div>
+                    <button type="button" id="kings-new-button" class="btn btn-success">New</button>
+                    <button type="button" id="kings-delete-button"  class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+            <div id="source-field">
+                <div>
+                    <button type="button" id="sources-new-button" class="btn btn-success">New</button>
+                    <button type="button" id="sources-delete-button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+            <div id="errorMessage" class="pt-3">
+                <div class="alert alert-warning" role="alert" th:if="${error != null}">
+                    <span  th:text="${error}">Not found.</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
