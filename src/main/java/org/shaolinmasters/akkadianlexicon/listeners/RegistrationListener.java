@@ -60,8 +60,8 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
     String emailSubject = webContentService.findByTitle("EMAIL_SUBJECT").getContent();
     String emailStarterText = webContentService.findByTitle("EMAIL_TEXT_START").getContent();
     String emailText = webContentService.findByTitle("EMAIL_TEXT").getContent();
-    String emailActivationText =
-      webContentService.findByTitle("EMAIL_ACTIVATION_TEXT").getContent();
+//    String emailActivationText =
+//      webContentService.findByTitle("EMAIL_ACTIVATION_TEXT").getContent();
 
 
     String completeEmailText = "<!DOCTYPE html>"+
@@ -170,7 +170,7 @@ public class RegistrationListener implements ApplicationListener<OnRegistrationC
 
 
 
-    emailService.sendEmail(emailAddress, emailSubject, String.valueOf(completeEmailText));
+    emailService.sendEmail(emailAddress, emailSubject, completeEmailText);
     logger.info("Confirmation email has been sent to: " + emailAddress);
   }
 
