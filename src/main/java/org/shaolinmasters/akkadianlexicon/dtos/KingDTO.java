@@ -1,15 +1,12 @@
 package org.shaolinmasters.akkadianlexicon.dtos;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.shaolinmasters.akkadianlexicon.validators.RangeCheck;
 
 @Setter
 @Getter
-@RangeCheck()
 public class KingDTO {
   @NotEmpty(message = "Ruler's name must not be empty")
   private String kingName;
