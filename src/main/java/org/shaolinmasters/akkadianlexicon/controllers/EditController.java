@@ -148,7 +148,8 @@ public class EditController {
       RedirectAttributes attributes) {
     logger.info("Incoming request for '/new/king' with method: POST");
     if (bindingResult.hasErrors()) {
-      attributes.addFlashAttribute("org.springframework.validation.BindingResult.newKing", bindingResult);
+      attributes.addFlashAttribute(
+          "org.springframework.validation.BindingResult.newKing", bindingResult);
       attributes.addFlashAttribute("newKing", king);
       return new RedirectView("/edit?option=king&action=create&error");
     }
@@ -160,12 +161,13 @@ public class EditController {
 
   @PostMapping("/new/source")
   public RedirectView saveSource(
-    @ModelAttribute("newSource") @Validated SourceDTO source,
-    BindingResult bindingResult,
-    Model model,
-    RedirectAttributes attributes) {
+      @ModelAttribute("newSource") @Validated SourceDTO source,
+      BindingResult bindingResult,
+      Model model,
+      RedirectAttributes attributes) {
     if (bindingResult.hasErrors()) {
-      attributes.addFlashAttribute("org.springframework.validation.BindingResult.newSource", bindingResult);
+      attributes.addFlashAttribute(
+          "org.springframework.validation.BindingResult.newSource", bindingResult);
       attributes.addFlashAttribute("newSource", source);
       return new RedirectView("/edit?option=source&action=create&error");
     }
@@ -206,7 +208,8 @@ public class EditController {
 
   @GetMapping(params = {"option=king", "action=create", "error"})
   public String getCreateKingError(Model m) {
-    if (m.containsAttribute("newKing") && m.containsAttribute("org.springframework.validation.BindingResult.newKing")) {
+    if (m.containsAttribute("newKing")
+        && m.containsAttribute("org.springframework.validation.BindingResult.newKing")) {
       Object kdto = m.getAttribute("newKing");
       Object error = m.getAttribute("org.springframework.validation.BindingResult.newKing");
       addModelsToEditPage(m);
@@ -222,7 +225,8 @@ public class EditController {
 
   @GetMapping(params = {"option=source", "action=create", "error"})
   public String getCreateSourceError(Model m) {
-    if (m.containsAttribute("newSource") && m.containsAttribute("org.springframework.validation.BindingResult.newSource")) {
+    if (m.containsAttribute("newSource")
+        && m.containsAttribute("org.springframework.validation.BindingResult.newSource")) {
       Object sdto = m.getAttribute("newSource");
       Object error = m.getAttribute("org.springframework.validation.BindingResult.newSource");
       addModelsToEditPage(m);
@@ -238,14 +242,14 @@ public class EditController {
 
   @PostMapping("/new/verb")
   public RedirectView saveVerb(
-    @ModelAttribute @Validated VerbDTO verb,
-    BindingResult bindingResult,
-    Model model,
-    RedirectAttributes attributes
-  ) {
+      @ModelAttribute @Validated VerbDTO verb,
+      BindingResult bindingResult,
+      Model model,
+      RedirectAttributes attributes) {
     if (bindingResult.hasErrors()) {
-//      bindingResult.getAllErrors().stream().forEach(System.out::println);
-      attributes.addFlashAttribute("org.springframework.validation.BindingResult.newVerb", bindingResult);
+      //      bindingResult.getAllErrors().stream().forEach(System.out::println);
+      attributes.addFlashAttribute(
+          "org.springframework.validation.BindingResult.newVerb", bindingResult);
       attributes.addFlashAttribute("newVerb", verb);
       return new RedirectView("/edit?option=word&action=create&wordclass=verb&error");
     }
@@ -259,13 +263,13 @@ public class EditController {
 
   @PostMapping("/new/not-verb")
   public RedirectView saveNotVerb(
-    @ModelAttribute @Validated NotVerbDTO notVerb,
-    BindingResult bindingResult,
-    Model model,
-    RedirectAttributes attributes
-  ) {
+      @ModelAttribute @Validated NotVerbDTO notVerb,
+      BindingResult bindingResult,
+      Model model,
+      RedirectAttributes attributes) {
     if (bindingResult.hasErrors()) {
-      attributes.addFlashAttribute("org.springframework.validation.BindingResult.newNotVerb", bindingResult);
+      attributes.addFlashAttribute(
+          "org.springframework.validation.BindingResult.newNotVerb", bindingResult);
       attributes.addFlashAttribute("newNotVerb", notVerb);
       return new RedirectView("/edit?option=word&action=create&wordclass=notverb&error");
     }
@@ -281,10 +285,11 @@ public class EditController {
     return new RedirectView("/edit?option=word&action=create");
   }
 
-  @GetMapping(params = {"option=word", "action=create", "wordclass=verb","error"})
+  @GetMapping(params = {"option=word", "action=create", "wordclass=verb", "error"})
   public String getCreateVerbError(Model m) {
     logger.info("getCreateVerb");
-    if (m.containsAttribute("newVerb") && m.containsAttribute("org.springframework.validation.BindingResult.newVerb")) {
+    if (m.containsAttribute("newVerb")
+        && m.containsAttribute("org.springframework.validation.BindingResult.newVerb")) {
       Object verbdto = m.getAttribute("newVerb");
       Object error = m.getAttribute("org.springframework.validation.BindingResult.newVerb");
       addModelsToEditPage(m);
@@ -301,7 +306,8 @@ public class EditController {
   @GetMapping(params = {"option=word", "action=create", "wordclass=notverb", "error"})
   public String getCreateNotVerbError(Model m) {
     logger.info("getCreateNotVerbErroban vagyok");
-    if (m.containsAttribute("newNotVerb") && m.containsAttribute("org.springframework.validation.BindingResult.newNotVerb")) {
+    if (m.containsAttribute("newNotVerb")
+        && m.containsAttribute("org.springframework.validation.BindingResult.newNotVerb")) {
       Object notVerbdto = m.getAttribute("newNotVerb");
       Object error = m.getAttribute("org.springframework.validation.BindingResult.newNotVerb");
       addModelsToEditPage(m);

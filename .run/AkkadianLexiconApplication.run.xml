@@ -1,0 +1,27 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="AkkadianLexiconApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <envs>
+      <env name="DB_HOST" value="localhost" />
+      <env name="DB_NAME" value="akkadian_lexicon" />
+      <env name="DB_PORT" value="3307" />
+      <env name="DB_PW" value="pw" />
+      <env name="DB_USERNAME" value="root" />
+      <env name="DOMAIN" value="localhost" />
+      <env name="ENVIRONMENT" value="development" />
+      <env name="GOOGLE_APP_PW" value="ynkz ttnw jluh kaku" />
+      <env name="GOOGLE_ID" value="akkadianlexicontest@gmail.com" />
+      <env name="WEBSERVER_PORT" value="8080" />
+    </envs>
+    <module name="akkadian-lexicon" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="org.shaolinmasters.akkadianlexicon.AkkadianLexiconApplication" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="org.shaolinmasters.akkadianlexicon.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
