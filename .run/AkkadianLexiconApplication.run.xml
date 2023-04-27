@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="AkkadianLexiconApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <option name="ACTIVE_PROFILES" />
     <envs>
       <env name="DB_HOST" value="localhost" />
       <env name="DB_NAME" value="akkadian_lexicon" />
